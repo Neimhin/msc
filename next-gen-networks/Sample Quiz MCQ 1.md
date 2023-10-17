@@ -21,9 +21,9 @@ Will marginal notes be considered? Are marginal notes a good idea?
     4.  All the above are possible knobs
 4.  Which of the following statements is incorrect in a single link system?
     1.  Increasing the bandwidth is never detrimental to the data rate
-    2.  spatial multiplexing system, the data rate increases linearly with the number of transmit or receive antenna
-    3.  The multi-user interference will lead to a decrease in the data rate
-    4.  The usage of frequency reuse is not relevant
+    2. In a spatial multiplexing system, the data rate increases linearly with the number of transmit or receive antenna.
+    3.  The multi-user interference will lead to a decrease in the data rate.
+    4.  The usage of frequency reuse is not relevant.
 5.  In case you want to optimise both data rate and coverage, which of the following options is the best design choice?
     1.  802.11g (Wi-Fi 3, 2003)
     2.  802.11a (Wi-Fi 3, 1999)
