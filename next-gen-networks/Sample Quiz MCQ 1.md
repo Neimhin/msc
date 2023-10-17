@@ -3,6 +3,8 @@ Please answer ALL THE TEN questions.
 Questions for Nicola:
 How do we know how many answers to tick? Is there a strict formula? Only one correct?
 Will marginal notes be considered? Are marginal notes a good idea?
+
+Q5 answer? ChatGPT says 802.11a, but 892
 ### Wireless Networks
 1.  Which of the following statements is incorrect?
     1.  High velocity of transmitters corresponds to low coherence time. TRUE!
