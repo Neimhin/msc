@@ -1,6 +1,8 @@
 Please answer ALL THE TEN questions.
 
 Questions for Nicola:
+For which specs should I learn comparative tables of properties?
+
 How do we know how many answers to tick? Is there a strict formula? Only one correct?
 
 Will marginal notes be considered? Are marginal notes a good idea?
