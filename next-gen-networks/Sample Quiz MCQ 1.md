@@ -1,8 +1,9 @@
 Please answer ALL THE TEN questions.
 
 Questions for Nicola:
-How do we know how many answers to tick? Is there a strict formula? Only one correct?
-Will marginal notes be considered? Are marginal notes a good idea?
+How do we know how many answers to tick? Is there a strict formula? Only one correct? :- always exactly one correct answer
+
+Will marginal notes be considered? Are marginal notes a good idea? :- Will not be considered. Make it very clear which answer you are choosing.
 ### Wireless Networks
 1.  Which of the following statements is incorrect?
     1.  High velocity of transmitters corresponds to low coherence time. TRUE!
@@ -14,10 +15,10 @@ Will marginal notes be considered? Are marginal notes a good idea?
     2.  Uplink frequency should be lower than downlink frequency. TRUE, better coverage per watt
     3.  Uplink frequency should the same as downlink frequency
     4.  The choice of uplink and downlink frequency is not relevant for energy efficiency
-3.  Which one among the following options cannot be consider a “knob” in the cognitive radio sense?
-    1.  Number of selected transmit antennas
-    2.  Modulation technique
-    3.  Medium access control protocol
+3.  Which one among the following options cannot be considered a “knob” in the cognitive radio sense?
+    1.  Number of selected transmit antennas. KNOB.
+    2.  Modulation technique. KNOB.
+    3.  Medium access control protocol. KNOB.
     4.  All the above are possible knobs
 4.  Which of the following statements is incorrect in a single link system?
     1.  Increasing the bandwidth is never detrimental to the data rate
