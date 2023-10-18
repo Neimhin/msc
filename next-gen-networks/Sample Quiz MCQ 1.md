@@ -2,7 +2,10 @@ Please answer ALL THE TEN questions.
 
 Questions for Nicola:
 How do we know how many answers to tick? Is there a strict formula? Only one correct?
+
 Will marginal notes be considered? Are marginal notes a good idea?
+
+When we say antennas are bigger for lower frequencies, what kind of sizes are we talking about?
 
 Q5 answer? ChatGPT says 802.11a, but 802.11g uses lower bandwidth, better coverage?
 ### Wireless Networks
