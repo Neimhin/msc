@@ -3,7 +3,16 @@ Please answer ALL THE TEN questions.
 Questions for Nicola:
 How do we know how many answers to tick? Is there a strict formula? Only one correct? :- always exactly one correct answer
 
-Will marginal notes be considered? Are marginal notes a good idea? :- Will not be considered. Make it very clear which answer you are choosing.
+For which specs should I learn comparative tables of properties?
+
+How do we know how many answers to tick? Is there a strict formula? Only one correct?
+
+Will marginal notes be considered? Are marginal notes a good idea?
+
+When we say antennas are bigger for lower frequencies, what kind of sizes are we talking about?
+
+Q5 answer? ChatGPT says 802.11a, but 802.11g uses lower bandwidth, better coverage?
+
 ### Wireless Networks
 1.  Which of the following statements is incorrect?
     1.  High velocity of transmitters corresponds to low coherence time. TRUE!
@@ -22,9 +31,9 @@ Will marginal notes be considered? Are marginal notes a good idea? :- Will not b
     4.  All the above are possible knobs
 4.  Which of the following statements is incorrect in a single link system?
     1.  Increasing the bandwidth is never detrimental to the data rate
-    2.  spatial multiplexing system, the data rate increases linearly with the number of transmit or receive antenna
-    3.  The multi-user interference will lead to a decrease in the data rate
-    4.  The usage of frequency reuse is not relevant
+    2. In a spatial multiplexing system, the data rate increases linearly with the number of transmit or receive antenna.
+    3.  The multi-user interference will lead to a decrease in the data rate.
+    4.  The usage of frequency reuse is not relevant.
 5.  In case you want to optimise both data rate and coverage, which of the following options is the best design choice?
     1.  802.11g (Wi-Fi 3, 2003)
     2.  802.11a (Wi-Fi 3, 1999)
