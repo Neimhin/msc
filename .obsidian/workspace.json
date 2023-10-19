@@ -4,31 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "f0dc72fd8cb64c13",
+        "id": "ed010fe6455521a9",
         "type": "tabs",
         "children": [
           {
-            "id": "97c4e7e9a507219c",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
-            "id": "69aa9042cc7c4485",
+            "id": "5d379ad2467b112c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Text Features.md",
+                "file": "next-gen-networks/Fixed Networks.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -78,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c8be2cdb023c5b59",
@@ -94,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Text Features.md",
+                "file": "next-gen-networks/Fixed Networks.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Text Features.md",
+                "file": "next-gen-networks/Fixed Networks.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Text Features.md"
+                "file": "next-gen-networks/Fixed Networks.md"
               }
             }
           }
@@ -155,23 +147,30 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "69aa9042cc7c4485",
+  "active": "5d379ad2467b112c",
   "lastOpenFiles": [
+    "next-gen-networks/Sample Quiz MCQ 1.md",
+    "next-gen-networks/MCQ 1 Prep.md",
+    "next-gen-networks/Fibre Optics.md",
+    "next-gen-networks/WiFi IEEE 802.11.md",
+    "next-gen-networks/Fixed Networks.md",
+    "scalable-computing/Lecture Notes/18th October 2023.md",
+    "data-analytics/lectures.md",
+    "data-analytics/lectures/18.md",
+    "data-analytics/lectures",
+    "data-analytics",
+    "scalable-computing/Lecture Notes",
+    "scalable-computing",
+    "next-gen-networks/Wireless Networks.md",
+    "next-gen-networks/MAC.md",
     "Text Features.md",
     "machine-learning",
-    "next-gen-networks/MCQ 1 Prep.md",
-    "next-gen-networks/Sample Quiz MCQ 1.md",
-    "next-gen-networks/WiFi IEEE 802.11.md",
-    "next-gen-networks/Wireless Networks.md",
-    "next-gen-networks/Fibre Optics.md",
     "next-gen-networks/IEEE 802.11b - Wi-Fi 3.md",
     "next-gen-networks/sample-quiz-mcq-1.html",
     "next-gen-networks/NGN_quiz_sample.html~",
     "next-gen-networks/4913",
     "next-gen-networks/NGN_quiz_sample.html",
     "next-gen-networks/Unconfirmed 764044.crdownload",
-    "next-gen-networks/Fixed Networks.md",
-    "Untitled/linear-algebra.md",
-    "next-gen-networks"
+    "Untitled/linear-algebra.md"
   ]
 }
