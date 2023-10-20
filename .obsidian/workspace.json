@@ -23,11 +23,9 @@
             "id": "96e56e286912d898",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "windows os/Windows Registry.md",
-                "mode": "source",
-                "source": false
+                "file": "data-analytics/past-papers/CS7DS1-1-22-23.pdf"
               }
             }
           }
@@ -98,7 +96,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "windows os/Windows Registry.md",
+                "file": "data-analytics/past-papers/CS7DS1-1-22-23.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +113,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "windows os/Windows Registry.md",
+                "file": "data-analytics/past-papers/CS7DS1-1-22-23.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +136,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "windows os/Windows Registry.md"
+                "file": "data-analytics/past-papers/CS7DS1-1-22-23.pdf"
               }
             }
           }
