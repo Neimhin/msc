@@ -4,33 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "ed010fe6455521a9",
+        "id": "3a29379a5796c6e1",
         "type": "tabs",
         "children": [
           {
-            "id": "5d379ad2467b112c",
+            "id": "1f46017b705b00c6",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "next-gen-networks/Fixed Networks.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "96e56e286912d898",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "data-analytics/past-papers/CS7DS1-1-22-23.pdf"
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -80,7 +65,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c8be2cdb023c5b59",
@@ -96,7 +82,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "data-analytics/past-papers/CS7DS1-1-22-23.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,7 +98,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "data-analytics/past-papers/CS7DS1-1-22-23.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -135,9 +119,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "data-analytics/past-papers/CS7DS1-1-22-23.pdf"
-              }
+              "state": {}
             }
           }
         ]
@@ -157,9 +139,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "96e56e286912d898",
+  "active": "1f46017b705b00c6",
   "lastOpenFiles": [
+    "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md",
+    "CS7DS4 Assignment 3 Part B - Vis. Design.md",
+    "sensors-23-05941-v2 2.pdf",
+    "sensors-23-05941-v2 1.pdf",
+    "sensors-23-05941-v2.pdf",
+    "data-visualisation/assignment-3/cs7ds4-2324-A3.pdf",
+    "data-visualisation/assignment-3",
     "next-gen-networks/Fixed Networks.md",
+    "data-analytics/past-papers/CS7DS1-1-22-23.pdf",
     "windows os/Windows Registry.md",
     "windows os",
     "next-gen-networks/Sample Quiz MCQ 1.md",
@@ -172,16 +162,10 @@
     "data-analytics/lectures",
     "data-analytics",
     "scalable-computing/Lecture Notes",
-    "scalable-computing",
     "next-gen-networks/Wireless Networks.md",
     "next-gen-networks/MAC.md",
     "Text Features.md",
-    "machine-learning",
     "next-gen-networks/IEEE 802.11b - Wi-Fi 3.md",
-    "next-gen-networks/sample-quiz-mcq-1.html",
-    "next-gen-networks/NGN_quiz_sample.html~",
-    "next-gen-networks/4913",
-    "next-gen-networks/NGN_quiz_sample.html",
     "Untitled/linear-algebra.md"
   ]
 }
