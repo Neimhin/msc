@@ -11,8 +11,12 @@
             "id": "1f46017b705b00c6",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -82,6 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -98,6 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -119,7 +125,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md"
+              }
             }
           }
         ]
@@ -141,6 +149,10 @@
   },
   "active": "1f46017b705b00c6",
   "lastOpenFiles": [
+    "data-visualisation/assignment-3/tmp-pdfcrop-11134.pdf",
+    "data-visualisation/assignment-3/tmp-pdfcrop-11134.log",
+    "data-visualisation/assignment-3/tmp-pdfcrop-11134.tex",
+    "data-visualisation/assignment-3/README.pdf",
     "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md",
     "CS7DS4 Assignment 3 Part B - Vis. Design.md",
     "sensors-23-05941-v2 2.pdf",
@@ -159,9 +171,6 @@
     "scalable-computing/Lecture Notes/18th October 2023.md",
     "data-analytics/lectures.md",
     "data-analytics/lectures/18.md",
-    "data-analytics/lectures",
-    "data-analytics",
-    "scalable-computing/Lecture Notes",
     "next-gen-networks/Wireless Networks.md",
     "next-gen-networks/MAC.md",
     "Text Features.md",
