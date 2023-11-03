@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Getting Started with D3.js</title>
+    <!-- Include D3.js from the D3 CDN -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        /* Some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .chart {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="chart" class="chart"></div>
+
+<script>
+    // Your D3.js code will go here.
+    // Set up the width and height for the SVG container.
+    var width = 600, height = 300;
+
+    // Create the SVG container and set the width and height.
+    var svg = d3.select("#chart").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    // // Draw a circle in the SVG container.
+    // svg.append("circle")
+    //     .attr("cx", width / 2)     // cx and cy specify the center of the circle
+    //     .attr("cy", height / 2)
+    //     .attr("r", 50)             // r specifies the radius of the circle
+    //     .attr("fill", "steelblue"); // fill specifies the color of the circle
+
+    var circles = svg
+	.selectAll('rect')
+  	.data([32, 57, 112]);
+
+    circles.enter().append('rect')
+      	.attr('y', 60)
+      	.attr('x', function(d, i) { return i * 100 + 30; })
+      	.attr('width', function(d) { return d; })
+      	.attr('height', function(d) { return d; })
+      	.attr('fill','steelblue')
+	;
+    function x(){
+		    console.log("new data");
+    // New data set
+    var newData = [10, 20, 30, 40, 50];
+    
+    // Select all existing rect elements within the SVG
+    // Note that the selection is based on the "rect" elements and not on a non-existent 'square' type
+    var squares = svg.selectAll('rect')
+      .data(newData); // Bind new data to the elements
+    
+    // Update existing squares
+    // This will apply to all elements that are already in the DOM and bound to a data point
+    squares
+      .attr('width', function(d) { return Math.sqrt(d) * 10; }) // Adjust size for illustration
+      .attr('height', function(d) { return Math.sqrt(d) * 10; }) // Adjust size for illustration
+      // You could also update position or any other attribute here
+    
+    // Enter new squares if any
+    // This will apply to all new data points that do not have a corresponding DOM element
+    squares.enter().append('rect')
+      .attr('y', 60)
+      .attr('x', function(d, i) { return i * 100 + 30; })
+      .attr('width', function(d) { return Math.sqrt(d) * 10; })
+      .attr('height', function(d) { return Math.sqrt(d) * 10; })
+      .attr('fill', 'steelblue'); // Ensure that new rectangles are also visible
+	    }
+    
+    // Remove any excess squares if any
+    // This will apply to all DOM elements that are no longer bound to a data point
+    setTimeout(x,1000)
+
+
+
+</script>
+
+</body>
+:xa
+</html>

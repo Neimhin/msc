@@ -1,0 +1,248 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family sfdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Visualization Analysis
+\end_layout
+
+\begin_layout Subsection
+New York City Weather in 1980 by Edward Tufte
+\end_layout
+
+\begin_layout Standard
+Tufte's weather chart consists of three main subplots.
+ The bottom subplot shows relative humidity as of noon as a percentage,
+ which is a variable, presumably consisting of 365 samples in the dataset.
+ The day of the year 
+\begin_inset Formula $1,2,...,365$
+\end_inset
+
+ is encoded with x-position, and the precipitation percentage with y-position.
+ There are vertical gridlines indicating the start of each month, and horizontal
+ gridlines for the quartiles.
+\end_layout
+
+\begin_layout Standard
+The middle subplot presents the total precipitation for each month in comparison
+ to the 
+\begin_inset Quotes eld
+\end_inset
+
+normal
+\begin_inset Quotes erd
+\end_inset
+
+ for that month.
+ This is a continuous variable measured in inches, and is encoded as the
+ length of the bar in the bar charts (equivalently the area of the bar is
+ proportional to the preciptation).
+ The categories 
+\begin_inset Quotes eld
+\end_inset
+
+actual
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+normal
+\begin_inset Quotes erd
+\end_inset
+
+ are encoded in two ways, texture and position.
+ The 
+\begin_inset Quotes eld
+\end_inset
+
+actual
+\begin_inset Quotes erd
+\end_inset
+
+ 1980 preciptation is represented with solid black bars positioned to the
+ left of the respective 
+\begin_inset Quotes eld
+\end_inset
+
+normal
+\begin_inset Quotes erd
+\end_inset
+
+ precipitation, whose texture is diagonal hatching.
+ The total precipitation for 1980 is presented textually along with the
+ normal for the whole year.
+ The month in question is encoded by position.
+\end_layout
+
+\begin_layout Standard
+The top subplot presents temperature data.
+ There are three time-series line plots, one for the actual temperature,
+ one for the 
+\begin_inset Quotes eld
+\end_inset
+
+normal
+\begin_inset Quotes erd
+\end_inset
+
+ low temperature for a given day of the year, and another for the 
+\begin_inset Quotes eld
+\end_inset
+
+normal
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Visualization Design
+\end_layout
+
+\begin_layout Standard
+The dataset I have chosen consists of captured network packets in an Internet
+ of Things (IoT) laboratory.
+ The dataset is called CICIoT2023 (TODO CITE) and was created by simulating
+ various kinds of cyber attacks on IoT devices using other IoT devices.
+ The dataset is available in two forms; firstly the raw packet capture (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{pcap}
+\end_layout
+
+\end_inset
+
+) data for each type of cyber attacks as well as for simulated benign traffic;
+ secondly an engineered subset of the data in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{csv}
+\end_layout
+
+\end_inset
+
+ format which was designed specifically to be used for training machine
+ learning models to detect cyber attacks.
+\end_layout
+
+\begin_layout Standard
+The code used to extract the features in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{csv}
+\end_layout
+
+\end_inset
+
+ from the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+text{pcap}
+\end_layout
+
+\end_inset
+
+ is also available with the dataset.
+\end_layout
+
+\end_body
+\end_document
