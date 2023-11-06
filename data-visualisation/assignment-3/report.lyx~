@@ -86,7 +86,8 @@ New York City Weather in 1980 by Edward Tufte
 \end_layout
 
 \begin_layout Standard
-Tufte's weather chart consists of three main subplots.
+Tufte's weather chart visualizes humidity, precipitation, and temperature
+ data for the year 1980 in comparison with averages.
  The bottom subplot shows relative humidity as of noon as a percentage,
  which is a variable, presumably consisting of 365 samples in the dataset.
  The day of the year 
@@ -128,8 +129,7 @@ normal
 \begin_inset Quotes erd
 \end_inset
 
- are encoded in two ways, texture and position.
- The 
+ are encoded in two ways, texture and position, with 
 \begin_inset Quotes eld
 \end_inset
 
@@ -137,8 +137,7 @@ actual
 \begin_inset Quotes erd
 \end_inset
 
- 1980 preciptation is represented with solid black bars positioned to the
- left of the respective 
+ 1980 preciptation in solid black bars on the left and 
 \begin_inset Quotes eld
 \end_inset
 
@@ -146,16 +145,67 @@ normal
 \begin_inset Quotes erd
 \end_inset
 
- precipitation, whose texture is diagonal hatching.
+ precipitation with diagonal hatching on the right.
  The total precipitation for 1980 is presented textually along with the
  normal for the whole year.
- The month in question is encoded by position.
+ There are twelve groupings, one for each month, from left to right in chronolog
+ical order.
 \end_layout
 
 \begin_layout Standard
-The top subplot presents temperature data.
- There are three time-series line plots, one for the actual temperature,
- one for the 
+The top subplot presents temperature in three time-series line plots, actual
+ high and low temperatures for each day, and a line each for normal low
+ and normal high.
+ A small subplot is embedded showing the 1980 and normal annual temperatures
+ using the same encodings as the precipitation bar charts.
+\end_layout
+
+\begin_layout Standard
+Some of the tasks that Tufte's vis.
+ facilitates are as follows:
+\end_layout
+
+\begin_layout Itemize
+compare 1980 precipitation/temperatures to nomal
+\end_layout
+
+\begin_layout Itemize
+compare temperatures/precipitation of each month to each other month in
+ 1980 and normally
+\end_layout
+
+\begin_layout Itemize
+identify warmest, coolest, most humid, most rainy months in 1980 and normally
+\end_layout
+
+\begin_layout Itemize
+identify outlier temperatures, precipitation rates
+\end_layout
+
+\begin_layout Itemize
+identify periodicity or lack thereof in temperature and humidity
+\end_layout
+
+\begin_layout Standard
+The use of 12 bar charts to compare precipitation incurs a low data-to-ink
+ ratio.
+ However the shape of the bars is reminiscent of a bucket, e.g.
+ full of rainy, which is appropriate in context.
+ Each bar could be replace with a single dot or line to offer the same accuracy,
+ but I think the bar offers easier comparison between distant months, e.g.
+ March and November.
+\end_layout
+
+\begin_layout Standard
+The high and low temperature lines lack an encoding channel and are instead
+ indicated with text boxes and rely on the assumption of continuity.
+ I think encoding the high/low category with hue, e.g.
+ a warm color for high and cool color for low, would have made it more intuitive.
+\end_layout
+
+\begin_layout Standard
+There are several issues in terms of clarity and terminology.
+ I assume that 
 \begin_inset Quotes eld
 \end_inset
 
@@ -163,7 +213,8 @@ normal
 \begin_inset Quotes erd
 \end_inset
 
- low temperature for a given day of the year, and another for the 
+ means arithmetic mean over all years.
+ Because 
 \begin_inset Quotes eld
 \end_inset
 
@@ -171,7 +222,117 @@ normal
 \begin_inset Quotes erd
 \end_inset
 
+ has a specific meaning in statistics I think it is an unfortunate choice.
+ The 
+\begin_inset Quotes eld
+\end_inset
 
+annual temperature
+\begin_inset Quotes erd
+\end_inset
+
+ presumably means some sort of average for the year, but the specific meaning
+ is not supplied.
+\end_layout
+
+\begin_layout Standard
+The black line indicating the time-series of temperature has a strangely
+ inconsistent thickness.
+ From researching around I believe that each day may have been plotted as
+ a vertical line from that day's low to its high, but this is not explained
+ or made clear in the visualization.
+\end_layout
+
+\begin_layout Standard
+The figure has text indicators of the lowest low and the highest high, but
+ it would also be kind to the reader to show the highest low and lowest
+ high, since this can not easily be identified visually.
+\end_layout
+
+\begin_layout Subsection
+Music, Google and books by Federica Fragapane
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+datasets and data:
+\series default
+ For each of the 40 artists in the vis.
+ there is a single corresponding country which was most interested in that
+ artist according to Google Trends between 2012 and 2017.
+ Artists are sorted left to right by rank order release of their first studio
+ album, and top to bottom by rank order number of studio albums.
+ The number of biografies written about the artist is encoded as balloon
+ size, and the continent of the country most interested in the artist by
+ hue.
+ For each country, the height of a Gaussian curve represents the count of
+ artists in whom that country showed the highest interest.
+ Each country is connected by curved line to the countries in whom it showed
+ most interest.
+ The countries are grouped by continent.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+tasks:
+\end_layout
+
+\begin_layout Itemize
+compare number of biografies, number of studio albums, release of debut
+ album
+\end_layout
+
+\begin_layout Itemize
+identify countries/continents particularly enthusiastic about popular music
+\end_layout
+
+\begin_layout Standard
+This light-hearted visualization is spacious and conservative in the use
+ of dark colors.
+\end_layout
+
+\begin_layout Standard
+The country associated with each artist is a categorical variable, but there
+ are 40 categories which is a range that can't be captured easily by the
+ channels shape, hue, texture, which are typically suitable to categorisation.
+ I think in this case in was appropriate to use connection lines to indicate
+ the country because of the large number of countries.
+ These connection lines do add some chaos and substantial ink to the visualizati
+on while only conveying a single data-point, and there is significant serial
+ cognitive overhead in linking countries to artists, but the lighthearted
+ style of the vis encourages you to play the game of tracing the lines back
+ to the country.
+\end_layout
+
+\begin_layout Subsection
+Growing Family, by Nathan Yau
+\end_layout
+
+\begin_layout Standard
+This vis.
+ presents the timelines of womens' childbearing.
+ The vis.
+ changes over time as more women's timelines are iteratively added to the
+ chart.
+ Considering the static axes, x-position encodes the age (in years) of the
+ mother at the birth of a child, and y-position, descending, encodes the
+ number of children the mother has.
+ Green circles are used to accumulate the number of women who had a given
+ number of children at a given age, where the size of the relative size
+ of the circle reflects the number of women.
+\end_layout
+
+\begin_layout Standard
+The timelines of individual women are animated as a black dot which moves
+ from left to right at linear speed as time progress, but which moves down
+ to indicate a year in which a women had a child.
+ A purple line traces the route of the black dot and fades away after the
+ black dot vanishes.
+ Several timelines are being animated at any given time.
+ It's not easy to establish how the vis.
+ handles the birth of twins, triplets etc.
 \end_layout
 
 \begin_layout Section
@@ -236,7 +397,7 @@ status open
 
 
 \backslash
-text{pcap}
+texttt{pcap}
 \end_layout
 
 \end_inset

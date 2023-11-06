@@ -42,6 +42,8 @@ cmake -DOPENSSL_ROOT_DIR=$HOME/msc/dissertation-stealthy-ech/openssl -DUSE_ECH=1
 - fails with errors about undefined references to brotli and gsasl
 UNFINISHED
 
+Had to extract final link step to add /usr/lib/x86_64-linux-gnu/libgsasl.so /usr/lib/x86_64-linux-gnu/libbrotlidec.so to compiled files to make the ./src/curl binary. Binary runs but tests fail (because test assumes code in $HOME/code/openssl)
+
 #### steps (build curl with ech make, not cmake):
-- 
+- didn't work
 

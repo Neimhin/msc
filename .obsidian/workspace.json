@@ -4,18 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "d26a338a51ff2cb2",
+        "id": "006083835bf67f77",
         "type": "tabs",
         "children": [
           {
-            "id": "e10eb7e1c2961b1c",
+            "id": "9171059ae3ab92c6",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md",
-                "mode": "source",
-                "source": false
+                "file": "data-visualisation/assignment-3/ff.left.jpg"
               }
             }
           }
@@ -86,7 +84,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md",
+                "file": "data-visualisation/assignment-3/ff.left.jpg",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +101,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md",
+                "file": "data-visualisation/assignment-3/ff.left.jpg",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +124,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md"
+                "file": "data-visualisation/assignment-3/ff.left.jpg"
               }
             }
           }
@@ -147,22 +145,24 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "e10eb7e1c2961b1c",
+  "active": "9171059ae3ab92c6",
   "lastOpenFiles": [
-    "openssl",
-    "data-visualisation/Addressing Complexity.md",
-    "data-visualisation/d3/eg1.html",
-    "data-visualisation/d3",
-    "data-visualisation/assignment-3/report-WQZqAh.lyx",
-    "data-visualisation/assignment-3/report-OqlWvh.lyx",
-    "data-visualisation/assignment-3/report-otlvsM.lyx",
-    "data-visualisation/assignment-3/report-GZFzDH.lyx",
-    "data-visualisation/assignment-3/report-iekbdg.lyx",
-    "data-visualisation/assignment-3/report-qEsnzI.lyx",
-    "data-visualisation/assignment-3/report-kEDPyQ.lyx",
-    "data-visualisation/assignment-3/report-KdiiWk.lyx",
+    "data-visualisation/assignment-3/report-okIGge.lyx",
+    "data-visualisation/assignment-3/report-elEupP.lyx",
+    "data-visualisation/assignment-3/report-ftDsEQ.lyx",
+    "data-visualisation/assignment-3/report-VaaObt.lyx",
+    "data-visualisation/assignment-3/#report.lyx#",
+    "data-visualisation/assignment-3/cs7ds4-2324-A3.pdf",
+    "data-visualisation/assignment-3/ff.left.jpg",
     "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md",
     "dissertation-stealthy-ech/journal.md",
+    "data-visualisation/sensors-23-05941-v2.pdf",
+    "scalable-computing/Project 3 Group Discussion.md",
+    "data-visualisation/ctu.ipynb",
+    "data-visualisation/ctu_stats.py",
+    "data-visualisation/CTU-IoT-Malware/CTU-IoT-Malware-Capture-9-1conn.log.labeled.csv",
+    "data-visualisation/CTU-IoT-Malware/CTU-IoT-Malware-Capture-60-1conn.log.labeled.csv",
+    "data-visualisation/Addressing Complexity.md",
     "sftcd's.md",
     "dissertation-stealthy-ech/curl/docs/ECH.md",
     "dissertation-stealthy-ech/curl/winbuild/README.md",
@@ -184,7 +184,6 @@
     "dissertation-stealthy-ech/curl/docs/TheArtOfHttpScripting.md",
     "dissertation-stealthy-ech/curl/docs/SSLCERTS.md",
     "dissertation-stealthy-ech/curl/docs/SSL-PROBLEMS.md",
-    "dissertation-stealthy-ech/curl/docs/SECURITY-ADVISORY.md",
     "dissertation-stealthy-ech/openssl/wycheproof/doc/W.svg",
     "dissertation-stealthy-ech/openssl/krb5/src/windows/leash/htmlhelp/Images/checkbox.png",
     "dissertation-stealthy-ech/openssl/krb5/src/windows/leash/htmlhelp/Images/Renew_Ticket.PNG",
@@ -193,7 +192,6 @@
     "dissertation-stealthy-ech/openssl/krb5/src/windows/leash/htmlhelp/Images/Home_Tab.PNG",
     "dissertation-stealthy-ech/openssl/krb5/src/windows/leash/htmlhelp/Images/Get_Ticket.PNG",
     "dissertation-stealthy-ech/openssl/krb5/src/windows/leash/htmlhelp/Images/Destroy_Ticket.PNG",
-    "dissertation-stealthy-ech/openssl/krb5/src/windows/leash/htmlhelp/Images/Change_Password.PNG",
-    "dissertation-stealthy-ech/openssl/krb5/src/windows/installer/wix/Binary/up.bmp"
+    "dissertation-stealthy-ech/openssl/krb5/src/windows/leash/htmlhelp/Images/Change_Password.PNG"
   ]
 }
