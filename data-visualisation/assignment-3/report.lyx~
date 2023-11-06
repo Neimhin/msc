@@ -5,6 +5,9 @@
 \save_transient_properties true
 \origin unavailable
 \textclass article
+\begin_preamble
+\usepackage{marginnote}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -32,7 +35,7 @@
 \spacing single
 \use_hyperref false
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_package amsmath 1
 \use_package amssymb 1
 \use_package cancel 1
@@ -57,6 +60,7 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 2cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -162,7 +166,7 @@ The top subplot presents temperature in three time-series line plots, actual
 
 \begin_layout Standard
 Some of the tasks that Tufte's vis.
- facilitates are as follows:
+ facilitates;
 \end_layout
 
 \begin_layout Itemize
@@ -249,6 +253,13 @@ The figure has text indicators of the lowest low and the highest high, but
  high, since this can not easily be identified visually.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Music, Google and books by Federica Fragapane
 \end_layout
@@ -288,6 +299,10 @@ compare number of biografies, number of studio albums, release of debut
 identify countries/continents particularly enthusiastic about popular music
 \end_layout
 
+\begin_layout Itemize
+identify prolific artists, artists oft written about
+\end_layout
+
 \begin_layout Standard
 This light-hearted visualization is spacious and conservative in the use
  of dark colors.
@@ -300,10 +315,17 @@ The country associated with each artist is a categorical variable, but there
  I think in this case in was appropriate to use connection lines to indicate
  the country because of the large number of countries.
  These connection lines do add some chaos and substantial ink to the visualizati
-on while only conveying a single data-point, and there is significant serial
- cognitive overhead in linking countries to artists, but the lighthearted
- style of the vis encourages you to play the game of tracing the lines back
- to the country.
+on while only conveying a single piece of information each, and there is
+ significant serial cognitive overhead in linking countries to artists,
+ but the lighthearted style of the vis encourages the reader to play the
+ game of tracing the lines back to the country.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -331,8 +353,88 @@ The timelines of individual women are animated as a black dot which moves
  A purple line traces the route of the black dot and fades away after the
  black dot vanishes.
  Several timelines are being animated at any given time.
- It's not easy to establish how the vis.
- handles the birth of twins, triplets etc.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+tasks:
+\end_layout
+
+\begin_layout Itemize
+identify the most common age for a woman to have her 1st, 2nd, etc.
+ child
+\end_layout
+
+\begin_layout Itemize
+identify outlier timelines, e.g.
+ a woman who had 12 children by age 35
+\end_layout
+
+\begin_layout Itemize
+compare the typical gap between birth of subsequent children
+\end_layout
+
+\begin_layout Itemize
+enjoy the accumulation of data into the vis.
+\end_layout
+
+\begin_layout Standard
+The only additional information gained by the animation relates to the progressi
+on of individual women's timelines, and in terms of the comparative and
+ exploratory tasks I think the animation is an mostly an unhelpful distraction,
+ but arguably it does provide an intuitive guide to interpreting the plot.
+ Each row of the chart represents the frequencies of women having their
+ 
+\begin_inset Formula $n$
+\end_inset
+
+th child at each age, and this form of data is often depicted with a histogram.
+ Since there are 12 rows, the chart is depicting the equivalent of 12 histograms
+, which is a concise and effective use of space, however the use of circle
+ size offers worse discriminability than bars in a histogram.
+ Also, the meaning of the size of a circle is relative to the rest of the
+ circles, and when more data points are added the sizes of all circles sometimes
+ change, which I think is a gratuitous update/animation.
+ It would have been better to only update sizes of circles which when it
+ represents the birth of a child.
+\end_layout
+
+\begin_layout Standard
+The amount of data presented (1000 timelines) is small enough such that
+ for several of the rows there is only one example.
+ The identification and comparison tasks could have been better facilitated
+ by allowing for the option of seeing a larger dataset statically depicted.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+marginnote{
+\backslash
+includegraphics[width=2cm]{/home/neimhin/Pictures/Screenshots/Screenshot
+ from 2023-11-06 10-20-16.png}} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The lack of controls over the animation made it challenging to establish
+ how the vis.
+ handled the cases were women gave birth to more than one child at a given
+ age, but by recording the vis.
+ and scrubbing through I found an example which is presented in the margin.
+ The choice to have the timeline double back is somewhat nonsensical, but
+ it happens rarely and does not impact the vis.
+ significantly.
 \end_layout
 
 \begin_layout Section
@@ -340,69 +442,22 @@ Visualization Design
 \end_layout
 
 \begin_layout Standard
-The dataset I have chosen consists of captured network packets in an Internet
- of Things (IoT) laboratory.
- The dataset is called CICIoT2023 (TODO CITE) and was created by simulating
- various kinds of cyber attacks on IoT devices using other IoT devices.
- The dataset is available in two forms; firstly the raw packet capture (
-\begin_inset ERT
+The dataset I have chosen collects data relating to 361 separate ransomware
+ attacks carried out between 2013 and 2022.
+ Most of the targets were commercial companies, but some cities and other
+ types of organisation are included.
+ Fro 
+\begin_inset Foot
 status open
 
 \begin_layout Plain Layout
-
-
-\backslash
-texttt{pcap}
+https://docs.google.com/spreadsheets/d/1wPgM8ye1AUTVxlZOFsyiKEPWp6iFt34xpp2XA5iM6P
+0/edit#gid=25233212
 \end_layout
 
 \end_inset
 
-) data for each type of cyber attacks as well as for simulated benign traffic;
- secondly an engineered subset of the data in 
-\begin_inset ERT
-status open
 
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{csv}
-\end_layout
-
-\end_inset
-
- format which was designed specifically to be used for training machine
- learning models to detect cyber attacks.
-\end_layout
-
-\begin_layout Standard
-The code used to extract the features in the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{csv}
-\end_layout
-
-\end_inset
-
- from the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{pcap}
-\end_layout
-
-\end_inset
-
- is also available with the dataset.
 \end_layout
 
 \end_body

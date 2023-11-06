@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "006083835bf67f77",
+        "id": "94616a282f4c9dae",
         "type": "tabs",
         "children": [
           {
-            "id": "9171059ae3ab92c6",
+            "id": "a4c57c054bfa710a",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "pdf",
               "state": {
-                "file": "data-visualisation/assignment-3/ff.left.jpg"
+                "file": "data-visualisation/assignment-3/report.pdf"
               }
             }
           }
@@ -67,8 +67,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c8be2cdb023c5b59",
@@ -84,7 +83,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "data-visualisation/assignment-3/ff.left.jpg",
+                "file": "data-visualisation/assignment-3/report.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -101,7 +100,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "data-visualisation/assignment-3/ff.left.jpg",
+                "file": "data-visualisation/assignment-3/report.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "data-visualisation/assignment-3/ff.left.jpg"
+                "file": "data-visualisation/assignment-3/report.pdf"
               }
             }
           }
@@ -145,23 +144,23 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9171059ae3ab92c6",
+  "active": "a4c57c054bfa710a",
   "lastOpenFiles": [
-    "data-visualisation/assignment-3/report-okIGge.lyx",
-    "data-visualisation/assignment-3/report-elEupP.lyx",
-    "data-visualisation/assignment-3/report-ftDsEQ.lyx",
-    "data-visualisation/assignment-3/report-VaaObt.lyx",
-    "data-visualisation/assignment-3/#report.lyx#",
-    "data-visualisation/assignment-3/cs7ds4-2324-A3.pdf",
+    "data-visualisation/assignment-3/report-jtPGqe.lyx",
+    "data-visualisation/assignment-3/report-MRVdmc.lyx",
+    "data-visualisation/assignment-3/report-mPjEul.lyx",
+    "data-visualisation/assignment-3/report-SNcGdE.lyx",
+    "data-visualisation/assignment-3/report-KZrbCu.lyx",
+    "data-visualisation/assignment-3/report-UjAkiS.lyx",
+    "data-visualisation/assignment-3/report-URITsS.lyx",
+    "data-visualisation/assignment-3/report-sFtUyY.lyx",
     "data-visualisation/assignment-3/ff.left.jpg",
+    "data-visualisation/assignment-3/cs7ds4-2324-A3.pdf",
+    "data-visualisation/assignment-3/report-bFphHb.lyx",
+    "data-visualisation/assignment-3/report-VtrrwJ.lyx",
     "data-visualisation/assignment-3/CS7DS4 Assignment 3 Part B - Vis. Design.md",
     "dissertation-stealthy-ech/journal.md",
-    "data-visualisation/sensors-23-05941-v2.pdf",
     "scalable-computing/Project 3 Group Discussion.md",
-    "data-visualisation/ctu.ipynb",
-    "data-visualisation/ctu_stats.py",
-    "data-visualisation/CTU-IoT-Malware/CTU-IoT-Malware-Capture-9-1conn.log.labeled.csv",
-    "data-visualisation/CTU-IoT-Malware/CTU-IoT-Malware-Capture-60-1conn.log.labeled.csv",
     "data-visualisation/Addressing Complexity.md",
     "sftcd's.md",
     "dissertation-stealthy-ech/curl/docs/ECH.md",
