@@ -415,10 +415,52 @@ status open
 
 
 \backslash
-marginnote{
-\backslash
-includegraphics[width=2cm]{/home/neimhin/Pictures/Screenshots/Screenshot
- from 2023-11-06 10-20-16.png}} 
+marginnote{ 
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename growing-family-weird.png
+	width 2cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Growing family animation lines sometimes go backwards.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -437,20 +479,37 @@ The lack of controls over the animation made it challenging to establish
  significantly.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Visualization Design
 \end_layout
 
 \begin_layout Standard
-The dataset I have chosen collects data relating to 361 separate ransomware
- attacks carried out between 2013 and 2022.
- Most of the targets were commercial companies, but some cities and other
- types of organisation are included.
- Fro 
+https://informationisbeautiful.net/visualizations/ransomware-attacks/
+\end_layout
+
+\begin_layout Standard
+https://informationisbeautiful.net/visualizations/worlds-biggest-data-breaches-ha
+cks/
+\end_layout
+
+\begin_layout Standard
+The dataset I have chosen
 \begin_inset Foot
 status open
 
 \begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
 https://docs.google.com/spreadsheets/d/1wPgM8ye1AUTVxlZOFsyiKEPWp6iFt34xpp2XA5iM6P
 0/edit#gid=25233212
 \end_layout
@@ -458,6 +517,199 @@ https://docs.google.com/spreadsheets/d/1wPgM8ye1AUTVxlZOFsyiKEPWp6iFt34xpp2XA5iM
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+ collects data relating to 361 separate ransomware attacks carried out between
+ 2013 and 2022.
+ Most of the targets were commercial companies, but some cities and other
+ types of organisation are included.
+ So we are considering a table with each row representing an attack.
+ Some of the attributes in the table include:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Sector
+\series default
+.
+ Categorical.
+ The industry/field in which the organization operates.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Revenue
+\series default
+.
+ Continuous.
+ Revenue of the organization as of a date specifide in a separate attribute.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Ransom cost
+\series default
+.
+ Continuous.
+ Amount demanded by the ransomware.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Ransom response.
+
+\series default
+ Categorical; refused, paid, unkown.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Year/month.
+
+\series default
+ Ordinal.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Location.
+
+\series default
+ Categorical/geospatial.
+ The country in which the organization was based.
+ This attribute has varying granularity, sometimes just country, sometimes
+ also the state/province.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Ransomware
+\series default
+.
+ Categorical; REvil, RansomEXX, unknown, etc.
+ The ransomware software or cyber criminal organization that perpetrated
+ the attack.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Public/private company
+\series default
+.
+ Categorical.
+ Can be inferred from the 
+\series bold
+stock symbol 
+\series default
+attribute.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Approx.
+ number of employees
+\series default
+.
+ Ordinal but specified as an approximate range, e.g.
+ 11-50, 10000+.
+\end_layout
+
+\begin_layout Standard
+Some of the tasks a visualization of this data could support are as follows:
+\end_layout
+
+\begin_layout Itemize
+compare government/commercial organizations' typical responses to ransomware
+\end_layout
+
+\begin_layout Itemize
+compare the openness of different types of organization
+\end_layout
+
+\begin_layout Itemize
+compare the strategies used by ransomware groups on different types of organizat
+ion, e.g.
+ demanded ransom, size of organization targeted
+\end_layout
+
+\begin_layout Itemize
+explore trends in ransom attacks related to geopolitics
+\end_layout
+
+\begin_layout Itemize
+identify the most damaging attacks
+\end_layout
+
+\begin_layout Itemize
+compare the preferences for types of targets of different ransomware software
+ and groups
+\end_layout
+
+\begin_layout Itemize
+predict the characteristics that indicate a greater risk of ransomware attack
+ on an organisations
+\end_layout
+
+\begin_layout Itemize
+explore the trends in the size, cost, frequency of ransomware attacks over
+ time
+\end_layout
+
+\begin_layout Itemize
+identify clusters of successful ransomware attacks, i.e.
+ contexts in which ransomware attacks tend to be more successful
+\end_layout
+
+\begin_layout Standard
+The above tasks are sufficiently distince and involve enough different variables
+ that I believe a dashboard of separate visualizations will be most effective
+ in supporting them all.
+\end_layout
+
+\begin_layout Standard
+To support the task of exploring trends in ransomware over time I would
+ use a histogram with the month in the which the attack occurred as the
+ bin and the height of the bar indicating the number of attacks that occurred
+ in that month.
+ I would also like to easily see what proportion of those attacks were successfu
+l so I would use a group of 3 bars for each month, one for attacks where
+ the response was not revealed, one for the number of attacks where the
+ organization paid out, and one for the number of ransoms that organisations
+ refused to pay.
+\end_layout
+
+\begin_layout Standard
+To compare the different organization types and to include some insights
+ into the geopolitics of ransomware attacks I would create a separate chart
+ focused on the attributes 'sector', 'revenue', 'ransom response', 'approx
+ number of employees', and possibly also 'location'.
+ I would infer a single numeric longitude for each attack based in on the
+ 'location' variable and encode this with horizonal position.
+ I would encode the revenue of the attacked company with vertical position.
+ I would encode the 'ransom response' with hue, green for refused, gray
+ for unknown, pink/red for ransom paid.
+ The marker for each attack will be a line and the orientation of the line
+ will indicate the sector, 
+\begin_inset Formula $45^{\circ}$
+\end_inset
+
+ for governmental 
+\begin_inset Formula $-45^{\circ}$
+\end_inset
+
+ for commercial, such that clusters of different types will create a distinct
+ texture.
 \end_layout
 
 \end_body

@@ -6,16 +6,45 @@
 \origin unavailable
 \textclass article
 \begin_preamble
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{accents}
+\usepackage{titlesec}
 \usepackage{marginnote}
+
+
+\usepackage{enumitem}
+\setlist{nolistsep}
+
+\usepackage{tcolorbox}
+\definecolor{light-blue}{cmyk}{0.24, 0.12, 0.0, 0.04, 1.00}
+
+
+%
+
+%parskip shold take care of heading spacing
+\titlespacing\section{0pt}{0pt}{0pt}
+\titlespacing\subsection{0pt}{0pt}{0pt}
+\titlespacing\subsubsection{0pt}{0pt}{0pt}
+
+
+
+\setlength{\headheight}{40pt}
 \end_preamble
-\use_default_options true
+\use_default_options false
+\begin_modules
+theorems-ams
+tcolorbox
+\end_modules
 \maintain_unincluded_children false
 \language english
-\language_package default
+\language_package none
 \inputencoding auto
-\fontencoding global
+\fontencoding T1
 \font_roman "default" "default"
-\font_sans "default" "default"
+\font_sans "helvet" "default"
 \font_typewriter "default" "default"
 \font_math "auto" "auto"
 \font_default_family sfdefault
@@ -31,21 +60,21 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
-\paperfontsize default
+\paperfontsize 10
 \spacing single
 \use_hyperref false
-\papersize default
+\papersize a4paper
 \use_geometry true
-\use_package amsmath 1
-\use_package amssymb 1
-\use_package cancel 1
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 0
 \use_package esint 1
-\use_package mathdots 1
-\use_package mathtools 1
-\use_package mhchem 1
-\use_package stackrel 1
-\use_package stmaryrd 1
-\use_package undertilde 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
 \cite_engine basic
 \cite_engine_type default
 \biblio_style plain
@@ -54,24 +83,27 @@
 \paperorientation portrait
 \suppress_date false
 \justification true
-\use_refstyle 1
+\use_refstyle 0
 \use_minted 0
 \index Index
 \shortcut idx
 \color #008000
 \end_index
 \leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
 \secnumdepth 3
 \tocdepth 3
-\paragraph_separation indent
-\paragraph_indentation default
+\paragraph_separation skip
+\defskip 6pt
 \is_math_indent 0
 \math_numbering_side default
 \quotes_style english
 \dynamic_quotes 0
 \papercolumns 1
 \papersides 1
-\paperpagestyle default
+\paperpagestyle fancy
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -80,6 +112,104 @@
 \end_header
 
 \begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lhead{Neimhin Robinson Gunning (16321701)}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+rhead{CS7DS4 Assignment 2 parts (a) and (b)}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Color Box
+status open
+
+\begin_layout Plain Layout
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+colback=light-blue
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{small}
+\end_layout
+
+\end_inset
+
+ 
+\series bold
+DECLARATION:
+\series default
+ I understand that this is an 
+\series bold
+individual
+\series default
+ assessment and that collaboration is not permitted.
+ I have read, understand and agree to abide by the plagiarism provisions
+ in the General Regulations of the University Calendar for the current year,
+ found at http://www.tcd.ie/calendar.
+ I understand that by returning this declaration with my work, I am agreeing
+ with the above statement.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{small}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
 
 \begin_layout Section
 Visualization Analysis
@@ -408,19 +538,17 @@ The amount of data presented (1000 timelines) is small enough such that
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-marginnote{ 
+The lack of controls over the animation made it challenging to establish
+ how the vis.
+ handled the cases were women gave birth to more than one child at a given
+ age, but by recording the vis.
+ and scrubbing through I found an example which is presented below.
+ The choice to have the timeline double back is somewhat nonsensical, but
+ it happens rarely and does not impact the vis.
+ significantly.
 \end_layout
 
-\end_inset
-
- 
+\begin_layout Standard
 \begin_inset Graphics
 	filename growing-family-weird.png
 	width 2cm
@@ -428,28 +556,6 @@ marginnote{
 \end_inset
 
 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The lack of controls over the animation made it challenging to establish
- how the vis.
- handled the cases were women gave birth to more than one child at a given
- age, but by recording the vis.
- and scrubbing through I found an example which is presented in the margin.
- The choice to have the timeline double back is somewhat nonsensical, but
- it happens rarely and does not impact the vis.
- significantly.
 \end_layout
 
 \begin_layout Standard
