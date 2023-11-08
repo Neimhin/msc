@@ -1,3 +1,4 @@
+setwd("~/msc/data-analytics/lab6")
 Data <- read.csv("DT-Credit.csv", header=TRUE, sep= ";")
 #See the structure of data
 str(Data)
@@ -5,14 +6,15 @@ str(Data)
 Data <- Data[,-1]
 str(Data) 
 attach(Data)
-install.packages("rpart")
 library(rpart)
+print(RESPONSE~.)
+
+# RESPONSE~. means use all columns of the independent variable, the dot . means everything else
 DT_Model <-rpart(RESPONSE~., data=Data, control=rpart.control(minsplit=60, minbucket=30, maxdepth=4 )) 
 # minsplit: the minimum number of observations that must exist in a node for a new split 
 # minbucket: the minimum number of observations in any terminal node 
 # Maxdepth: Maximum depth for any node, with the root node counted as depth 0. 
 DT_Model
-install.packages ("partykit") 
 library("partykit") 
 plot(as.party(DT_Model)) 
 #Didn't really work!
@@ -36,6 +38,7 @@ Data1=Data[,-31]
 
 DT_Model1<-rpart(Target~., data=Data1, control=rpart.control(minsplit=60, minbucket=30, maxdepth=4 ))
 print(DT_Model1)
+# cptable is the complexity parameter
 print(DT_Model1$cptable)
 plot(as.party(DT_Model1))
 
@@ -44,5 +47,6 @@ DT_Model2 <-rpart(Target~., data=Data1, control=rpart.control(minsplit=60, minbu
 print(DT_Model2)
 print(DT_Model2$cptable)
 plot(as.party(DT_Model2)) 
+
 
 
