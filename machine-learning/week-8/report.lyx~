@@ -1,0 +1,289 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{accents}
+\usepackage{titlesec}
+\usepackage{marginnote}
+
+
+\usepackage{enumitem}
+\setlist{nolistsep}
+
+\usepackage{tcolorbox}
+\definecolor{light-blue}{cmyk}{0.24, 0.12, 0.0, 0.04, 1.00}
+
+
+%
+
+%parskip shold take care of heading spacing
+\titlespacing\section{0pt}{0pt}{0pt}
+\titlespacing\subsection{0pt}{0pt}{0pt}
+\titlespacing\subsubsection{0pt}{0pt}{0pt}
+
+
+
+\setlength{\headheight}{40pt}
+\end_preamble
+\use_default_options false
+\begin_modules
+theorems-ams
+tcolorbox
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding T1
+\font_roman "default" "default"
+\font_sans "helvet" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family sfdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 10
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 4cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip 6pt
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lhead{Neimhin Robinson Gunning (16321701)}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+rhead{CS7CS4 Week 8 Assignment}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Color Box
+status open
+
+\begin_layout Plain Layout
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+colback=light-blue
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{small}
+\end_layout
+
+\end_inset
+
+ 
+\series bold
+DECLARATION:
+\series default
+ I understand that this is an 
+\series bold
+individual
+\series default
+ assessment and that collaboration is not permitted.
+ I have read, understand and agree to abide by the plagiarism provisions
+ in the General Regulations of the University Calendar for the current year,
+ found at http://www.tcd.ie/calendar.
+ I understand that by returning this declaration with my work, I am agreeing
+ with the above statement.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{small}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+(i)
+\end_layout
+
+\begin_layout Section
+(ii)
+\end_layout
+
+\begin_layout Subsection
+(ii) (a) model layers, kernels, channels
+\end_layout
+
+\begin_layout Standard
+Below is the python source code for a CNN with 4 convolution layers.
+ The input to the model is a tensor with shape (32,32,3), i.e.
+ an RGB image with 32x32 pixels.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename fig/model_architecture.py.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The CNN layers of the model have the following structures:
+\end_layout
+
+\begin_layout Enumerate
+(line 7): input=(32,32,3), number of kernels=16, kernel shape=(3,3,3), output
+ shape=(32,32,16)
+\end_layout
+
+\begin_layout Enumerate
+(line 8): input=(32,32,16), number of kernels=16, kernel shape=(3,3,16),
+ output shape=(16,16,16)
+\end_layout
+
+\begin_layout Enumerate
+(line 9): input shape=(16,16,16), number of kernels=32, kernel shape=(3,3,16),
+ output shape=(16,16,32)
+\end_layout
+
+\begin_layout Enumerate
+(line 10): input shape=(16,16,32), number of kernels=32, kernel shape=(3,3,32),
+ output shape=(8,8,32)
+\end_layout
+
+\begin_layout Standard
+The next layer is a dropout layer which randomly sets on average 50% of
+ its inputs to 0 and leaves the rest of the inputs the same.
+ Its input and output shape is (8,8,32).
+ The next layer simply unravels the (8,8,32) tensor into an array of length
+ 
+\begin_inset Formula $2048=8\cdot8\cdot32$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename ibi.cifar.model.pdf
+	width 35text%
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
