@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+        <style>
+        /* CSS styles */
+        .grid-container {
+            display: inline-block;
+            border: 1px solid black;
+        }
+        .grid-cell {
+            border: 1px solid #ddd;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="matrix"></div>
+    <script src="{{ url_for('static', filename='js/d3_matrix.js') }}"></script>
+    
+    <div id="graph"></div>
+    <button onclick="new_adjacency_matrix()">update   </button>
+    <script src="{{ url_for('static', filename='js/d3_graph.js') }}"></script>
+  </body>
+</html>
+
