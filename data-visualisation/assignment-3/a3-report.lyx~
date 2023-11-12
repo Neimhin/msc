@@ -92,7 +92,7 @@ tcolorbox
 \leftmargin 2cm
 \topmargin 2cm
 \rightmargin 2cm
-\bottommargin 2cm
+\bottommargin 3cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation skip
@@ -211,6 +211,13 @@ end{small}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Visualization Analysis
 \end_layout
@@ -222,6 +229,9 @@ New York City Weather in 1980 by Edward Tufte
 \begin_layout Standard
 Tufte's weather chart visualizes humidity, precipitation, and temperature
  data for the year 1980 in comparison with averages.
+ The humidity and temperature could come from one dataset of type table
+ indexed by day of the year, and the precipitation data is another small
+ table dataset indexed by month.
  The bottom subplot shows relative humidity as of noon as a percentage,
  which is a variable, presumably consisting of 365 samples in the dataset.
  The day of the year 
@@ -299,25 +309,25 @@ Some of the tasks that Tufte's vis.
  facilitates;
 \end_layout
 
-\begin_layout Itemize
-compare 1980 precipitation/temperatures to nomal
+\begin_layout Standard
+• compare 1980 precipitation/temperatures to nomal
 \end_layout
 
-\begin_layout Itemize
-compare temperatures/precipitation of each month to each other month in
+\begin_layout Standard
+• compare temperatures/precipitation of each month to each other month in
  1980 and normally
 \end_layout
 
-\begin_layout Itemize
-identify warmest, coolest, most humid, most rainy months in 1980 and normally
+\begin_layout Standard
+• identify warmest, coolest, most humid, most rainy months in 1980 and normally
 \end_layout
 
-\begin_layout Itemize
-identify outlier temperatures, precipitation rates
+\begin_layout Standard
+• identify outlier temperatures, precipitation rates
 \end_layout
 
-\begin_layout Itemize
-identify periodicity or lack thereof in temperature and humidity
+\begin_layout Standard
+• identify periodicity or lack thereof in temperature and humidity
 \end_layout
 
 \begin_layout Standard
@@ -415,22 +425,27 @@ datasets and data:
 \end_layout
 
 \begin_layout Standard
-
-\series bold
-tasks:
+Some tasks facilitated by this vis.
+ are:
 \end_layout
 
-\begin_layout Itemize
-compare number of biografies, number of studio albums, release of debut
+\begin_layout Standard
+• compare number of biografies, number of studio albums, release of debut
  album
 \end_layout
 
-\begin_layout Itemize
-identify countries/continents particularly enthusiastic about popular music
+\begin_layout Standard
+• identify countries/continents particularly enthusiastic about popular
+ music
 \end_layout
 
-\begin_layout Itemize
-identify prolific artists, artists oft written about
+\begin_layout Standard
+• identify prolific artists, artists oft written about
+\end_layout
+
+\begin_layout Standard
+This light-hearted visualization is spacious and conservative in the use
+ of dark colors.
 \end_layout
 
 \begin_layout Standard
@@ -486,27 +501,26 @@ The timelines of individual women are animated as a black dot which moves
 \end_layout
 
 \begin_layout Standard
-
-\series bold
-tasks:
+Some tasks the vis.
+ facilitates are:
 \end_layout
 
-\begin_layout Itemize
-identify the most common age for a woman to have her 1st, 2nd, etc.
+\begin_layout Standard
+• identify the most common age for a woman to have her 1st, 2nd, etc.
  child
 \end_layout
 
-\begin_layout Itemize
-identify outlier timelines, e.g.
+\begin_layout Standard
+• identify outlier timelines, e.g.
  a woman who had 12 children by age 35
 \end_layout
 
-\begin_layout Itemize
-compare the typical gap between birth of subsequent children
+\begin_layout Standard
+• compare the typical gap between birth of subsequent children
 \end_layout
 
-\begin_layout Itemize
-enjoy the accumulation of data into the vis.
+\begin_layout Standard
+• enjoy the accumulation of data into the vis.
 \end_layout
 
 \begin_layout Standard
@@ -549,6 +563,8 @@ The lack of controls over the animation made it challenging to establish
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align center
 \begin_inset Graphics
 	filename growing-family-weird.png
 	width 2cm
@@ -567,15 +583,6 @@ The lack of controls over the animation made it challenging to establish
 
 \begin_layout Section
 Visualization Design
-\end_layout
-
-\begin_layout Standard
-https://informationisbeautiful.net/visualizations/ransomware-attacks/
-\end_layout
-
-\begin_layout Standard
-https://informationisbeautiful.net/visualizations/worlds-biggest-data-breaches-ha
-cks/
 \end_layout
 
 \begin_layout Standard
@@ -604,50 +611,55 @@ https://docs.google.com/spreadsheets/d/1wPgM8ye1AUTVxlZOFsyiKEPWp6iFt34xpp2XA5iM
  2013 and 2022.
  Most of the targets were commercial companies, but some cities and other
  types of organisation are included.
- So we are considering a table with each row representing an attack.
+ The dataset type is 'table' with each row representing an attack..
  Some of the attributes in the table include:
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
+\noindent
 
 \series bold
-Sector
+• Sector
 \series default
 .
  Categorical.
  The industry/field in which the organization operates.
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
+\noindent
 
 \series bold
-Revenue
+• Revenue
 \series default
 .
  Continuous.
  Revenue of the organization as of a date specifide in a separate attribute.
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
+\noindent
 
 \series bold
-Ransom cost
+• Ransom cost
 \series default
 .
  Continuous.
  Amount demanded by the ransomware.
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
+\noindent
 
 \series bold
-Ransom response.
+• Ransom response.
 
 \series default
  Categorical; refused, paid, unkown.
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
+\noindent
 
 \series bold
 Year/month.
@@ -656,10 +668,11 @@ Year/month.
  Ordinal.
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
+\noindent
 
 \series bold
-Location.
+• Location.
 
 \series default
  Categorical/geospatial.
@@ -668,10 +681,11 @@ Location.
  also the state/province.
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
+\noindent
 
 \series bold
-Ransomware
+• Ransomware
 \series default
 .
  Categorical; REvil, RansomEXX, unknown, etc.
@@ -679,10 +693,11 @@ Ransomware
  the attack.
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
+\noindent
 
 \series bold
-Public/private company
+• Public/private company
 \series default
 .
  Categorical.
@@ -693,10 +708,11 @@ stock symbol
 attribute.
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
+\noindent
 
 \series bold
-Approx.
+• Approx.
  number of employees
 \series default
 .
@@ -708,52 +724,52 @@ Approx.
 Some of the tasks a visualization of this data could support are as follows:
 \end_layout
 
-\begin_layout Itemize
-compare government/commercial organizations' typical responses to ransomware
+\begin_layout Standard
+• compare government/commercial organizations' typical responses to ransomware
 \end_layout
 
-\begin_layout Itemize
-compare the openness of different types of organization
+\begin_layout Standard
+• compare the openness of different types of organization
 \end_layout
 
-\begin_layout Itemize
-compare the strategies used by ransomware groups on different types of organizat
-ion, e.g.
+\begin_layout Standard
+• compare the strategies used by ransomware groups on different types of
+ organization, e.g.
  demanded ransom, size of organization targeted
 \end_layout
 
-\begin_layout Itemize
-explore trends in ransom attacks related to geopolitics
+\begin_layout Standard
+• explore trends in ransom attacks related to geopolitics
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
 identify the most damaging attacks
 \end_layout
 
-\begin_layout Itemize
-compare the preferences for types of targets of different ransomware software
+\begin_layout Standard
+• compare the preferences for types of targets of different ransomware software
  and groups
 \end_layout
 
-\begin_layout Itemize
-predict the characteristics that indicate a greater risk of ransomware attack
- on an organisations
+\begin_layout Standard
+• predict the characteristics that indicate a greater risk of ransomware
+ attack on an organisations
 \end_layout
 
-\begin_layout Itemize
-explore the trends in the size, cost, frequency of ransomware attacks over
- time
+\begin_layout Standard
+• explore the trends in the size, cost, frequency of ransomware attacks
+ over time
 \end_layout
 
-\begin_layout Itemize
-identify clusters of successful ransomware attacks, i.e.
+\begin_layout Standard
+• identify clusters of successful ransomware attacks, i.e.
  contexts in which ransomware attacks tend to be more successful
 \end_layout
 
 \begin_layout Standard
-The above tasks are sufficiently distince and involve enough different variables
+The above tasks are sufficiently distinct and involve enough different variables
  that I believe a dashboard of separate visualizations will be most effective
- in supporting them all.
+ in supporting the greatest number of them efficiently.
 \end_layout
 
 \begin_layout Standard

@@ -60,3 +60,51 @@ the most economically convenient duplex scheme is wavelength division duplex ove
 
 XG-PON1 1 channel
 NG-PON2 4 channels
+
+### Dynamic Bandwidth Assignment
+DBA is the process by which the OLT decides how to assign upstream transmission opportunities (e.g., bandwidth) to the ONUs.
+### Ranging Operations
+### Split ratio
+point-to-point
+ONU: home unit
+OLT: network unit
+examine a 1:32 system, one OLT to 32 ONUs, with max 10km fibre length we obtain an ideal loss of: 15dB for the splitter + 3dB for the fiber loss = 18dB
+GPON standard includes split ratios of 1:16 and 1:64, and max ONU-OLT distance of 20km
+newer standards allow for higher split ratios
+
+PON is a power split architecture (passive splits), and at each split the power is divided and some noise is added
+3dB loss -> half the power
+with 32 splits: 32 = $2^5$ -> 3dB $\times$ 5 = 15dB loss due to splits
+with 64 splits: 64 = $2^6$ -> 3dB $\times$ 6 = 18dB loss due to splits
+
+XGS-PON designed to allow for tunable lasers in the ONU later but not necessitating it
+
+DOCSIS Data Over Cable Service Interface Specification
+
+Which operator is best positioned in Ireland?
+- Eir because it's the incumbent and own all infrastructure? No, because they have to share their capacity.
+- Virgin media because it owns cable TV infrastructure? Maybe, because they own the most coaxial networks and there's not much fibre in Dublin, but fibre is being brought to the home in Dublin now.
+
+- Broadband is a commodity in our information age.
+- Digital divide is a big social issue for all governments.
+- This means that governments are under pressure to make sure their country will meet these expectations.
+- In addition, a broadband infrastructure is essential for our information-based economy
+	- hard to attract foreign investment if your overall infrastructure is poor
+	- studies have shown that doubling broadband ...
+#### Local Loop Unbundling
+- local loop is the distance from the house to the network central office
+#### Sub Loop Unbundling
+deals with sharing of the copper from the cabinet to the user, but it's expensive
+need equipment in each central office,
+about 1000 central offices in Ireland
+
+### Next Generation Access (NGA) Bitstream
+#### PON Unbundling
+- point-to-point fibre is easy as it allows for LLU
+	- for this reason a number of countries
+- US said forget about unbundling, whoever owns the network can use it how they want
+- Japan told incumbent operator you have to share it but we'll make sure you get proportional benefit from it, Japan had highest penetration
+- EU, no decision for a long time, no decision ultimately made, not much clarity, EU said one thing, individual country said another thing
+
+- trend is to convert central offices into small data centres, switching processing, same jobs at different scales
+
