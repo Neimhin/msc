@@ -48,6 +48,8 @@ def parse_args():
                         help='Output filename for the history csv.')
     parser.add_argument('--save-model-to', type=str,
                         help='Output file/folder name for the saved model.')
+    parser.add_argument('--save-fit-time', type=str,
+                        help='Output filename for the fit time measurement')
     parser.add_argument('--l1-reg', type=float, default=0.001,
                         help='L1 regularization weight.')
     
