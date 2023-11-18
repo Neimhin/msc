@@ -215,6 +215,187 @@ end{small}
 (i)
 \end_layout
 
+\begin_layout Standard
+The results of a 2D convolution function applied to a single-channel image
+ are presented in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-200x200-RGB"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename fig/red_triangle200x200.png
+	width 25text%
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Graphics
+	filename fig/red_triangle-red-channel.png
+	width 25text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename fig/red_triangle-convolve-one.png
+	width 25text%
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Graphics
+	filename fig/red_triangle-convolve-two.png
+	width 25text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Formula $k_{1}=\left[\begin{array}{ccc}
+-1 & -1 & -1\\
+-1 & 8 & -1\\
+-1 & -1 & -1
+\end{array}\right]$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $k_{2}=\left[\begin{array}{ccc}
+0 & -1 & 0\\
+-1 & 8 & -1\\
+0 & -1 & 0
+\end{array}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-200x200-RGB"
+
+\end_inset
+
+A 200x200 RGB image (top left) has green and blue channels removed resulting
+ in a grayscale image (top right).
+ The image is convolved with two kernels, 
+\begin_inset Formula $k_{1}$
+\end_inset
+
+ (bottom left), and 
+\begin_inset Formula $k_{1}$
+\end_inset
+
+ (bottom right).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 (ii)
 \end_layout
@@ -272,17 +453,9 @@ The next layer is a dropout layer which randomly sets on average 50% of
 \begin_inset Formula $2048=8\cdot8\cdot32$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Graphics
-	filename ibi.cifar.model.pdf
-	width 35text%
-
-\end_inset
-
-
+.
+ The final layer is a linear combination of its 2048 inputs put through
+ the softmax activation function.
 \end_layout
 
 \end_body

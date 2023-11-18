@@ -18,6 +18,27 @@ figfile = sys.argv[1] if len(sys.argv) >= 2 else "fig/default-output.pdf"
 
 import argparse
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='Argument parser for train size.')
+    parser.add_argument('--train-size', type=int, choices=range(1, 50001),
+                        help='Size of the training set. Must be an integer between 1 and 50000.')
+    parser.add_argument('--output-history-csv', type=str,
+                        help='Output filename for the history csv.')
+    parser.add_argument('--output-evaluation-csv', type=str,
+                        help='Output filename for the history csv.')
+    parser.add_argument('--save-model-to', type=str,
+                        help='Output file/folder name for the saved model.')
+    parser.add_argument('--save-fit-time', type=str,
+                        help='Output filename for the fit time measurement')
+    parser.add_argument('--l1-reg', type=float, default=0.001,
+                        help='L1 regularization weight.')
+    parser.add_argument('--max-pool', action='store_true',
+                        help='Use max-pooling instead of stride.')
+    
+    return parser.parse_args()
+
+args = parse_args()
+
 # decorator to time a function execution
 # usage:
 # @timed_funciotn
@@ -38,24 +59,7 @@ def timed_function(func):
         return result
     return wrapper
 
-def parse_args():
-    parser = argparse.ArgumentParser(description='Argument parser for train size.')
-    parser.add_argument('--train-size', type=int, choices=range(1, 50001),
-                        help='Size of the training set. Must be an integer between 1 and 50000.')
-    parser.add_argument('--output-history-csv', type=str,
-                        help='Output filename for the history csv.')
-    parser.add_argument('--output-evaluation-csv', type=str,
-                        help='Output filename for the history csv.')
-    parser.add_argument('--save-model-to', type=str,
-                        help='Output file/folder name for the saved model.')
-    parser.add_argument('--save-fit-time', type=str,
-                        help='Output filename for the fit time measurement')
-    parser.add_argument('--l1-reg', type=float, default=0.001,
-                        help='L1 regularization weight.')
-    
-    return parser.parse_args()
 
-args = parse_args()
 
 # Model / data parameters
 num_classes = 10
@@ -77,19 +81,41 @@ y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
 
 
-model = keras.Sequential()
-model.add(Conv2D(16, (3,3), padding='same', input_shape=x_train.shape[1:],activation='relu'))
-model.add(Conv2D(16, (3,3), strides=(2,2), padding='same', activation='relu'))
-model.add(Conv2D(32, (3,3), padding='same', activation='relu'))
-model.add(Conv2D(32, (3,3), strides=(2,2), padding='same', activation='relu'))
-model.add(Dropout(0.5))
-model.add(Flatten())
-model.add(Dense(num_classes, activation='softmax',kernel_regularizer=regularizers.l1(args.l1_reg)))
-model.compile(loss="categorical_crossentropy", optimizer='adam', metrics=["accuracy"])
-model.summary()
+def mk_model():
+    global args
+    model = None
+    if not args.max_pool:
+        model = keras.Sequential()
+        model.add(Conv2D(16, (3,3), padding='same', input_shape=x_train.shape[1:],activation='relu'))
+        model.add(Conv2D(16, (3,3), strides=(2,2), padding='same', activation='relu'))
+        model.add(Conv2D(32, (3,3), padding='same', activation='relu'))
+        model.add(Conv2D(32, (3,3), strides=(2,2), padding='same', activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(Flatten())
+        model.add(Dense(num_classes, activation='softmax',kernel_regularizer=regularizers.l1(args.l1_reg)))
+        model.compile(loss="categorical_crossentropy", optimizer='adam', metrics=["accuracy"])
+        model.summary()
+    else:
+        model = keras.Sequential()
+        model.add(Conv2D(16, (3,3), padding='same', input_shape=x_train.shape[1:], activation='relu'))
+        model.add(Conv2D(16, (3,3), padding='same', activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        model.add(Conv2D(32, (3,3), padding='same', activation='relu'))
+        model.add(Conv2D(32, (3,3), padding='same', activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        model.add(Dropout(0.5))
+        model.add(Flatten())
+        model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l1(args.l1_reg)))
+        model.compile(loss="categorical_crossentropy", optimizer='adam', metrics=["accuracy"])
+        model.summary()
+    return model
+
 
 batch_size = 128
 epochs = 20
+model = mk_model()
 @timed_function
 def fit():
     return model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
