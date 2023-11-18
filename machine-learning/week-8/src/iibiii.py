@@ -39,28 +39,6 @@ def parse_args():
 
 args = parse_args()
 
-# decorator to time a function execution
-# usage:
-# @timed_funciotn
-# def foo(bar):
-#   pass
-def timed_function(func):
-    global args
-    import time
-    def wrapper(*args, **kwargs):
-        start_time = time.time()
-        result = func(*args, **kwargs)
-        end_time = time.time()
-        timing_str = f"Function {func.__name__} took {end_time - start_time} seconds to execute."
-        print(timing_str)
-        if args and args.save_fit_time:
-            with open(args.save_fit_time, "w") as f:
-                print(timing_str,file=f)
-        return result
-    return wrapper
-
-
-
 # Model / data parameters
 num_classes = 10
 input_shape = (32, 32, 3)
@@ -116,10 +94,19 @@ def mk_model():
 batch_size = 128
 epochs = 20
 model = mk_model()
-@timed_function
-def fit():
-    return model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
-history = fit()
+def fit_and_save_timing():
+    import time
+    global args, model
+    start_time = time.time()
+    history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
+    end_time = time.time()
+    timing_str = f"Training took {end_time - start_time} seconds to execute.\n"
+    print(timing_str)
+    if args.save_fit_time:
+        with open(args.save_fit_time, "w") as f:
+            f.write(timing_str)
+    return history
+history = fit_and_save_timing()
 if args.save_model_to:
     model.save(args.save_model_to)
 if args.output_history_csv:
