@@ -134,7 +134,7 @@ status open
 
 
 \backslash
-rhead{CS7DS4 Assignment 2 parts (a) and (b)}
+rhead{CS7DS4 Assignment 3 Analysis and Design}
 \end_layout
 
 \end_inset
@@ -233,19 +233,19 @@ Tufte's weather chart visualizes humidity, precipitation, and temperature
  indexed by day of the year, and the precipitation data is another small
  table dataset indexed by month.
  The bottom subplot shows relative humidity as of noon as a percentage,
- which is a variable, presumably consisting of 365 samples in the dataset.
+ a continuous variable, presumably consisting of 365 samples.
  The day of the year 
 \begin_inset Formula $1,2,...,365$
 \end_inset
 
- is encoded with x-position, and the precipitation percentage with y-position.
+ is encoded with x-position, and the humidity percentage with y-position.
  There are vertical gridlines indicating the start of each month, and horizontal
  gridlines for the quartiles.
 \end_layout
 
 \begin_layout Standard
-The middle subplot presents the total precipitation for each month in comparison
- to the 
+The middle subplot presents the total precipitation for each 1980 month
+ in comparison to the 
 \begin_inset Quotes eld
 \end_inset
 
@@ -297,9 +297,9 @@ ical order.
 \end_layout
 
 \begin_layout Standard
-The top subplot presents temperature in three time-series line plots, actual
- high and low temperatures for each day, and a line each for normal low
- and normal high.
+The top subplot presents the high and low temperature for each day as a
+ vertical line from the low to the high, and a line each for the normal
+ high and normal low.
  A small subplot is embedded showing the 1980 and normal annual temperatures
  using the same encodings as the precipitation bar charts.
 \end_layout
@@ -334,9 +334,10 @@ Some of the tasks that Tufte's vis.
 The use of 12 bar charts to compare precipitation incurs a low data-to-ink
  ratio.
  However the shape of the bars is reminiscent of a bucket, e.g.
- full of rainy, which is appropriate in context.
- Each bar could be replace with a single dot or line to offer the same accuracy,
- but I think the bar offers easier comparison between distant months, e.g.
+ full of rain, which is appropriate in context.
+ Each bar could be replaced with a single dot or line to offer the same
+ accuracy, but I think the bar offers easier comparison between distant
+ months, e.g.
  March and November.
 \end_layout
 
@@ -380,11 +381,18 @@ annual temperature
 \end_layout
 
 \begin_layout Standard
-The black line indicating the time-series of temperature has a strangely
- inconsistent thickness.
- From researching around I believe that each day may have been plotted as
- a vertical line from that day's low to its high, but this is not explained
- or made clear in the visualization.
+From researching around
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Especially comparing this chart to Tufte's 2003 version of similar data.
+\end_layout
+
+\end_inset
+
+ I believe that each day has been plotted as a vertical line from that day's
+ low to its high, but this is not explained or made clear in the visualization.
 \end_layout
 
 \begin_layout Standard
@@ -405,10 +413,7 @@ Music, Google and books by Federica Fragapane
 \end_layout
 
 \begin_layout Standard
-
-\series bold
-datasets and data:
-\series default
+The dataset is a table indexed by artist.
  For each of the 40 artists in the vis.
  there is a single corresponding country which was most interested in that
  artist according to Google Trends between 2012 and 2017.
@@ -444,8 +449,7 @@ Some tasks facilitated by this vis.
 \end_layout
 
 \begin_layout Standard
-This light-hearted visualization is spacious and conservative in the use
- of dark colors.
+• enjoy discovering the information presented
 \end_layout
 
 \begin_layout Standard
@@ -455,7 +459,7 @@ This light-hearted visualization is spacious and conservative in the use
 
 \begin_layout Standard
 The country associated with each artist is a categorical variable, but there
- are 40 categories which is a range that can't be captured easily by the
+ are 22 categories which is a range that can't be captured easily by the
  channels shape, hue, texture, which are typically suitable to categorisation.
  I think in this case in was appropriate to use connection lines to indicate
  the country because of the large number of countries.
@@ -464,6 +468,18 @@ on while only conveying a single piece of information each, and there is
  significant serial cognitive overhead in linking countries to artists,
  but the lighthearted style of the vis encourages the reader to play the
  game of tracing the lines back to the country.
+\end_layout
+
+\begin_layout Standard
+Using the rank order of the year of release of the first studio album instead
+ of just the year value to set the horizontal position of each circle is
+ a little confusing in that it distorts the linear variable year, making
+ gaps of 10 or 2 years equivalently distant.
+ However, I think this choice is warranted in that it brings more order
+ to the chart, which is aesthetically pleasing, and it results in more efficient
+ use of space.
+ I think this choice is appropriate to supporting the enjoyment of the chart.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -487,14 +503,14 @@ This vis.
  mother at the birth of a child, and y-position, descending, encodes the
  number of children the mother has.
  Green circles are used to accumulate the number of women who had a given
- number of children at a given age, where the size of the relative size
- of the circle reflects the number of women.
+ number of children at a given age, where the the relative size of the circle
+ reflects the number of women.
 \end_layout
 
 \begin_layout Standard
 The timelines of individual women are animated as a black dot which moves
  from left to right at linear speed as time progress, but which moves down
- to indicate a year in which a women had a child.
+ to indicate a year in which a woman had a child.
  A purple line traces the route of the black dot and fades away after the
  black dot vanishes.
  Several timelines are being animated at any given time.
@@ -526,7 +542,7 @@ Some tasks the vis.
 \begin_layout Standard
 The only additional information gained by the animation relates to the progressi
 on of individual women's timelines, and in terms of the comparative and
- exploratory tasks I think the animation is an mostly an unhelpful distraction,
+ exploratory tasks I think the animation is mostly an unhelpful distraction,
  but arguably it does provide an intuitive guide to interpreting the plot.
  Each row of the chart represents the frequencies of women having their
  
@@ -540,8 +556,8 @@ th child at each age, and this form of data is often depicted with a histogram.
  Also, the meaning of the size of a circle is relative to the rest of the
  circles, and when more data points are added the sizes of all circles sometimes
  change, which I think is a gratuitous update/animation.
- It would have been better to only update sizes of circles which when it
- represents the birth of a child.
+ It would have been better to only update sizes of circles when it represents
+ the birth of a child.
 \end_layout
 
 \begin_layout Standard
@@ -554,11 +570,13 @@ The amount of data presented (1000 timelines) is small enough such that
 \begin_layout Standard
 The lack of controls over the animation made it challenging to establish
  how the vis.
- handled the cases were women gave birth to more than one child at a given
- age, but by recording the vis.
- and scrubbing through I found an example which is presented below.
- The choice to have the timeline double back is somewhat nonsensical, but
- it happens rarely and does not impact the vis.
+ handled the cases where women gave birth to more than one child at a given
+ age (e.g.
+ Irish twins), but by recording the vis.
+ and scrubbing through I found an example, presented below.
+ The choice to have the timeline double back is somewhat nonsensical (she
+ moved backwards in time?) , but it happens rarely and does not impact the
+ vis.
  significantly.
 \end_layout
 
@@ -611,7 +629,7 @@ https://docs.google.com/spreadsheets/d/1wPgM8ye1AUTVxlZOFsyiKEPWp6iFt34xpp2XA5iM
  2013 and 2022.
  Most of the targets were commercial companies, but some cities and other
  types of organisation are included.
- The dataset type is 'table' with each row representing an attack..
+ The dataset type is 'table' with each row representing an attack.
  Some of the attributes in the table include:
 \end_layout
 
@@ -788,7 +806,7 @@ l so I would use a group of 3 bars for each month, one for attacks where
 To compare the different organization types and to include some insights
  into the geopolitics of ransomware attacks I would create a separate chart
  focused on the attributes 'sector', 'revenue', 'ransom response', 'approx
- number of employees', and possibly also 'location'.
+ number of employees', and  'location'.
  I would infer a single numeric longitude for each attack based in on the
  'location' variable and encode this with horizonal position.
  I would encode the revenue of the attacked company with vertical position.
