@@ -1,0 +1,41 @@
+\begin{thebibliography}{1}
+
+\bibitem{fitzpatrick2003flow}
+J.~Fitzpatrick, ``Flow/acoustic interactions of two cylinders in cross-flow,''
+  {\em Journal of Fluids and Structures}, vol.~17, no.~1, pp.~97--113, 2003.
+
+\bibitem{finnegan2010experimental}
+S.~Finnegan, C.~Meskell, and S.~Ziada, ``Experimental investigation of the
+  acoustic power around two tandem cylinders,'' {\em Journal of Pressure Vessel
+  Technology}, vol.~132, no.~4, p.~041306, 2010.
+
+\bibitem{hall2003vortex}
+J.~Hall, S.~Ziada, and D.~Weaver, ``Vortex-shedding from single and tandem
+  cylinders in the presence of applied sound,'' {\em Journal of Fluids and
+  Structures}, vol.~18, no.~6, pp.~741--758, 2003.
+
+\bibitem{jordan2001array}
+P.~Jordan, J.~Fitzpatrick, and C.~Meskell, ``Array beam pattern control for
+  measurement of propeller noise,'' in {\em AIAA/CEAS Aeroacoustics Conference
+  and Exhibit, Maastricht, Netherlands}, 2001.
+
+\bibitem{paidoussis2010fluid}
+M.~P. Pa{\"\i}doussis, S.~J. Price, and E.~De~Langre, {\em Fluid-structure
+  interactions: cross-flow-induced instabilities}.
+\newblock Cambridge University Press, 2010.
+
+\bibitem{reyes2007power}
+L.~Reyes, ``Power uprate program status report-secy-07-0090,'' tech. rep.,
+  Technical Report, US Nuclear Regulatory Commission, 2007.
+
+\bibitem{shustek2008interview}
+L.~Shustek and D.~Interviewee-Knuth, ``Interview donald knuth: A life's work
+  interrupted,'' {\em Communications of the ACM}, vol.~51, no.~8, pp.~31--35,
+  2008.
+
+\bibitem{oetiker2001not}
+T.~Oetiker, H.~Partl, I.~Hyna, and E.~Schlegl, ``The not so short introduction
+  to latex 2$\varepsilon$,'' {\em Electronic Document}, 2001.
+\newblock \url{http://www. tex. ac. uk/tex-archive/info/lshort}.
+
+\end{thebibliography}
