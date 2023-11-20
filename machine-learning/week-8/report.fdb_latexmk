@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1700328356 "report.tex" "report.pdf" "report" 1700328358
+["pdflatex"] 1700474028 "report.tex" "report.pdf" "report" 1700474031
   "/etc/texmf/web2c/texmf.cnf" 1666699068 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -147,8 +147,8 @@
   "fig/red_triangle-convolve-two.png" 1700309555 6982 2041a22bbb77916a48530a4985b4841e ""
   "fig/red_triangle-red-channel.png" 1700309555 4542 386ca513c6844ada2481662f0fc4a9d0 ""
   "fig/red_triangle200x200.png" 1700309498 7916 cf34ea951144d6d9ac20938804b9cc0b ""
-  "report.aux" 1700328358 1907 a0fd35868f57296e99150b44832ea0b4 "pdflatex"
-  "report.tex" 1700328352 7910 8810d69c81f92df396b887728c4632dd ""
+  "report.aux" 1700474031 2180 f321e68d6042cf2eeebd2f8edc503435 "pdflatex"
+  "report.tex" 1700474027 8624 32fdd2161d0b171b22370ae3133f5d64 ""
   (generated)
   "report.aux"
   "report.log"

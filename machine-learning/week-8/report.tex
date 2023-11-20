@@ -105,11 +105,14 @@ $k_{1}$ (bottom right).}
 
 \subsection{(ii) (a) model layers, kernels, channels}
 
-Below is the python source code for a CNN with 4 convolution layers.
+In Figure \ref{fig:code} is the python source code for a CNN with 4 convolution layers.
 The input to the model is a tensor with shape (32,32,3), i.e. an RGB
 image with 32x32 pixels.
 
+\begin{figure}
 \includegraphics[width=1\textwidth]{fig/model_architecture\lyxdot py}
+\caption{\label{fig:code}Source code of a ConvNet keras model.}
+\end{figure}
 
 The CNN layers of the model have the following structures:
 \begin{enumerate}
@@ -137,6 +140,32 @@ The output of this `Dense' layer is just the `softmax' function applied to the v
     \text{output of dense layer} = [ \text{softmax}(z_0), \text{softmax}(z_1), \ldots, \text{softmax}(z_{10}) ] 
 \end{equation}
 
+
+\subsection{(ii) (b) (i)}
+Keras reports that model given by the code in Figure \ref{fig:code} has 37146 total parameters, all of which a trainable.
+The final Dense layer has the most parameters, namely $2048\cdot10+10=20490$.
+The number of parameters in a convolution layer is determined by the kernel size and the number of filters and the number of channels,
+$\text{no. params}=k_w\cdot k_h\cdot c\cdot f$,
+whereas the number of paramaters in a Dense layer is determined by the input and output sizes.
+Since the input dimension for the Dense layer is quite large (2048), this layer ends up having more
+parameters than any of the convolution layers.
+
+The models evaluation scores are significantly better on the training data than they are on the test data.
+On the training data the model has an accuracy of 57\%, and on the the test data is 48\%. The average $F_1$-score is 0.48.
+A simple baseline which always predicts the most frequent class achieves an accuracy of 10\%, naturally considering the test set is balanced and there are ten classes,
+and the average $F_1$-score across the classes in 0.018. The ConvNet is much better than the `most_frequent' baseline.
+
+\subsection{(ii) (b) (ii)}
+The history of loss and accuracy of the model trained on 5K samples over 20 epochs is presented in Figure \ref{fig:iibii-acc-loss}.
+
+\begin{figure}
+    \begin{centering}
+        \includegraphics[width=0.49\textwidth]{exp/iibiii/5000.acc-loss.pdf}
+    \par\end{centering}
+    \caption{\label{fig:iibii-acc-loss}
+    A comparison of accuracy/loss on training/test data from
+    epochs 1 to 20 when trained on 5K training samples with $L_1=0.001$.}
+\end{figure}
 
 \subsection{(ii) (b) (iii)}
 Figure \ref{fig:iibiii-acc-loss} presents plots of the `histories' of the training losses and accuracies on training/validation data
