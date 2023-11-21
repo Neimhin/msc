@@ -247,10 +247,16 @@ There is no change to the number of paramaters because;
 1. the Conv2D layer's number of parameters is independent of the stride
 2. the MaxPooling2D layer has no parameters.
 
+% grep -rn timing-50000* -e .
+% timing-50000-extra-layers.txt:1:  50000,22.20852756500244
+% timing-50000-max-pool.txt:1:      50000,25.55734395980835
+% timing-50000.txt:1:               50000,22.167577266693115
+
 The MaxPooling2D version of the model took about
 25 seconds to train on 50000 (on an A4000 GPU),
 whereas the strided version took
 about 22 seconds on the same machine (both run at different times of course).
+I have used 50000 samples because the timing difference between the two versions on 5K was small enough to be potentially insignificant.
 The reason the strided version is faster to train is
 that the kernel's; stride results in skipping a proportion of
 the calculations needed for the forward pass.
@@ -261,12 +267,17 @@ The MaxPooling2D version also happens to have 2 additional
 layers but this is {\em not} a significant factor in the increased training time.
 
 
-% max-pool test
+% strided test 50000 l1=0.0001
+% accuracy                           0.70     10000
+% macro avg       0.71      0.70      0.70     10000
+% weighted avg       0.71      0.70      0.70     10000
+
+% max-pool test 50000 l1=0.0001
 % accuracy                           0.74     10000
 % macro avg       0.74      0.74      0.74     10000
 % weighted avg       0.74      0.74      0.74     10000
-The accuracy of the two versions whe
-
+The max-pool version achieves the better accuracy of 74\% when trained on 50K samples, compared to 70\% using the strided architecture.
+The aggregated precision, recall, and f1 scores don't reveal any further differences between the model architcuture's performances and are not reported here for brevity.
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|c|c|}

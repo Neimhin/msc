@@ -1,5 +1,5 @@
 set -e
-for reg in 0.0 0.00001 0.01 100; do
+for reg in 0.0 0.000001 0.00001 0.0001 0.001 0.01 100; do
 	pref=exp/iibiv/$reg
 	if [ ! -f $pref.history.csv ]; then
 		python src/iibiii.py \
@@ -7,7 +7,8 @@ for reg in 0.0 0.00001 0.01 100; do
 			--output-history-csv $pref.history.csv \
 			--save-model-to $pref.model.h5 \
 			--save-fit-time $pref.time.txt \
-			--l1-reg $reg
+			--evaluation-file $pref.eval.txt \
+			--l1-reg $reg | tee $pref.log
 	fi
 	echo plot reg $reg
 	python  src/iibiv_plot.py \
@@ -15,9 +16,3 @@ for reg in 0.0 0.00001 0.01 100; do
 		--fig $pref.acc-loss.pdf \
 		--suptitle "Training with \$L_1=$reg\$."
 done
-
-	echo plot reg 100
-	python  src/iibiv_plot_lim.py \
-		--history-csv $pref.history.csv \
-		--fig $pref.acc-loss-lim.pdf \
-		--suptitle "Training with \$L_1=100\$."
