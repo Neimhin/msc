@@ -66,9 +66,9 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 def mk_model():
     global args
     model = None
+    model = keras.Sequential()
+    model.add(keras.Input(shape=x_train.shape[1:]))
     if not args.max_pool:
-        model = keras.Sequential()
-        model.add(keras.Input(shape=x_train.shape[1:]))
         if args.extra_layers:
             model.add(Conv2D(8, (3,3), padding='same',activation='relu'))
             model.add(Conv2D(8, (3,3), strides=(2,2), padding='same', activation='relu'))
@@ -83,8 +83,7 @@ def mk_model():
         model.compile(loss="categorical_crossentropy", optimizer='adam', metrics=["accuracy"])
         model.summary()
     else:
-        model = keras.Sequential()
-        model.add(Conv2D(16, (3,3), padding='same', input_shape=x_train.shape[1:], activation='relu'))
+        model.add(Conv2D(16, (3,3), padding='same', activation='relu'))
         model.add(Conv2D(16, (3,3), padding='same', activation='relu'))
         model.add(MaxPooling2D(pool_size=(2, 2)))
 

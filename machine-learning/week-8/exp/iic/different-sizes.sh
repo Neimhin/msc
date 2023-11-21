@@ -15,5 +15,5 @@ for count in 10 50000 1000 5000 10000 20000 30000 40000; do
 	python  src/iibiii_plot.py \
 		--history-csv $pref.history.csv \
 		--fig $pref.acc-loss.pdf \
-		--suptitle "MaxPool with $count training samples"
+		--suptitle "MaxPool with $count training samples and \$L_1=0.0001\$"
 done
