@@ -25,7 +25,7 @@ def plot_history(history_csv, figfile):
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
     plt.legend(['Train', 'Validation'], loc='upper left')
-    plt.ylim((0.2,0.65))
+    # plt.ylim((0.2,0.8))
 
     # loss subplot
     plt.subplot(212)
@@ -35,7 +35,7 @@ def plot_history(history_csv, figfile):
     plt.ylabel('Loss')
     plt.xlabel('Epoch')
     plt.legend(['Train', 'Validation'], loc='upper left')
-    plt.ylim((1.2, 2.0))
+    # plt.ylim((0.9, 2.2))
 
     plt.suptitle(args.suptitle)
     plt.tight_layout()

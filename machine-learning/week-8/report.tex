@@ -178,7 +178,11 @@ and the loss on the training data is lower than the loss on the validatin data.
 With 40K training samples there is a disimprovement at the 16th epoch, but the 17th, 18th, 19th and 20th epoch scores do not indicate
 significant over-fitting.
 
-The general reading we can take from Figure \ref{fig:iibiii-acc-loss} is that more training data allows us to train for more epochs without over-fitting, or without over-fitting as much.
+The general reading we can take from Figure \ref{fig:iibiii-acc-loss} is that more training data allows us to train for more epochs without over-fitting,
+or without over-fitting as much. With 5K training samples there are clear indicators of overfitting after 20 epochs;
+looking the top left plot in Figue \ref{fig:iibiii-acc-loss} wee see that the training loss continues to go down while the val loss starts to stagnate after about 10 epochs.
+On the other hand with 40K training samples the final val loss and is better than
+with 5K and the differences between train and val scores are less severe, indicating less overfitting.
 
 \begin{figure}
     \begin{centering}
@@ -197,11 +201,11 @@ The general reading we can take from Figure \ref{fig:iibiii-acc-loss} is that mo
 
 \begin{figure}
     \begin{centering}
-        \includegraphics[width=0.49\textwidth]{exp/iibiii/time.pdf}
-        \includegraphics[width=0.49\textwidth]{exp/iic/timing.pdf}
+        \includegraphics[width=0.7\textwidth]{fig/timing-comparison.pdf}
     \par\end{centering}
     \caption{\label{fig:timing}The amount of time needed to train the ConvNet for 20 epochs is 
-    plotted against thet number of training samples used. The relationship is linear.}
+    plotted against thet number of training samples used. The relationship is linear. The strided architectures with different depths have similar training times,
+    but the max-pooling architecture is significantly slower to train.}
 \end{figure}
 
 \subsection{(ii) (b) (iv)}
@@ -216,6 +220,13 @@ where val score is better than thet train score.
 However, while the model with $L_1=0.00001$ shows more signs of being fitted too closely to the training data,
 the accuracy of the model on validation set is better than the accuracy of the more regularized model, $L_1=0.01$.
 
+While the $L_1$ regularization gives a tool to tweak our preference, i.e. whether
+higher accuracy or better generalisation is more important to us, it is limited in
+that accuracy and generalisation might have to be traded off against each other.
+We can't get both through tuning $L_1$ alone.
+Increasing the amount of training data, on the other hand, helps mitigate overfitting
+and gives better performance.
+
 
 \begin{figure}
     \begin{centering}
@@ -229,7 +240,7 @@ the accuracy of the model on validation set is better than the accuracy of the m
     \caption{\label{fig:iibiv-acc-loss}A comparison of accuracy/loss on 
     training/test data from epochs 1 to 20 for different
     $L_1$ regularization terms, $0.0,0.00001,0.01,1000$.
-    Each model is trained on 5K training samples.}
+    Each model is trained on 20K training samples.}
 \end{figure}
 
 \subsection{(ii) (c)}
@@ -277,7 +288,13 @@ layers but this is {\em not} a significant factor in the increased training time
 % macro avg       0.74      0.74      0.74     10000
 % weighted avg       0.74      0.74      0.74     10000
 The max-pool version achieves the better accuracy of 74\% when trained on 50K samples, compared to 70\% using the strided architecture.
-The aggregated precision, recall, and f1 scores don't reveal any further differences between the model architcuture's performances and are not reported here for brevity.
+The aggregated precision, recall, and f1 scores don't
+reveal any further differences between the model
+architcuture's performances and are not reported here for brevity.
+Accuracies on 5K samples are compared in Tabel \ref{tab:max-pool-vs-stride}.
+
+Both model's have uneven accuracies on the different classes, i.e. some classes are harder than others, but again not
+much interesting is revealed about the differences between the models from the confusion matrices, so they are not reproduced here.
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|c|c|}
@@ -286,12 +303,87 @@ The aggregated precision, recall, and f1 scores don't reveal any further differe
     train accuracy &           66\%            &           62\%          \\ \hline
     test accuracy  &           54\%            &           50\%          \\ \hline
     \end{tabular}
-    \caption{Comparison of model performance with MaxPooling2D and stride=(2,2), both using $L_1=0.0001$}
+    \caption{Comparison of model performance with MaxPooling2D and stride=(2,2), both using $L_1=0.0001$ and 5K training samples.}
     \label{tab:max-pool-vs-stride}
     \end{table}
 \subsection{(ii) (d)}
 With the two extra ConvNet layers the model now has a total of 23314 trainable parameters.
 
+\subsection{(ii) (d)}
+In this section, we make the model deeper and explore the impact on performance, training time, and overfitting.
+The model architecture from part (b) (iii) is adjusted by adding two Conv2D layers to the start of
+the pipeline, the first with stride=(1,1) and 8 filters, the second with stride=(2,2) and 8 filters,
+ both with padding=`same'.
+This model has a smaller number of parameters than the model from (b) (iii) because the first two layers reduce the dimensionality while using fewer filters.
+The training time is pretty much the same, as seen in Figure \ref{fig:timing}.
+
+The performance of three model architectures are compared in Table \ref{tab:d-acc}.
+It's found that the two extra-layers at the start make the accuracy worse, while the max-pooling architecture gives the best accuracy of 74\%.
+
+The extra layers seem to be causing the model to overfit to the data because the accuracy on the training data is about the same for the strided version and the version with extra layers,
+but the accuracy on the test data drops to 65\% when the extra layers are added.
+
+By increasing the depth of the max-pooling variant, adding an extra module (2 Conv2D and  1 MaxPooling2D), we can achieve a better overall accuracy of 77\%,
+as seen in Table \ref{tab:d-acc}, but going to 4 total modules leads to significant overfitting. Already with just 3 max-pooling modules we see a greater amount of overfitting,
+with 85\% accuracy on train and 77\% accuracy on test.
+
+The impact of increasing the depth in this way on the time taken to train is not clear, as seen in Table \ref{tab:d-time}.
+
+\begin{table}[h]
+    \centering
+    \caption{\label{tab:d-acc}Accuracies for different neural network configurations over a dataset of 50,000 samples with $L_1$ regularization of 0.0001 and 20 epochs.
+    MP means max-pooling, and the number of modules are shown. The third max pooling module has 64 filters, the fourth has 128 filters.
+    }
+    \begin{tabular}{|l|c|c|c|c|c|}
+    \hline
+     & Strided & Extra-Layers & MP 2 Modules & MP 3 Modules & MP 4 Modules \\ \hline
+    Train Accuracy & 0.75 & 0.74 & 0.78 & 0.85 & 0.91 \\ \hline
+    Test Accuracy & 0.70 & 0.65 & 0.74 & 0.77 & 0.76 \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\label{tab:d-time}Time to train 20 epochs on 50000 samples with deeper and deeper max-pool architectures.}
+    \begin{tabular}{|l|c|c|c|}
+    \hline
+    & Max-Pooling 2 Modules & Max-Pooling 3 Modules & Max-Pooling 4 Modules \\ \hline
+    training time (seconds) & 33.46 & 30.09 & 34.14  \\ \hline
+    \end{tabular}
+\end{table}
+    
+
+While additional layers can improve model performance to a point,
+they also bring a higher risk of overfitting.
+We saw in part (ii) (b) that more data is effective at mitigating overfitting,
+but adding more data also increases training time.
+It was surprising to see that the increased depth did not increase training time in this case,
+but this may have been a fluke or due to an unfair experiment since it was run on a personal desktop.
+
+% train: strided, 50000 samples, l1=0.0001, epochs 20
+% accuracy                           0.75     49999
+% test: strided, 50000 samples, l1=0.0001, epochs 20
+% accuracy                           0.70     10000
+
+% train: max-pooling, 50000 samples, l1=0.0001, epochs 20
+% accuracy                           0.78     49999
+% test: max-pooling, 50000 samples, l1=0.0001, epochs 20
+% accuracy                           0.74     10000
+
+% train: extra-layers, 50000 samples, l1=0.0001, epochs 20
+% accuracy                           0.74     49999
+% test: extra-layers, 50000 samples, l1=0.0001, epochs 20
+% accuracy                           0.65     10000
+
+% train: max-pool-extra, 50000 samples, l1=0.0001, epochs 20
+% accuracy                           0.85     49999
+% test: max-pool-extra, 50000 samples, l1=0.0001, epochs 20
+% accuracy                           0.77     10000
+
+% train: max-pool-extra-2, 50000 samples, l1=0.0001, epochs 20
+% accuracy                           0.91     49999
+% test: max-pool-extra-2, 50000 samples, l1=0.0001, epochs 20
+% accuracy                           0.76     10000
 
 
 \end{document}

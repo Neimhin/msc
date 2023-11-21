@@ -38,8 +38,12 @@ def parse_args():
                         help='Where to store evalutions')
     parser.add_argument('--extra-layers', action="store_true",
                         help='Use two extra ConvNet layers')
+    parser.add_argument('--extra-layers-2', action="store_true",
+                        help='Use two extra ConvNet layers (for max-pool only)')
+    parser.add_argument('--extra-dense', action="store_true",
+                        help='Use an additional dense layer with 1024 outputs.')
     parser.add_argument('--epochs', default=20,type=int,
-                        help='Use two extra ConvNet layers')
+                        help='How many epochs to train.')
     
     return parser.parse_args()
 
@@ -62,7 +66,7 @@ print("orig x_train shape:", x_train.shape)
 
 # convert class vectors to binary class matrices
 y_train = keras.utils.to_categorical(y_train, num_classes)
-y_test = keras.utils.to_categorical(y_test, num_classes)
+y_test = keras.utils.to_categorical(y_test, num_classes)     
 
 
 def mk_model():
@@ -79,11 +83,6 @@ def mk_model():
         model.add(Conv2D(16, (3,3), strides=(2,2), padding='same', activation='relu'))
         model.add(Conv2D(32, (3,3), padding='same', activation='relu'))
         model.add(Conv2D(32, (3,3), strides=(2,2), padding='same', activation='relu'))
-        model.add(Dropout(0.5))
-        model.add(Flatten())
-        model.add(Dense(num_classes, activation='softmax',kernel_regularizer=regularizers.l1(args.l1_reg)))
-        model.compile(loss="categorical_crossentropy", optimizer='adam', metrics=["accuracy"])
-        model.summary()
     else:
         model.add(Conv2D(16, (3,3), padding='same', activation='relu'))
         model.add(Conv2D(16, (3,3), padding='same', activation='relu'))
@@ -93,11 +92,23 @@ def mk_model():
         model.add(Conv2D(32, (3,3), padding='same', activation='relu'))
         model.add(MaxPooling2D(pool_size=(2, 2)))
 
-        model.add(Dropout(0.5))
-        model.add(Flatten())
-        model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l1(args.l1_reg)))
-        model.compile(loss="categorical_crossentropy", optimizer='adam', metrics=["accuracy"])
-        model.summary()
+        if args.extra_layers:
+            model.add(Conv2D(64, (3,3), padding='same', activation='relu'))
+            model.add(Conv2D(64, (3,3), padding='same', activation='relu'))
+            model.add(MaxPooling2D(pool_size=(2, 2)))
+        
+        if args.extra_layers_2:
+            model.add(Conv2D(128, (3,3), padding='same', activation='relu'))
+            model.add(Conv2D(128, (3,3), padding='same', activation='relu'))
+            model.add(MaxPooling2D(pool_size=(2, 2)))
+
+    model.add(Dropout(0.5))
+    model.add(Flatten())
+        
+    model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l1(args.l1_reg)))
+
+    model.compile(loss="categorical_crossentropy", optimizer='adam', metrics=["accuracy"])
+    model.summary()
     return model
 
 

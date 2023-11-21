@@ -1,1 +1,0 @@
-Training took 18.75242590904236 seconds to execute.
