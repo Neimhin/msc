@@ -30,10 +30,14 @@ def parse_args():
                         help='Output file/folder name for the saved model.')
     parser.add_argument('--save-fit-time', type=str,
                         help='Output filename for the fit time measurement')
-    parser.add_argument('--l1-reg', type=float, default=0.001,
+    parser.add_argument('--l1-reg', type=float, default=0.0001,
                         help='L1 regularization weight.')
     parser.add_argument('--max-pool', action='store_true',
                         help='Use max-pooling instead of stride.')
+    parser.add_argument('--evaluation-file', type=str, default="evaluation-file.txt",
+                        help='Where to store evalutions')
+    parser.add_argument('--extra-layers', action="store_true",
+                        help='Use two extra ConvNet layers')
     
     return parser.parse_args()
 
@@ -62,9 +66,14 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 def mk_model():
     global args
     model = None
+    model = keras.Sequential()
+    model.add(keras.Input(shape=x_train.shape[1:]))
     if not args.max_pool:
-        model = keras.Sequential()
-        model.add(Conv2D(16, (3,3), padding='same', input_shape=x_train.shape[1:],activation='relu'))
+        if args.extra_layers:
+            model.add(Conv2D(8, (3,3), padding='same',activation='relu'))
+            model.add(Conv2D(8, (3,3), strides=(2,2), padding='same', activation='relu'))
+
+        model.add(Conv2D(16, (3,3), padding='same',activation='relu'))
         model.add(Conv2D(16, (3,3), strides=(2,2), padding='same', activation='relu'))
         model.add(Conv2D(32, (3,3), padding='same', activation='relu'))
         model.add(Conv2D(32, (3,3), strides=(2,2), padding='same', activation='relu'))
@@ -74,8 +83,7 @@ def mk_model():
         model.compile(loss="categorical_crossentropy", optimizer='adam', metrics=["accuracy"])
         model.summary()
     else:
-        model = keras.Sequential()
-        model.add(Conv2D(16, (3,3), padding='same', input_shape=x_train.shape[1:], activation='relu'))
+        model.add(Conv2D(16, (3,3), padding='same', activation='relu'))
         model.add(Conv2D(16, (3,3), padding='same', activation='relu'))
         model.add(MaxPooling2D(pool_size=(2, 2)))
 
@@ -113,14 +121,19 @@ if args.output_history_csv:
     history_df = pd.DataFrame(history.history)
     history_df.to_csv(args.output_history_csv)
 
-preds = model.predict(x_train)
-y_pred = np.argmax(preds, axis=1)
-y_train1 = np.argmax(y_train, axis=1)
-print(classification_report(y_train1, y_pred))
-print(confusion_matrix(y_train1,y_pred))
+with open(args.evaluation_file, 'w') as f:
+    def p(*args,**kwargs):
+        print(*args,file=f,**kwargs)
+    preds = model.predict(x_train)
+    y_pred = np.argmax(preds, axis=1)
+    y_train1 = np.argmax(y_train, axis=1)
+    p("train:")
+    p(classification_report(y_train1, y_pred))
+    p(confusion_matrix(y_train1,y_pred))
 
-preds = model.predict(x_test)
-y_pred = np.argmax(preds, axis=1)
-y_test1 = np.argmax(y_test, axis=1)
-print(classification_report(y_test1, y_pred))
-print(confusion_matrix(y_test1,y_pred))
+    preds = model.predict(x_test)
+    y_pred = np.argmax(preds, axis=1)
+    y_test1 = np.argmax(y_test, axis=1)
+    p("\n\ntest:")
+    p(classification_report(y_test1, y_pred))
+    p(confusion_matrix(y_test1,y_pred))

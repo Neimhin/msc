@@ -153,7 +153,7 @@ parameters than any of the convolution layers.
 The models evaluation scores are significantly better on the training data than they are on the test data.
 On the training data the model has an accuracy of 57\%, and on the the test data is 48\%. The average $F_1$-score is 0.48.
 A simple baseline which always predicts the most frequent class achieves an accuracy of 10\%, naturally considering the test set is balanced and there are ten classes,
-and the average $F_1$-score across the classes in 0.018. The ConvNet is much better than the `most_frequent' baseline.
+and the average $F_1$-score across the classes in 0.018. The ConvNet is much better than the `most\_frequent' baseline.
 
 \subsection{(ii) (b) (ii)}
 The history of loss and accuracy of the model trained on 5K samples over 20 epochs is presented in Figure \ref{fig:iibii-acc-loss}.
@@ -197,7 +197,8 @@ The general reading we can take from Figure \ref{fig:iibiii-acc-loss} is that mo
 
 \begin{figure}
     \begin{centering}
-        \includegraphics[width=0.5\textwidth]{exp/iibiii/time.pdf}
+        \includegraphics[width=0.49\textwidth]{exp/iibiii/time.pdf}
+        \includegraphics[width=0.49\textwidth]{exp/iic/timing.pdf}
     \par\end{centering}
     \caption{\label{fig:timing}The amount of time needed to train the ConvNet for 20 epochs is 
     plotted against thet number of training samples used. The relationship is linear.}
@@ -230,6 +231,50 @@ the accuracy of the model on validation set is better than the accuracy of the m
     $L_1$ regularization terms, $0.0,0.00001,0.01,1000$.
     Each model is trained on 5K training samples.}
 \end{figure}
+
+\subsection{(ii) (c)}
+The model described for parts (ii) (b) (i)-(iv) above
+used layers alternating between stride of (1,1) and (2,2).
+The effect of the (2,2) stride layers is that the output tensor's width and height are halved 
+(while the `depth' of the tensor is determined by the number of filters).
+In this section we compare the stride technique to a model that instead uses max-pooling
+layers to reduce the dimensionality.
+Each layer that had a stride of (2,2) is given a stride of (1,1) and another MaxPooling2D layer
+is added to follow that layer.
+The MaxPooling2D model has 37146 parameters,
+the same number as the model using strided layers.
+There is no change to the number of paramaters because;
+1. the Conv2D layer's number of parameters is independent of the stride
+2. the MaxPooling2D layer has no parameters.
+
+The MaxPooling2D version of the model took about
+54 seconds to train on my laptop,
+whereas the strided version took
+about 25 seconds.
+The reason the strided version is faster to train is
+that the kernel's; stride results in skipping a proportion of
+the calculations needed for the forward pass.
+With a stride of 2 in both directions the number of times the kernel
+is multiplied elementwise by the corresponding slice of the input tensor is
+$1/4$ so many as with a stride of 1 in both directions.
+The MaxPooling2D version also happens to have 2 additional
+layers but this is {\em not} a significant factor in the increased training time.
+
+The accuracy of the two versions whe
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|}
+    \hline
+    \textbf{Metric}       & \textbf{MaxPooling2D} & \textbf{stride=(2,2)} \\ \hline
+    train accuracy &           66\%            &           62\%          \\ \hline
+    test accuracy  &           54\%            &           50\%          \\ \hline
+    \end{tabular}
+    \caption{Comparison of model performance with MaxPooling2D and stride=(2,2), both using $L_1=0.0001$}
+    \label{tab:max-pool-vs-stride}
+    \end{table}
+\subsection{(ii) (d)}
+With the two extra ConvNet layers the model now has a total of 23314 trainable parameters.
 
 
 
