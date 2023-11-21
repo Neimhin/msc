@@ -1,0 +1,86 @@
+%% LyX 2.3.6 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[10pt]{article}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[a4paper]{geometry}
+\geometry{verbose,tmargin=2cm,bmargin=4cm,lmargin=2cm,rmargin=2cm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\usepackage{tcolorbox}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% A simple dot to overcome graphicx limitations
+\newcommand{\lyxdot}{.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{accents}
+\usepackage{titlesec}
+\usepackage{marginnote}
+
+
+\usepackage{enumitem}
+\setlist{nolistsep}
+
+\usepackage{tcolorbox}
+\definecolor{light-blue}{cmyk}{0.24, 0.12, 0.0, 0.04, 1.00}
+
+
+%
+
+%parskip shold take care of heading spacing
+\titlespacing\section{0pt}{0pt}{0pt}
+\titlespacing\subsection{0pt}{0pt}{0pt}
+\titlespacing\subsubsection{0pt}{0pt}{0pt}
+
+
+
+\setlength{\headheight}{40pt}
+
+\makeatother
+
+\begin{document}
+\lhead{Neimhin Robinson Gunning} \rhead{CS7NS1 Assignment 3} 
+
+% TODO: declaration?
+% \begin{tcolorbox}[colback=light-blue]
+% \begin{small} \textbf{DECLARATION:} I understand that this is an
+% \textbf{individual} assessment and that collaboration is not permitted.
+% I have read, understand and agree to abide by the plagiarism provisions
+% in the General Regulations of the University Calendar for the current
+% year, found at http://www.tcd.ie/calendar. I understand that by returning
+% this declaration with my work, I am agreeing with the above statement.
+% \end{small} 
+% \end{tcolorbox}
+
+\bigskip{}
+
+\section{Key Technical Take-Aways}
+
+1. Unconditionally secure encryption algorithms exist and are conceptually quite simple, but have properties that make them impractical in a lot of scenarios. The one-time pad is an example; it requires out-of-band distribution of a secret key which must be as long as or longer than the messages to be sent, and can only be used once while maintaining unconditional security. For various reasons the more common type of encryption in use relies on computational security, i.e. encryption that can be reversed by an attacker but requires prohibitively large computations to undo.
+
+2. The entropy of an information source is the expected value of the Shannon information content of samples from that information source, and this quantity is directly related the best possible compression system for the information source. More precisely, as the length of the uncompressed string goes to infinity, the average number of bits needed to optimally encode symbols from the information source goes to the entropy of the information source. This relationship holds when we assume that each codeword in the compression system encodes as single symbol, not a sequence of symbols.
+
+3. The Slepian and Wolf result shows us that when we
+want to compress to distinct but correlated information
+sources we can use information from one of the sources
+to reduce the number of bits needed to encode the second source.
+
+\section{Key Learnings}
+
+\end{document}
