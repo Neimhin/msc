@@ -1,0 +1,17 @@
+training-samples,dataset,accuracy
+10000,train,0.67
+10000,test,0.56
+1000,train,0.48
+1000,test,0.36
+10,train,0.67
+10,test,0.13
+20000,train,0.68
+20000,test,0.60
+30000,train,0.71
+30000,test,0.65
+40000,train,0.72
+40000,test,0.67
+50000,train,0.75
+50000,test,0.70
+5000,train,0.60
+5000,test,0.49
