@@ -248,9 +248,9 @@ There is no change to the number of paramaters because;
 2. the MaxPooling2D layer has no parameters.
 
 The MaxPooling2D version of the model took about
-54 seconds to train on my laptop,
+25 seconds to train on 50000 (on an A4000 GPU),
 whereas the strided version took
-about 25 seconds.
+about 22 seconds on the same machine (both run at different times of course).
 The reason the strided version is faster to train is
 that the kernel's; stride results in skipping a proportion of
 the calculations needed for the forward pass.
@@ -260,6 +260,11 @@ $1/4$ so many as with a stride of 1 in both directions.
 The MaxPooling2D version also happens to have 2 additional
 layers but this is {\em not} a significant factor in the increased training time.
 
+
+% max-pool test
+% accuracy                           0.74     10000
+% macro avg       0.74      0.74      0.74     10000
+% weighted avg       0.74      0.74      0.74     10000
 The accuracy of the two versions whe
 
 \begin{table}[h]

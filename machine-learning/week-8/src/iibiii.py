@@ -38,6 +38,8 @@ def parse_args():
                         help='Where to store evalutions')
     parser.add_argument('--extra-layers', action="store_true",
                         help='Use two extra ConvNet layers')
+    parser.add_argument('--epochs', default=20,type=int,
+                        help='Use two extra ConvNet layers')
     
     return parser.parse_args()
 
@@ -100,7 +102,7 @@ def mk_model():
 
 
 batch_size = 128
-epochs = 20
+epochs = args.epochs
 model = mk_model()
 def fit_and_save_timing():
     import time
@@ -108,7 +110,7 @@ def fit_and_save_timing():
     start_time = time.time()
     history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
     end_time = time.time()
-    timing_str = f"Training took {end_time - start_time} seconds to execute.\n"
+    timing_str = f"{args.train_size},{end_time - start_time}\n"
     print(timing_str)
     if args.save_fit_time:
         with open(args.save_fit_time, "w") as f:
