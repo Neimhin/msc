@@ -40,8 +40,9 @@
 \usepackage{tcolorbox}
 \definecolor{light-blue}{cmyk}{0.24, 0.12, 0.0, 0.04, 1.00}
 
-
-%
+\title{CS7CS4 Week 8 Assignment}
+\author{Neimhin Robinson Gunning 16321701}
+\date{\today} 
 
 %parskip shold take care of heading spacing
 \titlespacing\section{0pt}{0pt}{0pt}
@@ -56,6 +57,8 @@
 
 \begin{document}
 \lhead{Neimhin Robinson Gunning (16321701)} \rhead{CS7CS4 Week 8 Assignment} 
+
+\maketitle
 
 \begin{tcolorbox}[colback=light-blue]
 \begin{small} \textbf{DECLARATION:} I understand that this is an
@@ -74,7 +77,8 @@ this declaration with my work, I am agreeing with the above statement.
 
 The results of a 2D convolution function applied to a single-channel
 image, with two different kernels, are presented in Figure \ref{fig:A-200x200-RGB}.
-
+The first kernel has the property that for a slice which is all one color multiplication with the kernel will be black (0).
+This is not the case for the second kernel, so white regions of the image end up again being white/gray in the convolution output when convolved with $k_2$.
 \begin{figure}
 \begin{centering}
 \includegraphics[width=0.25\textwidth]{fig/red_triangle200x200}~~~~\includegraphics[width=0.25\textwidth]{fig/red_triangle-red-channel}
@@ -96,7 +100,7 @@ $k_{1}=\left[\begin{array}{ccc}
 \caption{\label{fig:A-200x200-RGB}A 200x200 RGB image (top left) has green
 and blue channels removed resulting in a grayscale image (top right).
 The image is convolved with two kernels, $k_{1}$ (bottom left), and
-$k_{1}$ (bottom right).}
+$k_{2}$ (bottom right).}
 
 \end{figure}
 
@@ -129,34 +133,43 @@ The next layer is a dropout layer which randomly sets on average 50\%
 of its inputs to 0 and leaves the rest of the inputs the same. Its
 input and output shape is (8,8,32). The next layer simply unravels
 the (8,8,32) tensor into an array of length $2048=8\cdot8\cdot32$.
-The final layer consists of 10 separate linear combinations of the previous layers outputs.
+The final layer `Dense' layer first computes 10 separate linear combinations of length 2048 input vector.
 The output of this `Dense' layer is just the `softmax' function applied to the vector of ten linear combinations, $[ z_1, \ldots, z_{10}]$.
+A definition of the softmax function is given in Equation \ref{eq:softmax}
+and a description of the final output of the model is given in Equation \ref{eq:out-proba}.
 
 \begin{equation}
+    \label{eq:softmax}
     \text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{10} e^{z_j}}
 \end{equation}
 
 \begin{equation}
+    \label{eq:out-proba}
     \text{output of dense layer} = [ \text{softmax}(z_0), \text{softmax}(z_1), \ldots, \text{softmax}(z_{10}) ] 
 \end{equation}
 
 
 \subsection{(ii) (b) (i)}
-Keras reports that model given by the code in Figure \ref{fig:code} has 37146 total parameters, all of which a trainable.
+Keras reports that model given by the code in Figure \ref{fig:code} has 37146 total parameters, all of which are trainable.
 The final Dense layer has the most parameters, namely $2048\cdot10+10=20490$.
 The number of parameters in a convolution layer is determined by the kernel size and the number of filters and the number of channels,
 $\text{no. params}=k_w\cdot k_h\cdot c\cdot f$,
-whereas the number of paramaters in a Dense layer is determined by the input and output sizes.
+whereas the number of parameters in a Dense layer is determined by the input and output sizes.
 Since the input dimension for the Dense layer is quite large (2048), this layer ends up having more
 parameters than any of the convolution layers.
 
-The models evaluation scores are significantly better on the training data than they are on the test data.
-On the training data the model has an accuracy of 57\%, and on the the test data is 48\%. The average $F_1$-score is 0.48.
-A simple baseline which always predicts the most frequent class achieves an accuracy of 10\%, naturally considering the test set is balanced and there are ten classes,
-and the average $F_1$-score across the classes in 0.018. The ConvNet is much better than the `most\_frequent' baseline.
+The model's accuracy is markedly better on the training data than on the test data.
+On the training data the model has an accuracy of 57\%, but on the test data it is 48\%.
+A simple baseline which always predicts the most frequent class achieves an accuracy of 10\%,
+which is natural considering the test set is balanced and there are ten classes,
+and the average $F_1$-score of the baseline classifier across the classes in 0.018.
+The ConvNet is much better than the `most\_frequent' baseline.
 
 \subsection{(ii) (b) (ii)}
 The history of loss and accuracy of the model trained on 5K samples over 20 epochs is presented in Figure \ref{fig:iibii-acc-loss}.
+The progression of loss and accuracy when training on 5K samples shows that the train loss and train accuracy
+more or less improve monotonically, but the test loss and accuracy start to plateau earlier at around 10 epochs.
+The process of the train and val scores diverging on subsequent epochs is an indicator of overfitting.
 
 \begin{figure}
     \begin{centering}
