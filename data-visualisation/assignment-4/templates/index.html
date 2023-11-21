@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
         <style>
         /* CSS styles */
@@ -23,6 +24,9 @@
     <div id="graph"></div>
     <button onclick="new_adjacency_matrix()">update   </button>
     <script src="{{ url_for('static', filename='js/d3_graph.js') }}"></script>
+
+    <div id="p5-1"></div>
+    <script src="{{ url_for('static', filename='js/p5_1.js') }}"></script>
   </body>
 </html>
 
