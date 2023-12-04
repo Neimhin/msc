@@ -1,0 +1,2 @@
+#!/bin/bash
+xml2bib <(ris2xml $1)

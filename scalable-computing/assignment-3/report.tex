@@ -4,7 +4,7 @@
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage[T1]{fontenc}
-\usepackage[latin9]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[a4paper]{geometry}
 \geometry{verbose,tmargin=2cm,bmargin=4cm,lmargin=2cm,rmargin=2cm}
 \usepackage{fancyhdr}
@@ -15,8 +15,9 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{todonotes}
 \usepackage{graphicx}
-\usepackage{biblatex}
+\usepackage[backend=biber,maxbibnames=99]{biblatex}
 \addbibresource{main.bib}
 
 \makeatletter
@@ -34,9 +35,12 @@
 \usepackage{accents}
 \usepackage{titlesec}
 \usepackage{marginnote}
+\usepackage{titlesec}
+\titleformat{\section}[block]{\normalfont\bfseries}{}{0em}{}
 
 
 \usepackage{enumitem}
+\usepackage{comment}
 \setlist{nolistsep}
 
 \usepackage{tcolorbox}
@@ -44,15 +48,21 @@
 
 
 \newcommand{\ket}[1]{|#1\rangle}
-
-%
-
-%parskip shold take care of heading spacing
+\newcounter{kl}
+\setcounter{kl}{0}
+\newcommand{\kl}{
+    \stepcounter{kl}
+    \textbf{kl-\thekl}:
+}
+\newcounter{kti}
+\setcounter{kti}{0}
+\newcommand{\kti}{
+    \stepcounter{kti}
+    \textbf{kti-\thekti}:
+}
 \titlespacing\section{0pt}{0pt}{0pt}
 \titlespacing\subsection{0pt}{0pt}{0pt}
 \titlespacing\subsubsection{0pt}{0pt}{0pt}
-
-
 
 \setlength{\headheight}{40pt}
 
@@ -61,42 +71,49 @@
 \begin{document}
 \lhead{Neimhin Robinson Gunning} \rhead{CS7NS1 Assignment 3} 
 
-% TODO: declaration?
-% \begin{tcolorbox}[colback=light-blue]
-% \begin{small} \textbf{DECLARATION:} I understand that this is an
-% \textbf{individual} assessment and that collaboration is not permitted.
-% I have read, understand and agree to abide by the plagiarism provisions
-% in the General Regulations of the University Calendar for the current
-% year, found at http://www.tcd.ie/calendar. I understand that by returning
-% this declaration with my work, I am agreeing with the above statement.
-% \end{small} 
-% \end{tcolorbox}
-
 \bigskip{}
 
-\section{Key Technical Take-Aways}
+\section{Key Technical Insights}
 
-1. Unconditionally secure encryption algorithms exist and are conceptually quite simple, but have properties that make them impractical in a lot of scenarios. The one-time pad is an example; it requires out-of-band distribution of a secret key which must be as long as or longer than the messages to be sent, and can only be used once while maintaining unconditional security. For various reasons the more common type of encryption in use relies on computational security, i.e. encryption that can be reversed by an attacker but is assumed to require prohibitively large computations to crack.
-The security of the one-time pad is more rigorously proven and can used in conjunction with Quantum Key Distribution.
+\kti The entropy of an information source,
+representing the expected value of its Shannon information content,
+directly correlates to the efficiency of optimal compression systems.
+As uncompressed string length increases,
+the average bits required for encoding approaches the source's entropy,
+under the assumption of encoding individual symbols.
 
-2. The entropy of an information source is the expected value of the Shannon information content of samples from that information source, and this quantity is directly related the best possible compression system for the information source. More precisely, as the length of the uncompressed string goes to infinity, the average number of bits needed to optimally encode symbols from the information source goes to the entropy of the information source. This relationship holds when we assume that each codeword in the compression system encodes as single symbol, not a sequence of symbols.
-
-3. The Slepian and Wolf result shows us that when we
-want to compress to distinct but correlated information
+\kti The Slepian and Wolf result shows us that when we
+want to compress two distinct but correlated information
 sources we can use information from one of the sources
 to reduce the number of bits needed to encode the second source.
 
-4. A Nash equilibrium represents each player's best response to the given set of strategies of the other palyers.
-It does not necessarily correspond to the optimal outcome for all players involved -- it is a state of mutual best response, not necessarily a state of optimal collective payoff.
+\kti Slepian-Wolf coding reveals
+that compressing two correlated information
+sources can be optimized by using
+information from one source to reduce the encoding bits needed for the other.
 
-5. The linking identity (1.9) in the main text relates the actual average code length of when applying a code $\kappa$ to a distribution
- $P$ to two important quantities; 1. The entropy of the true distribution $P$ being encoded, and 2. 
- The divergence of true distribution $P$ from the assumed distribution $Q$ to which the id-code is adapted, 
- $D(P||Q)$. While the linking identity is derived from other definitions in the text,
- it is also reasonable to use the linking identity as a definition of divergence,
- and derive the properties of divergence in the other direction.
+\kti A Nash equilibrium represents each player's best response
+to the given set of strategies of the other palyers.
+It does not necessarily correspond to the optimal outcome for all players involved
+-- it is a state of mutual best response, not necessarily a state of optimal collective payoff.
 
-6. Bits can be encoded as qubits, but qubits cannot be encoded as bits,
+\kti Unconditionally secure encryption,
+exemplified by the one-time pad,
+offers rigorous security but is impractical for widespread use due to key distribution challenges and single-use limitations.
+Conversely, computational security, though less theoretically robust, is more feasible in common applications.
+Quantum Key Distribution (QKD) could make unconditionally secure methods like the one-time pad more practical.
+
+\section{Key Learnings}
+
+\kl The linking identity, Equation (1.9) in \cite{harremoës-2008}, relates the actual average code length when 
+a code $\kappa$ adapted to $Q$,
+is used to encode a source with distribution
+$P$ to two important quantities; 1. The entropy of the true distribution $P$ of the source being encoded, and 2. 
+The divergence of true distribution $P$ from the assumed distribution $Q$ to which the id-code is adapted, 
+$D(P||Q)$. While the text \cite{harremoës-2008} derives this identity from other assumptions,
+I find the linking identity to be a more intuitive definition of divergence.
+
+\kl Bits can be encoded as qubits, but qubits cannot be encoded as bits,
 presenting a challenge to the field of information theory where the bit is the fundamental unit.
 However, it can still be argued that the bit remains a valid fundamental unit in information theory.
 This is because a qubit's superposition state,
@@ -109,21 +126,171 @@ any information we can effectively obtain and communicate about the system is in
 This reality reinforces philosophically the bit as the basic unit of information epistemologically,
 even if the qubit does introduce a richer ontological structure.
 
-\section{Key Learnings}
+\kl The no-cloning theorem can be derived from
+requirement that quantum gates must be reversible,
+and it tells us that
+"quantum information cannot be created, copied, or destroyed".
+The no-cloning theorem makes the classical repetition code
+(an encoding that facilitates error correction and/or detection)
+impossible for quantum information.
+Further, since quantum information is both
+susceptible to errors
+and liable to leak,
+the difficulty of error correction is one of the
+major obstacles in the development of useful quantum computation.
 
-\section{Quantum Error Correction since 2008}
+\kl Quantum computation has similarities to analog computation,
+such as the Difference Engine,
+or the way multiplication of continuous
+numbers can be encoded as the addition of two voltages in a circuit.
+When considering quantum computation as an
+actual tool for completing tasks
+it is important to remember that some advantages of quantum computation
+can already be offered by classical
+devices whose properties are
+easier to control.
+The great disadvantage of such devices is the inability to
+copy the information perfectly, whereas digital information can
+be copied and disseminated perfectly with an arbitrary degree of confidence.
+Work on achieving similar guarantees for continuous and quantum information is ongoing,
+but the challenge may be insurmountable.
+
+\kl Digital information makes sense in an entirely logical framework, i.e. detached from
+physical reality, but at the same time the tools of information theory allow us
+to create physical manifestations of digital information, in storage systems, in RF or acoustic signals,
+and then to protect that digital information to an arbitrary degree.
+I think the abstractness of digital information has been fundamental to enabling
+digital to scale to the point of eating the world.
+Harremoës and Topsøe claim that in "quantum information theory we have to perform a measurement before coding",
+i.e. are hands are tied more strictly to the physical reality.
+I think the lesson here is that quantum information theory provides {\em optimizations} for specific tasks,
+but digital information, being a touch more abstract, a touch less shackled to physical reality,
+has in fact led to it, thus far, being the weapon of choice for practical problems.
+
+\kl The maximum entropy principle has gives us a decision criterion for selecting
+a probability distribution when the true distribution is unknown,
+namely that we should choose
+the distribution such that the entropy w.r.t. any known data is maximized.
+Harremoës and Topsøe \cite[23]{harremoës-2008} introduce the idea in an interesting way;
+by constructing a game in which the optimal strategy
+for one of the players (Nature) turns out equivalent
+to applying the maximum entropy principle.
+The theatrical discussion \cite[24-25]{harremoës-2008}
+between the statistician and the information theorist
+has the information theorist implicitly applying the maximum
+entropy principle to select a probability distribution that maximizes entropy
+and hence {\em minimizes risk} of a high `cost', given all that is known.
+For me these two examples highlighted
+the dialectic between {\em discovery} and {\em invention} in mathematics.
+
+\kl We can never achieve perfect certainty that a message is received
+perfectly when sent through a channel, but we can engineer systems
+to guarantee arbitrarily high certainty depending on how much we are
+willing to sacrifice in latency, throughput, money etc.
+
+\kl We can already construct coding schemes that give maximum capacity
+with negligible error in the limit.
+Shannon constructed one to prove the second main theorem of information theory.
+But this is only in the limit,
+i.e. if we are going to send an infinitely long message,
+which I have never had any reason to do!
+One goal of modern coding scheme development,
+then, is to construct schemes that approach the capacity for practically short messages.
+However, another line of research seeks to construct coding schemes with tolerably non-negligible errors,
+but potentially higher capacity.
+
+\kl I think we are gradually gaining insight into compression as a form or requisite of intelligence
+(I’m thinking of GPTs as fancy text compressors which then miraculously mimic intelligence).
+Synthesizing this with the thought "data compression
+emphasizes structure" \cite[38]{harremoës-2008} we might benefit
+from looking at intelligence as the thing that identifies and encodes
+structure while intelligently discarding unstructure.
+
+
+\section{Applications of Quantum Information and Computation since 2008}
 A major challenge in practical application of quantum information theory
-is the instability of quantum systems, which means, for instance, that it is
+is the instability of quantum systems, which means, for instance,
+that it is
 very difficult to store a qubit for a long period of time.
 One of the avenues of research that is providing
 solutions to this problem is in Quantum Error Correction.
 As with classical bits, quantum bits are
 in practice susceptible to bit flips,
-e.g. if the state of qubit changes
+e.g. if the state of a qubit changes
 erroneously from \( \ket{0} \) to \( \ket{1} \).
 However, qubits are additionally susceptible to phase errors,
-e.g. a state like \( \alhpa\ket{0} + \beta\ket{1} \) changing to
-\( \alhpa\ket{0} - \beta\ket{1} \).
-\footfullcite{Devitt_2013}
+e.g. a state like \( \alpha\ket{0} + \beta\ket{1} \) changing to
+\( \alpha\ket{0} - \beta\ket{1} \).
+
+\begin{comment}
+The Deutsch-Jozsa \cite{deutsch-1992} algorithm was one of the first
+theoretical demonstrations of a quantum algorithm which
+can, in theory, solve specific problems exponentially faster than
+the best know contemporaneous classical algorithms.
+However, the Deutsch-Jozsa algorithm, like many other quantum algorithms,
+has requirements for coherent evolution of the system that prove
+very difficult to achieve in practice.
+\end{comment}
+
+Shor's prime factorization algorithm was published in 1997,
+and the first successful implementation only 4 years later in 2001 \cite{vandersypen-2001},
+and yet the algorithm still has not been applied
+to gain a practical speed increase compared to classical computers,
+so naturally a great deal of the energy and money
+going to into quantum research has been
+on incremental improvements to implementations.
+Unlike classical information,
+which was born fully fledged in Shannon's 1948 paper,
+the theoretical aspect of quantum computation is anchored to
+a much greater extent in empirical investigations and experimentation.
+Quantum information is realised in all physical systems,
+which is it why it is so attractive,
+but it means the theory doesn't progress independently of the empirics.
+I think quantum technological development is characterized by such
+double-edged swords, e.g. the no-cloning theorem
+is necessary for the security of quantum key distribution,
+but poses a huge challenge to reliable communication
+of quantum information in general.
+
+There are two main approaches to making progress on practical applications
+of quantum systems to information and computation problems:
+1. To design algorithms with lower coherence requirements,
+2. To design physical devices with better coherence guarantees.
+Progress on the algorithms side in relation to the
+variational eigenvalue solving was published in 2014 \cite{peruzzo-2014}.
+The technique has much lower requirements for coherence than
+the quantum phase estimation algorithm,
+and therefore made some computations newly feasible.
+However, sattelite-based entanglement distribution \cite{yin-2017},
+a landmark technology introduced in 2017,
+drastically increased practical coherence distance without a big increase in coherence time.
+
+There are very fresh reports that a team at AWS have improved
+quantum error correction 100-fold by separating out the
+different types of
+qubit flips and tackling them individually \cite{swayne-2023}.
+
+
+\cite{devitt-2013}
+
+Quantum Secure Direct Communication (QSDC) \cite{long-2017},
+unlike QKD, is a quantum cryptography
+technique that does not require the distribution of a shared secret key.
+To quote Long's salacious emphasis ``QSDC has become one hot research area'' in the decade following the 2008 publication of the chapter
+by Harremoës and Topsøe \cite{harremoës-2008}.
+
+
+Harremoës and Topsøe \cite[38]{harremoës-2008} noted that
+the {\em additivity conjecture} remained unproven in 2008,
+but that same year Smith and Yard \cite{smith-2008} published a counterexample to the conjecture,
+two quantum channels each with zero capacity, but when combined have non-zero capacity.
+The unsettling implication is that the capacity of a quantum channel does not fully describe
+its ability to transmit information.
+
+\section{Quantum Information and Computation from now until 2028}
+
+\setlength\bibitemsep{0.3\itemsep}
+\renewcommand{\bibfont}{\small}
+{\tiny \printbibliography}
 
 \end{document}
