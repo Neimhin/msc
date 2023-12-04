@@ -1,0 +1,32 @@
+10000	train:
+10000	15:    accuracy                           0.67
+10000	31:test:
+10000	45:    accuracy                           0.56
+1000	1:train:
+1000	15:    accuracy                           0.48
+1000	31:test:
+1000	45:    accuracy                           0.36
+10	1:train:
+10	12:    accuracy                           0.67
+10	25:test:
+10	39:    accuracy                           0.13
+20000	1:train:
+20000	15:    accuracy                           0.68
+20000	31:test:
+20000	45:    accuracy                           0.60
+30000	1:train:
+30000	15:    accuracy                           0.71
+30000	31:test:
+30000	45:    accuracy                           0.65
+40000	1:train:
+40000	15:    accuracy                           0.72
+40000	31:test:
+40000	45:    accuracy                           0.67
+50000	1:train:
+50000	15:    accuracy                           0.75
+50000	31:test:
+50000	45:    accuracy                           0.70
+5000	1:train:
+5000	15:    accuracy                           0.60
+5000	31:test:
+5000	45:    accuracy                           0.49

@@ -1,33 +1,38 @@
 \relax 
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces A 200x200 RGB image (top left) has green and blue channels removed resulting in a grayscale image (top right). The image is convolved with two kernels, $k_{1}$ (bottom left), and $k_{1}$ (bottom right).}}{1}{}\protected@file@percent }
-\newlabel{fig:A-200x200-RGB}{{1}{1}}
 \@writefile{toc}{\contentsline {section}{\numberline {1}(i)}{1}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}(ii)}{1}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}(ii) (a) model layers, kernels, channels}{1}{}\protected@file@percent }
+\newlabel{eq:softmax}{{1}{1}}
+\newlabel{eq:out-proba}{{2}{1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}(ii) (b) (i)}{1}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces A 200x200 RGB image (top left) has green and blue channels removed resulting in a grayscale image (top right). The image is convolved with two kernels, $k_{1}$ (bottom left), and $k_{2}$ (bottom right).}}{2}{}\protected@file@percent }
+\newlabel{fig:A-200x200-RGB}{{1}{2}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Source code of a ConvNet keras model.}}{2}{}\protected@file@percent }
 \newlabel{fig:code}{{2}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}(ii) (b) (i)}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}(ii) (b) (ii)}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}(ii) (b) (iii)}{2}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces  A comparison of accuracy/loss on training/test data from epochs 1 to 20 when trained on 5K training samples with $L_1=0.001$.}}{3}{}\protected@file@percent }
 \newlabel{fig:iibii-acc-loss}{{3}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}(ii) (b) (iv)}{3}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}(ii) (c)}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}(ii) (b) (ii)}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}(ii) (b) (iii)}{3}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces  A comparison of accuracy/loss on training/test data from epochs 1 to 20 for different quantities of training data, 5K, 10K, 20K and 40K. Each model is trained with $L_1=0.001$.}}{4}{}\protected@file@percent }
 \newlabel{fig:iibiii-acc-loss}{{4}{4}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The amount of time needed to train the ConvNet for 20 epochs is plotted against thet number of training samples used. The relationship is linear. The strided architectures with different depths have similar training times, but the max-pooling architecture is significantly slower to train.}}{5}{}\protected@file@percent }
 \newlabel{fig:timing}{{5}{5}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Comparison of model performance with MaxPooling2D and stride=(2,2), both using $L_1=0.0001$ and 5K training samples.}}{5}{}\protected@file@percent }
-\newlabel{tab:max-pool-vs-stride}{{1}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}(ii) (d)}{5}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.8}(ii) (d)}{5}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces A comparison of accuracy/loss on training/test data from epochs 1 to 20 for different $L_1$ regularization terms, $0.0,0.00001,0.01,1000$. Each model is trained on 20K training samples.}}{6}{}\protected@file@percent }
-\newlabel{fig:iibiv-acc-loss}{{6}{6}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Accuracies for different neural network configurations over a dataset of 50,000 samples with $L_1$ regularization of 0.0001 and 20 epochs. MP means max-pooling, and the number of modules are shown. The third max pooling module has 64 filters, the fourth has 128 filters. }}{7}{}\protected@file@percent }
-\newlabel{tab:d-acc}{{2}{7}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Time to train 20 epochs on 50000 samples with deeper and deeper max-pool architectures.}}{7}{}\protected@file@percent }
-\newlabel{tab:d-time}{{3}{7}}
-\newlabel{LastPage}{{}{7}}
-\xdef\lastpage@lastpage{7}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}(ii) (b) (iv)}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}(ii) (c)}{5}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces  A comparison of accuracy on the train and test sets for different sizes of training data, 10, 1K, 5K, 10K, 20K, 40K, and 50K.}}{6}{}\protected@file@percent }
+\newlabel{fig:size-v-acc}{{6}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces  A comparison of accuracy on the train and test sets for different $L_1$ regularization weights. The model is trained on 20K samples.}}{6}{}\protected@file@percent }
+\newlabel{fig:l1-v-acc}{{7}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces A comparison of accuracy/loss on training/test data from epochs 1 to 20 for different $L_1$ regularization terms, $0.0,0.00001,0.01,1000$. Each model is trained on 20K training samples.}}{7}{}\protected@file@percent }
+\newlabel{fig:iibiv-acc-loss}{{8}{7}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Comparison of model performance with MaxPooling2D and stride=(2,2), both using $L_1=0.0001$ and 5K training samples.}}{8}{}\protected@file@percent }
+\newlabel{tab:max-pool-vs-stride}{{1}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}(ii) (d)}{8}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Accuracies for different neural network configurations over a dataset of 50,000 samples with $L_1$ regularization of 0.0001 and 20 epochs. MP means max-pooling, and the number of modules are shown. The third max pooling module has 64 filters, the fourth has 128 filters. }}{8}{}\protected@file@percent }
+\newlabel{tab:d-acc}{{2}{8}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Time to train 20 epochs on 50000 samples with deeper and deeper max-pool architectures.}}{8}{}\protected@file@percent }
+\newlabel{tab:d-time}{{3}{8}}
+\newlabel{LastPage}{{}{9}}
+\xdef\lastpage@lastpage{9}
 \gdef\lastpage@lastpageHy{}
-\gdef \@abspage@last{7}
+\gdef \@abspage@last{9}
