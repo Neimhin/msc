@@ -1,5 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import flask
+import os
 import pandas as pd
 
 app = Flask(__name__)
@@ -12,10 +13,15 @@ data = {
 }
 df = pd.DataFrame(data)
 
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'flags.jpg', mimetype='image/jpeg')
+
 @app.route('/' ,methods=['GET'])
 def index():
     return flask.render_template('index.html')
-
 
 @app.route('/col', methods=['GET'])
 def get_data():
@@ -48,7 +54,6 @@ def new_adjacency_matrix():
             matrix[j][i] = v
 
     return jsonify(matrix)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
