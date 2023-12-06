@@ -1,0 +1,9 @@
+[0] Config.pm:306> INFO - This is Biber 2.18
+[0] Config.pm:309> INFO - Logfile is 'report.blg'
+[56] biber:340> INFO - === Sat Dec  2, 2023, 15:40:47
+[66] Biber.pm:418> INFO - Reading 'report.bcf'
+[112] Biber.pm:978> INFO - Found 0 citekeys in bib section 0
+[121] bbl.pm:654> INFO - Writing 'report.bbl' with encoding 'UTF-8'
+[121] bbl.pm:757> INFO - Output to report.bbl
+[121] Biber.pm:130> WARN - The file 'report.bcf' does not contain any citations!
+[121] Biber.pm:132> INFO - WARNINGS: 1

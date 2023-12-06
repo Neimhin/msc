@@ -1,0 +1,81 @@
+%% LyX 2.3.6 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[10pt]{article}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\geometry{verbose,tmargin=2cm,bmargin=4cm,lmargin=2cm,rmargin=2cm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\usepackage{tcolorbox}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{todonotes}
+\usepackage{graphicx}
+\usepackage[backend=biber,maxbibnames=99]{biblatex}
+\addbibresource{main.bib}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% A simple dot to overcome graphicx limitations
+\newcommand{\lyxdot}{.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{accents}
+\usepackage{titlesec}
+\usepackage{marginnote}
+\usepackage{titlesec}
+\titleformat{\section}[block]{\normalfont\bfseries}{}{0em}{}
+
+
+\usepackage{enumitem}
+\usepackage{comment}
+\setlist{nolistsep}
+
+\usepackage{tcolorbox}
+\definecolor{light-blue}{cmyk}{0.24, 0.12, 0.0, 0.04, 1.00}
+\titlespacing\section{0pt}{0pt}{0pt}
+\titlespacing\subsection{0pt}{0pt}{0pt}
+\titlespacing\subsubsection{0pt}{0pt}{0pt}
+
+\setlength{\headheight}{40pt}
+
+\makeatother
+
+\begin{document}
+\lhead{Neimhin Robinson Gunning} \rhead{CS7CS4 Final Assignment} 
+
+\subsection{Engineering a ``usage'' feature}
+The dublin bike dataset used for this analysis consists
+of snapshots of station occupancy at five-minute intervals.
+Because of this it is not possible to determin from the
+dataset the exact number of times bikes have been
+returned to or taken from a station.
+We can look at the difference in bike occupancy at the
+beginning and end of a five minute interval to establish
+a {\em lower-bound} on the number of interactions with
+the station, but it is possible for there to have been
+more interactions (returns or borrowings) than this difference.
+For instance, it may be that a bike station has 10 bikes at time $t$
+and 10 bikes at time $t+5\text{m}$, but that in fact 5 bikes were
+borrowed and 5 bikes were deposited.
+
+But, we can detect such cases, because the dataset also includes a
+\textsc{last updated} field. If the occupancy is not changed, but 
+the time of last update is between the start and end of the interval,
+then we know that there were at least 2 interactions with the bike station.
+
+\bigskip{}
+\printbibliography
+\end{document}
