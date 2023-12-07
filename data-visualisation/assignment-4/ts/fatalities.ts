@@ -17,7 +17,7 @@ interface Fatality {
     ammunition: string;
     killed_by: string;
     notes: string;
-    parsed_date: null|Date;
+    parsed_date: Date;
 }
 
 function on_response(response) {
@@ -27,61 +27,94 @@ function on_response(response) {
     return response.json()
 }
 
+function assert_non_null<T>(item: T|null): T {
+    if(item === null) {
+        throw new Error("found null item");
+    }
+    return item as T;
+}
+
+function parse_date(str: string): Date {
+    return assert_non_null(d3.timeParse("%Y-%m-%d")(str))
+}
+
+function createThresholds(startDate: Date, endDate: Date, days: number) {
+    const thresholds = [startDate];
+    let currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+        currentDate = new Date(currentDate.getTime() + days * 86400000); // Add 'days' days
+        thresholds.push(currentDate);
+    }
+    return thresholds;
+}
+
 function on_data(data: [Fatality]){
     console.log(data)
     d3.select("#fatalities-1").selectAll("*").remove()
     const width = 500;
     const height = 300;
-    const margin = {top: 10, right: 30, bottom: 30, left: 40};
-    data.forEach(d => d.parsed_date = d3.timeParse("%Y-%m-%d")(d.date_of_event));
+    const margin = {top: 50, right: 30, bottom: 30, left: 40};
+    data.forEach(d => d.parsed_date = parse_date(d.date_of_death));
     data.sort((a, b) => a.parsed_date - b.parsed_date);
+    const israeli_deaths = data.filter(d => d.citizenship === "Israeli");
+    const palestinian_deaths = data.filter(d => d.citizenship === "Palestinian")
 
     const svg = d3.select('#fatalities-1')
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const dateRange = d3.extent(data, d => d.parsed_date );
 
     const x = d3.scaleTime()
-        .domain(d3.extent(data, d => d.parsed_date))
+        .domain(dateRange)
         .range([0, width - margin.left - margin.right]);
 
     const xAxis = svg.append("g")
         .attr("transform", `translate(0,${margin.top})`)
-        .call(d3.axisTop(x));
 
-    const histogram = d3.histogram()
+    const thresholds = createThresholds(dateRange[0],dateRange[1], 14)
+    const histogram = d3.bin()
         .value(d => d.parsed_date)
         .domain(x.domain())
-        .thresholds(x.ticks(d3.timeDay.every(100)));
-    
+        .thresholds(thresholds)
 
-    const bins = histogram(data);
-    
+    const israeli_bins = histogram(israeli_deaths);
+    const palestinian_bins = histogram(palestinian_deaths)
+
     const y = d3.scaleLinear()
         .range([height - margin.top - margin.bottom, 0])
-        .domain([d3.max(bins, d => d.length), 0]);
-    
-    // const yAxis = svg.append("g")
-    //    .call(d3.axisLeft(y));
+        // use the max of both israeli and palestinian deaths so both are on the same scale
+        .domain([d3.max(histogram(data), d => d.length), 0]);
+
+    function bin_width(d) {
+        return Math.max(0, x(d.x1) - x(d.x0));
+    }
 
     svg.selectAll("rect")
-        .data(bins)
+        .data(israeli_bins)
         .enter()
         .append("rect")
-        .attr("x", d => x(d.x0) + 1)
+        .attr("x", d => x(d.x0))
         .attr("y", d => margin.top)
-        .attr("width", d => {
-            const width = Math.max(0, x(d.x1) - x(d.x0));
-            console.log(width)
-            return width
-        })
+        .attr("width", d => bin_width(d))
         .attr("height", d => y(d.length))
-        .style("fill", "#69b3a2");
+        .style("fill", "#0038b8");
+
+    svg.selectAll(".palestinian-rect")
+        .data(palestinian_bins)
+        .enter()
+        .append("rect")
+        .attr("class", "palestinian-rect")
+        .attr("x", d => x(d.x0))
+        .attr("y", d => margin.top - y(d.length))
+        .attr("width", d => bin_width(d))
+        .attr("height", d => y(d.length))
+        .style("fill", "#EE2A35");
 
 }
-
 
 fetch('/static/json/fatalities.json')
     .then(on_response)
