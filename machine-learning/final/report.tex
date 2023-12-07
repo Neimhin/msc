@@ -54,8 +54,9 @@
 \makeatother
 
 \begin{document}
-\lhead{Neimhin Robinson Gunning} \rhead{CS7CS4 Final Assignment} 
+\lhead{Neimhin Robinson Gunning} \rhead{CS7CS4 Final Assignment}
 
+\section{DublinBike Usage}
 \subsection{Engineering a ``usage'' feature}
 The dublin bike dataset used for this analysis consists
 of snapshots of station occupancy at five-minute intervals.
@@ -75,6 +76,51 @@ But, we can detect such cases, because the dataset also includes a
 \textsc{last updated} field. If the occupancy is not changed, but 
 the time of last update is between the start and end of the interval,
 then we know that there were at least 2 interactions with the bike station.
+
+\section{Short Questions}
+The name Receiver Operating Characteristic (ROC) is not very enlightening as to what an ROC curve is.
+
+Often, a binary classifier consists of a function $c:X\rightarrow [0,1]$ which maps an input $x\in X$ to a the
+probability that $x$ belongs to either of the classes. We can use this probability to make
+a more concrete classification decision by selecting a threshold $\alpha$. For example:
+\begin{equation}
+\hat y(x)=
+    \begin{cases}
+        1 & \text{if } c(x) > \alpha, \\
+        0 & \text{otherwise}
+    \end{cases}
+\end{equation}
+Our choice of $\alpha$ changes the ultimate classification decisions.
+For each choice of $\alpha$ we can calculate the True Positive Rate and False Positive Rate
+of the classifier on a test data set, therefore we implicitly have a function $f:[0,1]\rightarrow \mathbb{R}^2$.
+An ROC curve is a plot of the output values of this function $f$, i.e. the ROC plot generally does not
+encode $\alpha$, only the output points $(\text{FPR},\text{TPR})$, so we
+visualise the function $f$ as if it were a function $g:\text{FPR}\rightarrow \text{TPR}$.
+
+\begin{equation}
+    \begin{aligned}
+        \text{TPR} & = \frac{\text{TP}}{\text{P}} & & \text{FPR} & = \frac{\text{FP}}{\text{N}}
+    \end{aligned}
+\end{equation}
+
+The ROC curve $g$ will be monotone increasing from $0$ to $1$, but not smooth.
+The `steps'
+in an ROC curve occur where a small change in $\alpha$ result
+in a change in classification of a single data point.
+
+If the test set is fair then a `coin-flip' classifier, that just makes a random
+classification for each input, will have an ROC curve approximating the line from $(0,0)$ to $(1,1)$,
+with more data points giving a closer approximation. In this way the ROC curve lets you
+implicitly compare a binary classifier to a `coin-flip` classifier.
+
+In general a classifier is better if the area under the ROC curve is greater, where the maximum area is 1.
+Being reductionist, this means that a classifier is better if it's ROC curve gets closer to the point the $(0,1)$.
+
+If the cost of different types of errors (false positive, false negative) are significantly
+different for the particular use-case, or if the dataset is imbalanced,
+then an ROC curve can be more illuminating than a reductionist accuracy metric
+for evaluating whether specific requirements are being met, and it can be used to
+search for the threshold $\alpha$ which balances the requirements of the task most appropriately.
 
 \bigskip{}
 \printbibliography
