@@ -63,18 +63,19 @@ function ms_to_days(ms: number): number {
 }
 
 function on_data(data: [Fatality]){
-    console.log(data)
-    d3.select("#fatalities-1").selectAll("*").remove()
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const margin = {top: 300, right: 30, bottom: 30, left: 40};
+    d3.select("#vis").selectAll("*").remove()
+    const width = window.innerWidth * 0.9;
+    const height = Number(window.innerHeight) * 0.95;
+    const margin = {top: 200, right: 20, bottom: 20, left: 20};
+    const histogram_center = 300;
+    const histogram_height = 100;
     data.forEach(d => d.parsed_date = parse_date(d.date_of_death));
     data.sort((a, b) => a.parsed_date - b.parsed_date);
     const israeli_deaths = data.filter(d => d.citizenship === "Israeli");
     const palestinian_deaths = data.filter(d => d.citizenship === "Palestinian")
 
 
-    const svg = d3.select('#fatalities-1')
+    const svg = d3.select('#vis')
     .append('svg')
     .attr('width', width)
     .attr('height', height)
@@ -83,7 +84,7 @@ function on_data(data: [Fatality]){
 
     const scrubber = svg.append('rect')
         .attr('x', 0)
-        .attr('y', margin.top)
+        .attr('y', histogram_center)
         .attr('width', config.scrubber.width)
         .attr('height', config.scrubber.height)
         .attr('opacity',0.3)
@@ -125,7 +126,6 @@ function on_data(data: [Fatality]){
         const real_x = d3.max([0,x_val]);
         const subtraction_left = d3.min([x_val,0]);
         const width = d3.min([config.scrubber.width,histogram_width-real_x]) + subtraction_left;
-        console.log(new Date(currentDate),x_val, real_x, width, subtraction_left)
         scrubber
             .attr('x', real_x)
             .attr('width', width)
@@ -143,8 +143,10 @@ function on_data(data: [Fatality]){
     const israeli_bins = histogram(israeli_deaths);
     const palestinian_bins = histogram(palestinian_deaths)
 
-    const y = d3.scaleLinear()
-        .range([height - margin.top - margin.bottom, 0])
+    const y_range = height - margin.top - margin.bottom;
+
+    const rect_height = d3.scaleLinear()
+        .range([histogram_height,0])
         // use the max of both israeli and palestinian deaths so both are on the same scale
         .domain([d3.max(histogram(data), d => d.length), 0]);
 
@@ -157,9 +159,9 @@ function on_data(data: [Fatality]){
         .enter()
         .append("rect")
         .attr("x", d => x(d.x0))
-        .attr("y", d => margin.top + config.scrubber.height)
+        .attr("y", d => histogram_center + config.scrubber.height)
         .attr("width", d => bin_width(d))
-        .attr("height", d => y(d.length))
+        .attr("height", d => rect_height(d.length))
         .style("fill", "#0038b8");
 
     svg.selectAll(".palestinian-rect")
@@ -168,9 +170,9 @@ function on_data(data: [Fatality]){
         .append("rect")
         .attr("class", "palestinian-rect")
         .attr("x", d => x(d.x0))
-        .attr("y", d => margin.top - y(d.length))
+        .attr("y", d => histogram_center - rect_height(d.length))
         .attr("width", d => bin_width(d))
-        .attr("height", d => y(d.length))
+        .attr("height", d => rect_height(d.length))
         .style("fill", "#EE2A35");
 
 }
