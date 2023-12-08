@@ -1,4 +1,9 @@
-console.log("ok")
+const config = {
+    scrubber: {
+        height: 5,
+        width: 10,
+    }
+}
 
 interface Fatality {
     name: string;
@@ -38,7 +43,7 @@ function parse_date(str: string): Date {
     return assert_non_null(d3.timeParse("%Y-%m-%d")(str))
 }
 
-function createThresholds(startDate: Date, endDate: Date, days: number) {
+function create_thresholds(startDate: Date, endDate: Date, days: number) {
     const thresholds = [startDate];
     let currentDate = new Date(startDate);
     while (currentDate <= endDate) {
@@ -48,16 +53,25 @@ function createThresholds(startDate: Date, endDate: Date, days: number) {
     return thresholds;
 }
 
+function days_to_ms(days: number): number{
+    return days * days_to_ms.factor;
+}
+days_to_ms.factor = 24 * 60 * 60 * 1000;
+function ms_to_days(ms: number): number {
+    return ms / days_to_ms.factor
+}
+
 function on_data(data: [Fatality]){
     console.log(data)
     d3.select("#fatalities-1").selectAll("*").remove()
-    const width = 500;
-    const height = 300;
-    const margin = {top: 50, right: 30, bottom: 30, left: 40};
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const margin = {top: 300, right: 30, bottom: 30, left: 40};
     data.forEach(d => d.parsed_date = parse_date(d.date_of_death));
     data.sort((a, b) => a.parsed_date - b.parsed_date);
     const israeli_deaths = data.filter(d => d.citizenship === "Israeli");
     const palestinian_deaths = data.filter(d => d.citizenship === "Palestinian")
+
 
     const svg = d3.select('#fatalities-1')
     .append('svg')
@@ -66,16 +80,42 @@ function on_data(data: [Fatality]){
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
+    const scrubber = svg.append('rect')
+        .attr('x', 0)
+        .attr('y', margin.top)
+        .attr('width', config.scrubber.width)
+        .attr('height', config.scrubber.height)
+        .attr('opacity',0.3)
+        .attr('stroke', 'white  ');
+
     const dateRange = d3.extent(data, d => d.parsed_date );
+    const totalMilliseconds = dateRange[1].getTime() - dateRange[0].getTime()
+    const totalDays = ms_to_days(totalMilliseconds);
+    const histogram_width = width - margin.left - margin.right;
+    const pixelsPerDay = histogram_width / totalDays;
+    const daysPerSecond = 365;
+    const daysPerMillisecond = daysPerSecond / 1000;
+    const animationDuration = (totalDays/daysPerMillisecond);
+    const framesPerSecond = 60;
+    const pixelsPerTick = pixelsPerDay * daysPerSecond / framesPerSecond;
 
     const x = d3.scaleTime()
         .domain(dateRange)
-        .range([0, width - margin.left - margin.right]);
+        .range([0, histogram_width]);
+
+    d3.interval(elapsed=>{
+        console.log(elapsed, totalMilliseconds);
+        const looped_epoch_time = (elapsed * days_to_ms(daysPerMillisecond)) % totalMilliseconds;
+        const currentDate = new Date(dateRange[0].getTime() + looped_epoch_time);
+        const newX = x(currentDate);
+        scrubber.attr('x', newX);
+        console.log(newX);
+    },1000/framesPerSecond)
 
     const xAxis = svg.append("g")
         .attr("transform", `translate(0,${margin.top})`)
 
-    const thresholds = createThresholds(dateRange[0],dateRange[1], 14)
+    const thresholds = create_thresholds(dateRange[0],dateRange[1], 14)
     const histogram = d3.bin()
         .value(d => d.parsed_date)
         .domain(x.domain())
@@ -98,7 +138,7 @@ function on_data(data: [Fatality]){
         .enter()
         .append("rect")
         .attr("x", d => x(d.x0))
-        .attr("y", d => margin.top)
+        .attr("y", d => margin.top + config.scrubber.height)
         .attr("width", d => bin_width(d))
         .attr("height", d => y(d.length))
         .style("fill", "#0038b8");
