@@ -1,9 +1,10 @@
 const config = {
     scrubber: {
         height: 5,
-        width: 10,
+        width: 300,
     }
 }
+
 
 interface Fatality {
     name: string;
@@ -93,8 +94,9 @@ function on_data(data: [Fatality]){
     const totalDays = ms_to_days(totalMilliseconds);
     const histogram_width = width - margin.left - margin.right;
     const pixelsPerDay = histogram_width / totalDays;
-    const daysPerSecond = 365;
+    const daysPerSecond = 365 * 5;
     const daysPerMillisecond = daysPerSecond / 1000;
+    const millisecondsPerMillisecond = days_to_ms(daysPerMillisecond);
     const animationDuration = (totalDays/daysPerMillisecond);
     const framesPerSecond = 60;
     const pixelsPerTick = pixelsPerDay * daysPerSecond / framesPerSecond;
@@ -103,13 +105,30 @@ function on_data(data: [Fatality]){
         .domain(dateRange)
         .range([0, histogram_width]);
 
+    const padding_time = widthToMilliseconds(config.scrubber.width);
+    const scrub_x = d3.scaleTime()
+        .domain([dateRange[0].getTime() - padding_time,dateRange[1].getTime()])
+        .range([-config.scrubber.width, histogram_width])
+        .clamp(false);
+
+    function widthToMilliseconds(widthInPixels: number) {
+        const oneDayPixelValue = x(new Date(dateRange[0].getTime() + days_to_ms(1)));
+        const days = widthInPixels / oneDayPixelValue;
+        return days * (1000 / daysPerMillisecond);
+    }
+
     d3.interval(elapsed=>{
-        console.log(elapsed, totalMilliseconds);
-        const looped_epoch_time = (elapsed * days_to_ms(daysPerMillisecond)) % totalMilliseconds;
-        const currentDate = new Date(dateRange[0].getTime() + looped_epoch_time);
-        const newX = x(currentDate);
-        scrubber.attr('x', newX);
-        console.log(newX);
+        const totalWidthMilliseconds = (totalMilliseconds + padding_time)
+        const looped_epoch_time = (elapsed * millisecondsPerMillisecond) % totalWidthMilliseconds;
+        const currentDate = dateRange[0].getTime() - padding_time + looped_epoch_time;
+        const x_val = scrub_x(currentDate);
+        const real_x = d3.max([0,x_val]);
+        const subtraction_left = d3.min([x_val,0]);
+        const width = d3.min([config.scrubber.width,histogram_width-real_x]) + subtraction_left;
+        console.log(new Date(currentDate),x_val, real_x, width, subtraction_left)
+        scrubber
+            .attr('x', real_x)
+            .attr('width', width)
     },1000/framesPerSecond)
 
     const xAxis = svg.append("g")
