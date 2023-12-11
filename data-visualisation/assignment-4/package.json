@@ -1,6 +1,8 @@
 {
   "devDependencies": {
-    "@types/d3": "^7.4.3",
     "@types/p5": "^1.7.4"
+  },
+  "dependencies": {
+    "@types/d3": "^6.7.8"
   }
 }
