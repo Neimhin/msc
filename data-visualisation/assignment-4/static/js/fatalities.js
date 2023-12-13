@@ -1,9 +1,11 @@
 const config = {
+    debug: true,
     test: true,
     scrubber: {
+        paused: false,
         height: 5,
         width: 300,
-        width_real_ms: 12000,
+        width_real_ms: 1000,
     }
 };
 const ISRAELI_BLUE = "#0038b8";
@@ -88,6 +90,7 @@ const debug = {
     }
 };
 export function on_data(data) {
+    var _a, _b;
     d3.select("#vis").selectAll("*").remove();
     const width = window.innerWidth * 0.9;
     const height = Number(window.innerHeight) * 0.95;
@@ -106,6 +109,7 @@ export function on_data(data) {
         const yPosition = Math.random() * scatterPlotArea.height + scatterPlotArea.y;
         // Append a new circle to the SVG for each data item
         svg.append("circle")
+            .attr("class", "fatality")
             .attr("cx", xPosition)
             .attr("cy", yPosition)
             .attr("r", 5)
@@ -116,11 +120,11 @@ export function on_data(data) {
             if (d.citizenship === "Palestinian")
                 return PALESTINIAN_RED;
             return 'white';
-        })
-            .transition()
-            .duration(config.scrubber.width_real_ms)
-            .style("opacity", 0)
-            .remove(); // remove the circle after the transition
+        });
+        // .transition()
+        // .duration(config.scrubber.width_real_ms)
+        // .style("opacity", 0)
+        // .remove();  // remove the circle after the transition
     }
     const noon_time_to_fatalities = new Map();
     data.forEach(d => {
@@ -145,13 +149,37 @@ export function on_data(data) {
         .attr('height', height)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
+    // Function to handle pause button click
+    function onPauseClicked() {
+        config.scrubber.paused = !config.scrubber.paused;
+        console.log('paused:', config.scrubber.paused);
+    }
+    const pauseButton = svg.append('g')
+        .attr('class', 'pause-button')
+        .attr('cursor', 'pointer')
+        .on('click', onPauseClicked); // Attach click callback
+    // Add the pause button shape (for example, a square)
+    pauseButton.append('rect')
+        .attr('x', 10) // Adjust position as needed
+        .attr('y', 10) // Adjust position as needed
+        .attr('width', 30) // Adjust size as needed
+        .attr('height', 30) // Adjust size as needed
+        .attr('fill', 'red'); // Color for the pause button, change as desired
+    // Add a text label to the pause button (optional)
+    pauseButton.append('text')
+        .attr('x', 25) // Adjust position as needed
+        .attr('y', 30) // Adjust position as needed
+        .attr('text-anchor', 'middle')
+        .attr('fill', 'white')
+        .text('Pause'); // Text for the button, change as desired
+    data.forEach(addToScatterPlot);
     const dateRange = d3.extent(data, d => d.parsed_date);
     const time_zero = dateRange[0].getTime();
     const totalMilliseconds = dateRange[1].getTime() - time_zero;
     const totalDays = ms_to_days(totalMilliseconds);
     const histogram_width = width - margin.left - margin.right;
     const pixelsPerDay = histogram_width / totalDays;
-    const daysPerSecond = 100; // 365 * 5;
+    const daysPerSecond = 365 / 2;
     const days_data_per_ms_real = daysPerSecond / 1000;
     const ms_data_per_ms_real = days_to_ms(days_data_per_ms_real);
     const animationDuration = (totalDays / days_data_per_ms_real);
@@ -168,18 +196,74 @@ export function on_data(data) {
         .attr('width', config.scrubber.width)
         .attr('height', config.scrubber.height)
         .attr('opacity', 0.3)
-        .attr('stroke', 'white  ');
+        .attr('stroke', 'white')
+        .call(d3.drag() // Apply drag behavior
+        .on('start', dragStarted)
+        .on('drag', dragging)
+        .on('end', dragEnded));
+    // Functions to handle drag events
+    function dragStarted(event, d) {
+        // Handle the start of the drag event
+        config.scrubber.paused = true;
+        console.log('Drag started!');
+    }
     const padding_time = real_ms_to_data_ms(config.scrubber.width_real_ms);
     const scrub_x = d3.scaleTime()
         .domain([time_zero - padding_time, dateRange[1].getTime()])
         .range([-config.scrubber.width, histogram_width])
         .clamp(false);
+    console.log(scrub_x.domain());
+    const r = [time_zero - padding_time, dateRange[1].getTime()];
+    console.log(real_ms_to_data_ms(totalMilliseconds), r, r.map(Date));
+    const max_real_ms = data_ms_to_real_ms(((_a = dateRange[1]) === null || _a === void 0 ? void 0 : _a.getTime()) - ((_b = dateRange[0]) === null || _b === void 0 ? void 0 : _b.getTime()));
+    const scrub_x_real_ms = d3.scaleLinear()
+        .domain([0, histogram_width])
+        .range([0, max_real_ms])
+        .clamp(false);
+    function dragging(event, d) {
+        const newX = event.x;
+        let elapsed_real_ms = scrub_x_real_ms(newX);
+        if (elapsed_real_ms < 0) {
+            elapsed_real_ms = max_real_ms + elapsed_real_ms;
+        }
+        looped_epoch_time = (elapsed_real_ms * ms_data_per_ms_real) % totalWidthMilliseconds;
+        current_time_right_ms = time_zero + looped_epoch_time;
+        current_time_left_ms = current_time_right_ms - padding_time;
+        const x_val = scrub_x(current_time_left_ms);
+        console.log(x_val - newX);
+        const real_x = d3.max([0, x_val]) || 0;
+        const subtraction_left = d3.min([x_val, 0]) || 0;
+        const width = d3.min([config.scrubber.width, histogram_width - real_x]) + subtraction_left;
+        scrubber
+            .attr('x', real_x)
+            .attr('width', width);
+        update_scatter();
+        if (config.debug) {
+            // Add a circle at the dragged position
+            svg.append("circle")
+                .attr("cx", newX)
+                .attr("cy", 50) // Adjust the y-position as needed
+                .attr("r", 5)
+                .attr("fill", "red")
+                .transition()
+                .duration(1000) // Disappear over 1 second
+                .style("opacity", 0)
+                .remove();
+        }
+    }
+    function dragEnded(event, d) {
+        // config.scrubber.paused = false;
+        update_scatter();
+    }
     const totalWidthMilliseconds = totalMilliseconds + padding_time;
-    function widthToMilliseconds(widthInPixels) {
-        const oneDayPixelValue = x(new Date(time_zero + days_to_ms(1)));
+    function width_to_ms_data(widthInPixels) {
+        const oneDayPixelValue = scrub_x(new Date(time_zero + days_to_ms(1)));
         const days = widthInPixels / oneDayPixelValue;
         return days * (1000 / days_data_per_ms_real);
     }
+    // function width_to_ms_real(width: number) {
+    //     const one_day_in_pixels =
+    // }
     function data_ms_to_width(data_ms) {
         const one_day_in_pixels = x(new Date(time_zero + days_to_ms(1)));
         const one_ms_in_pixels = one_day_in_pixels / ONE_DAY_MS;
@@ -191,26 +275,58 @@ export function on_data(data) {
     function real_ms_to_data_ms(ms_real) {
         return ms_real * ms_data_per_ms_real;
     }
-    let elapsed_last = 0;
-    function histogram_tick(elapsed) {
-        const elapsed_diff = elapsed - elapsed_last;
-        const looped_epoch_time = (elapsed * ms_data_per_ms_real) % totalWidthMilliseconds;
-        const current_time_right_ms = time_zero + looped_epoch_time;
-        const current_time_left_ms = current_time_right_ms - padding_time;
-        const scenario_elapsed = real_ms_to_data_ms(elapsed_diff);
-        const new_data_interval = new TimeInterval(current_time_right_ms, scenario_elapsed);
-        const new_data = interval_to_data(noon_time_to_fatalities, new_data_interval);
-        new_data.forEach(d => {
-            addToScatterPlot(d);
+    function data_ms_to_real_ms(ms_data) {
+        return ms_data / ms_data_per_ms_real;
+    }
+    if (config.test) {
+        const real_ms = 1000;
+        const data_ms = real_ms_to_data_ms(real_ms);
+        const out = data_ms_to_real_ms(data_ms);
+        if (real_ms !== out) {
+            throw new Error("inverse ms broken ${in} ${out}");
+        }
+    }
+    const opacity_scale = d3.scaleLinear()
+        .domain([real_ms_to_data_ms(config.scrubber.width_real_ms), 0])
+        .range([0, 1]);
+    let elapsed_real_ms_last = 0;
+    let elapsed_real_ms_virtual = 0;
+    let elapsed_real_ms_diff = 0;
+    let looped_epoch_time = (elapsed_real_ms_virtual * ms_data_per_ms_real) % totalWidthMilliseconds;
+    let current_time_right_ms = time_zero + looped_epoch_time;
+    let current_time_left_ms = current_time_right_ms - padding_time;
+    function update_scatter() {
+        // const scenario_elapsed = real_ms_to_data_ms(elapsed_diff);
+        // const new_data_interval = new TimeInterval(current_time_right_ms, scenario_elapsed);
+        // const new_data = interval_to_data(noon_time_to_fatalities, new_data_interval);
+        // new_data.forEach(d =>{
+        //     addToScatterPlot(d);
+        // });
+        svg.selectAll(".fatality")
+            .style("opacity", (d) => {
+            const diff = current_time_right_ms - d.parsed_date_ms;
+            if (diff < 0)
+                return 0;
+            return opacity_scale(diff);
         });
-        const x_val = scrub_x(current_time_left_ms);
-        const real_x = d3.max([0, x_val]) || 0;
-        const subtraction_left = d3.min([x_val, 0]) || 0;
-        const width = d3.min([config.scrubber.width, histogram_width - real_x]) + subtraction_left;
-        scrubber
-            .attr('x', real_x)
-            .attr('width', width);
-        elapsed_last = elapsed;
+    }
+    function histogram_tick(elapsed) {
+        elapsed_real_ms_diff = elapsed - elapsed_real_ms_last;
+        if (!config.scrubber.paused) {
+            elapsed_real_ms_virtual += elapsed_real_ms_diff;
+            looped_epoch_time = (elapsed_real_ms_virtual * ms_data_per_ms_real) % totalWidthMilliseconds;
+            current_time_right_ms = time_zero + looped_epoch_time;
+            current_time_left_ms = current_time_right_ms - padding_time;
+            const x_val = scrub_x(current_time_left_ms);
+            const real_x = d3.max([0, x_val]) || 0;
+            const subtraction_left = d3.min([x_val, 0]) || 0;
+            const width = d3.min([config.scrubber.width, histogram_width - real_x]) + subtraction_left;
+            scrubber
+                .attr('x', real_x)
+                .attr('width', width);
+            update_scatter();
+        }
+        elapsed_real_ms_last = elapsed;
     }
     d3.interval(histogram_tick, frames_per_ms);
     const xAxis = svg.append("g")
