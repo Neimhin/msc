@@ -94,37 +94,69 @@ export function on_data(data) {
     d3.select("#vis").selectAll("*").remove();
     const width = window.innerWidth * 0.9;
     const height = 350 * 2;
-    const margin = { top: 200, right: 20, bottom: 20, left: 20 };
+    const margin = { top: 200, right: 30, bottom: 20, left: 30 };
     const histogram_center = 300;
     const histogram_height = 100;
+    const histogram_width = width - margin.left - margin.right;
     const scatterPlotArea = {
-        width: 300,
+        width: histogram_width,
         height: 200,
         x: 50, // x-coordinate of the top-left corner of the scatter plot area
         y: 50, // y-coordinate of the top-left corner of the scatter plot area
     };
+    const age_range = d3.extent(data, d => d.age);
+    console.log(age_range);
+    const age_scale = d3.scaleLinear()
+        .domain(age_range)
+        .range([scatterPlotArea.height + scatterPlotArea.y, scatterPlotArea.y]);
+    // const age_scale_invert = d3.scaleLinear()
+    //     .range([0, scatterPlotArea.height])
+    //     .domain(age_range);
+    // Create the yAxis generator
+    const yAxis = d3.axisLeft(age_scale);
+    function calculateMeanAge(data) {
+        const totalAges = data.reduce((sum, fatality) => sum + fatality.age, 0);
+        const meanAge = totalAges / data.length;
+        return meanAge;
+    }
+    // Assuming 'data' is the array of Fatality objects
+    const meanAge = calculateMeanAge(data);
+    console.log('Mean Age:', meanAge);
     function addToScatterPlot(dataItem) {
         // Generate a random position within the scatter plot area
-        const xPosition = Math.random() * scatterPlotArea.width + scatterPlotArea.x;
-        const yPosition = Math.random() * scatterPlotArea.height + scatterPlotArea.y;
+        const xPosition = Math.random() * scatterPlotArea.width; // + scatterPlotArea.x;
         // Append a new circle to the SVG for each data item
         svg.append("circle")
             .attr("class", "fatality")
-            .attr("cx", xPosition)
-            .attr("cy", yPosition)
             .attr("r", 5)
             .data([dataItem]) // radius of the circle
+            .attr("cx", xPosition)
+            .attr("cy", d => age_scale(d.age))
             .style("fill", d => {
             if (d.citizenship === "Israeli")
                 return ISRAELI_BLUE;
             if (d.citizenship === "Palestinian")
                 return PALESTINIAN_RED;
             return 'white';
+        })
+            .on("mouseover", function (event, d) {
+            // Show additional information on hover
+            console.log(d.age);
+            const tooltip = d3.select("#tooltip")
+                .style("left", event.pageX + "px")
+                .style("top", event.pageY + "px")
+                .style("opacity", 1)
+                .html(`<strong>Name:</strong> ${d.name}<br>
+                            <strong>Age:</strong> ${d.age}<br>
+                            <strong>Citizenship:</strong> ${d.citizenship}<br>
+                            <strong>Date of Death:</strong> ${d.date_of_death}<br>
+                            <strong>Notes:</strong> ${d.notes}`);
+        })
+            .on("mouseout", function (event, d) {
+            // Hide the tooltip on mouseout
+            d3.select("#tooltip")
+                .style("opacity", 0);
         });
-        // .transition()
-        // .duration(config.scrubber.width_real_ms)
-        // .style("opacity", 0)
-        // .remove();  // remove the circle after the transition
     }
     const noon_time_to_fatalities = new Map();
     data.forEach(d => {
@@ -149,6 +181,16 @@ export function on_data(data) {
         .attr('height', height)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
+    // Append the yAxis to the SVG
+    svg.append("g")
+        .attr("class", "y-axis")
+        .call(yAxis);
+    svg.selectAll(".y-axis path")
+        .style("stroke", "white");
+    svg.selectAll(".y-axis text")
+        .style("fill", "white");
+    svg.selectAll(".y-axis line")
+        .style("stroke", "white");
     // Function to handle pause button click
     function onPauseClicked() {
         config.scrubber.paused = !config.scrubber.paused;
@@ -175,7 +217,6 @@ export function on_data(data) {
     const dateRange = d3.extent(data, d => d.parsed_date);
     const time_zero = dateRange[0].getTime();
     const totalMilliseconds = dateRange[1].getTime() - time_zero;
-    const histogram_width = width - margin.left - margin.right;
     const daysPerSecond = 365 / 2;
     const days_data_per_ms_real = daysPerSecond / 1000;
     const ms_data_per_ms_real = days_to_ms(days_data_per_ms_real);
