@@ -5,7 +5,7 @@ const global = {
         dragging: false,
         paused: false,
         height: 10,
-        width: undefined as unknown as number,
+        width: 30,
         width_real_ms: 3000,
         click_diff: 0,
         set_width: ()=>{},
@@ -237,6 +237,10 @@ class Interval {
         return t > this.start && t <= this.end
     }
 
+    as_dates() {
+        return [new Date(this.start), new Date(this.end)];
+    }
+
     subtract_same_length(it: Interval): Interval {
         // assuming both intervals have same length
         // case 1
@@ -376,13 +380,6 @@ function data_to_lists_of_districts(fs: Fatality[]): {"West Bank": Set<string>, 
     }
     fs.forEach(each)
     return ret;
-}
-
-
-
-function find_first(time_ms: number) {
-    const len = global.lazy.fatalities.length;
-
 }
 
 function find_in_interval(it: Interval) {
@@ -693,23 +690,23 @@ function main() {
             .on('drag', dragging)
             .on('end', dragEnded)
       );
+
     
-    global.scrubber.set_width = function(width: number) {
-        const x_right = +scrubber.attr('x') + +scrubber.attr('width');
-        const new_x_left = x_right - width;
-        global.scrubber.width = width;
-        global.scrubber.width_real_ms = width_to_ms_real(width);
-        padding_time_data_ms = real_ms_to_data_ms(global.scrubber.width_real_ms);
-        scrub_x = d3.scaleTime()
-        .domain([time_zero - padding_time_data_ms, dateRange[1].getTime()])
-        .range([-global.scrubber.width, histogram_width])
-        .clamp(false);
-        elapsed_real_ms_virtual = scrub_x_to_elapsed_real_ms(newX);
-        elapsed_real_ms_last = 0;
+    function refresh_scatter() {
+        console.log("refreshing scatter");
         svg.selectAll(".fatality").remove();
-        last_interval.start=-1;
-        last_interval.end=-1;
+        const to_add = find_in_interval(current_interval);
+        console.log(current_interval.as_dates(), dateRange, to_add);
+        to_add.forEach(addToScatterPlot);
+        // global.lazy.fatalities.forEach(d=>{
+        //     console.log(current_interval);
+        //     if(current_interval.has(d.parsed_date_ms_with_noise)) {
+        //         console.count("adding to scatter")
+        //         addToScatterPlot(d);
+        //     }
+        // })
     }
+    
 
     // scrubber.on("mouseover",function(){
     //     global.scrubber.paused = true;
@@ -731,20 +728,16 @@ function main() {
         .range([-global.scrubber.width, histogram_width])
         .clamp(false);
 
-    const max_real_ms =  data_ms_to_real_ms(dateRange[1]?.getTime() - dateRange[0]?.getTime());
+    let max_real_ms =  data_ms_to_real_ms(dateRange[1]?.getTime() - dateRange[0]?.getTime());
     const scrub_x_real_ms = d3.scaleLinear()
         .domain([0, histogram_width])
         .range([0, max_real_ms])
         .clamp(false);
     // d3.interval(function(){
     //     console.log(svg.selectAll(".fatality").size());
-
     // },1000)
-    function histogram_tick(elapsed: number) {
-        elapsed_real_ms_diff = elapsed - elapsed_real_ms_last;
-        if(!global.scrubber.paused && !global.scrubber.dragging) {
-            elapsed_real_ms_virtual += elapsed_real_ms_diff;
-        }
+
+    function calc_intervals_from_elapsed_real_ms() {
         looped_epoch_time = positiveModulo(elapsed_real_ms_virtual * ms_data_per_ms_real, totalWidthMilliseconds);
         last_time_left_ms = current_time_left_ms;
         last_time_right_ms = current_time_right_ms;
@@ -756,6 +749,14 @@ function main() {
         current_interval.end = current_time_right_ms;
         interval_to_add = current_interval.subtract_same_length(last_interval);
         interval_to_remove = last_interval.subtract_same_length(current_interval);
+    }
+
+    function histogram_tick(elapsed: number) {
+        elapsed_real_ms_diff = elapsed - elapsed_real_ms_last;
+        if(!global.scrubber.paused && !global.scrubber.dragging) {
+            elapsed_real_ms_virtual += elapsed_real_ms_diff;
+        }
+        calc_intervals_from_elapsed_real_ms();
         const items_to_add = find_in_interval(interval_to_add);
         items_to_add.forEach(addToScatterPlot);
         const x_val = scrub_x(current_time_left_ms);
@@ -776,6 +777,42 @@ function main() {
           elapsed_real_ms = max_real_ms + global.scrubber.width_real_ms + elapsed_real_ms;
         }
         return elapsed_real_ms;
+    }
+
+    global.scrubber.set_width = function(width: number) {
+        const scrub_data_ms_from_x = d3.scaleTime()
+            .domain([0, histogram_width])
+            .range([time_zero, dateRange[1]?.getTime()])
+            .clamp(false);
+        const width_data_ms = scrub_data_ms_from_x(width) - scrub_data_ms_from_x(0);
+        const width_real_ms = data_ms_to_real_ms(width_data_ms);
+
+        console.log('widths', width, width_data_ms, width_real_ms, data_ms_to_width(width_data_ms));
+        const x_right = +scrubber.attr('x') + +scrubber.attr('width');
+        const new_x_left = x_right - width;
+        global.scrubber.width = width;
+        global.scrubber.width_real_ms = width_real_ms
+        padding_time_data_ms = real_ms_to_data_ms(global.scrubber.width_real_ms);
+
+        opacity_scale = d3.scaleLinear()
+        .domain([real_ms_to_data_ms(global.scrubber.width_real_ms),0])
+        .range([0,1])
+        scrub_x = d3.scaleTime()
+            .domain([time_zero - padding_time_data_ms, dateRange[1].getTime()])
+            .range([-global.scrubber.width, histogram_width])
+            .clamp(false);
+        scrubber.attr("width", global.scrubber.width);
+        scrubber.attr("x", new_x_left);
+
+        totalWidthMilliseconds = totalMilliseconds + padding_time_data_ms;
+
+        elapsed_real_ms_virtual = 0; // scrub_x_to_elapsed_real_ms(x_right);
+        elapsed_real_ms_last = 0;
+        console.log('calculating intervals');
+        calc_intervals_from_elapsed_real_ms();
+        refresh_scatter();
+        last_interval.start=-1;
+        last_interval.end=-1;
     }
     
     function dragging(event, d) {
@@ -801,7 +838,7 @@ function main() {
         global.scrubber.dragging = false;
     }
 
-    const totalWidthMilliseconds = totalMilliseconds + padding_time_data_ms;
+    let totalWidthMilliseconds = totalMilliseconds + padding_time_data_ms;
 
     function width_to_ms_data(widthInPixels: number) {
         const oneDayPixelValue = scrub_x(new Date(time_zero + days_to_ms(1)));
@@ -809,14 +846,37 @@ function main() {
         return days * (1000 / days_data_per_ms_real);
     }
 
-    function width_to_ms_real(widthInPixels: number) {
-        const oneDayPixelValue = scrub_x(new Date(time_zero + days_to_ms(1)));
-        const days = widthInPixels / oneDayPixelValue;
-        return data_ms_to_real_ms(days * (1000 / days_data_per_ms_real));
+    function width_to_real_ms(widthInPixels: number): number {
+        const data_ms = width_to_ms_data(widthInPixels);
+        return data_ms_to_real_ms(data_ms);
+    }
+    if(global.test) {
+        // Define a test real milliseconds value
+        const testRealMilliseconds = 5000;
+
+        // Convert real milliseconds to width in pixels
+        const widthPixels = real_ms_to_width(testRealMilliseconds);
+
+        // Convert width in pixels back to real milliseconds
+        const convertedRealMilliseconds = width_to_real_ms(widthPixels);
+
+        console.log("Original Real Milliseconds:", testRealMilliseconds);
+        console.log("Converted Real Milliseconds:", convertedRealMilliseconds);
+
+        // Check if the conversions are close or equal (within a tolerance)
+        if (Math.abs(testRealMilliseconds - convertedRealMilliseconds) < 0.0001) {
+            console.log("Conversion test passed!");
+        } else {
+            console.error("Conversion test failed!");
+        }
+
     }
 
     function data_ms_to_width(data_ms: number): number {
-        const one_day_in_pixels = x(new Date(time_zero + days_to_ms(1)));
+        const scale = d3.scaleLinear()
+            .domain([time_zero,dateRange[1].getTime()])
+            .range([0,histogram_width]);
+        const one_day_in_pixels = scale(new Date(time_zero + days_to_ms(1)));
         const one_ms_in_pixels = one_day_in_pixels / ONE_DAY_MS;
         return data_ms * one_ms_in_pixels;
     }
@@ -842,7 +902,7 @@ function main() {
         }
     }
 
-    const opacity_scale = d3.scaleLinear()
+    let opacity_scale = d3.scaleLinear()
         .domain([real_ms_to_data_ms(global.scrubber.width_real_ms),0])
         .range([0,1])
 
@@ -873,6 +933,7 @@ function main() {
         return opacity_scale(diff)
     }
 
+
     function update_scatter() {
         svg.selectAll(".fatality")
           .each(function(d) {
@@ -883,7 +944,7 @@ function main() {
           .style("opacity", fatality_to_opacity);
 
         const text = dateFormat(new Date(current_time_right_ms));
-        const x = Number(scrubber.attr("x")) + Number(scrubber.attr("width"));
+        const x = Number(scrubber.attr("x")) + Number(scrubber.attr("width")) - 20;
         const y = Number(scrubber.attr("y")) + 30;
         dateText.text(text)
             .attr("x", x)
@@ -896,10 +957,7 @@ function main() {
 
     d3.interval(histogram_tick,frames_per_ms)
 
-    const xAxis = svg.append("g")
-        .attr("transform", `translate(0,${margin.top})`)
-
-    const thresholds = create_thresholds(dateRange[0],dateRange[1], 31 * 12)
+    const thresholds = create_thresholds(dateRange[0],dateRange[1], 1)
     const histogram = d3.bin()
         .value(d => d.parsed_date)
         .domain(x.domain())
@@ -910,8 +968,6 @@ function main() {
     israeli_bins.forEach(index_it);
     const palestinian_bins = histogram(palestinian_deaths)
     palestinian_bins.forEach(index_it);
-
-    const y_range = height - margin.top - margin.bottom;
 
     const rect_height = d3.scaleLinear()
         .range([histogram_height,0])
