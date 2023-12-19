@@ -5,9 +5,10 @@ const global = {
         dragging: false,
         paused: false,
         height: 10,
-        width: undefined,
+        width: undefined as unknown as number,
         width_real_ms: 3000,
         click_diff: 0,
+        set_width: ()=>{},
     },
     lazy: {
         fatalities: undefined as unknown as Fatality[],
@@ -17,14 +18,63 @@ const global = {
         type_of_injury_index: undefined as unknown as (input: string) => number,
         type_of_injury_scale: undefined,
     },
+    mercator: {} as any,
 
 }
 
 const ISRAELI_BLUE = "#0038b8";
+const ISRAELI_BLUE_HIGHLIGHT = d3.interpolate(ISRAELI_BLUE, "white")(0.3);
 const PALESTINIAN_RED = "#EE2A35";
-const CENTER_LONG = 31.694636423652604;
-const CENTER_LAT = 34.90729984570858;
-const CENTER_COORD = [CENTER_LONG, CENTER_LAT];
+const PALESTINIAN_RED_HIGHLIGHT = d3.interpolate(PALESTINIAN_RED, "white")(0.3);
+const CENTER_LONG = 35;
+const CENTER_LAT = 31;
+const CENTER_COORD: [number,number] = [CENTER_LONG, CENTER_LAT];
+
+d3.select("#vis").selectAll("*").remove()
+const width = window.innerWidth * 0.9;
+const height = 350 * 8;
+const margin = {top: 200, right: 30, bottom: 20, left: 30};
+
+const svg_root = d3.select('#vis')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
+
+const svg = svg_root
+    .append("g")     
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+const slider_width = 200;
+const slider_height = 3;
+const slider_center = 400;
+
+const sliderScale = d3.scaleLinear()
+    .domain([0, 100])
+    .range([0, slider_width])
+    .clamp(true);
+
+const sliderDrag = d3.drag()
+    .on("drag", function(event) {
+        const newX = Math.max(0, Math.min(slider_width, event.x));
+        handle.attr("cx", newX);
+        slider_rect.attr("width", newX);
+        global.scrubber.set_width(newX);
+    });
+
+let slider_rect = svg.append("rect")
+    .attr("width", slider_width)
+    .attr("height", slider_height)
+    .attr("y", slider_center)
+    .attr("fill", "#ddd")
+
+const handle = svg.append("circle")
+    .attr("cx", slider_width)
+    .attr("cy", slider_center + slider_height / 2)
+    .attr("r", 8)
+    .attr("fill", "steelblue")
+    .call(sliderDrag);
+
+
 
 export interface Fatality {
     name: string;
@@ -343,16 +393,21 @@ function find_in_interval(it: Interval) {
 
 function on_districts(d: DistrictGeo[]){
     global.lazy.districts = d;
-    // const lat_1 = global.lazy.districts.map(d => d.geocode_result[0].geometry.viewport.northeast.lat)
-    // const lat_2 = global.lazy.districts.map(d => d.geocode_result[0].geometry.viewport.southwest.lat)
-    // const lng_1 = global.lazy.districts.map(d => d.geocode_result[0].geometry.viewport.northeast.lng)
-    // const lng_2 = global.lazy.districts.map(d => d.geocode_result[0].geometry.viewport.southwest.lng)
-    // const extent_lat = d3.extent(lat_1.concat( lat_2 ));
-    // const extent_lng = d3.extent(lng_1.concat( lng_2 ));
-    // const bounds = [
-    //     [extent_lng[0], extent_lat[0]],
-    //     [extent_lng[1], extent_lat[1]]
-    // ];
+    const lat_1 = global.lazy.districts.map(d => d.geocode_result[0].geometry.viewport.northeast.lat)
+    const lat_2 = global.lazy.districts.map(d => d.geocode_result[0].geometry.viewport.southwest.lat)
+    const lng_1 = global.lazy.districts.map(d => d.geocode_result[0].geometry.viewport.northeast.lng)
+    const lng_2 = global.lazy.districts.map(d => d.geocode_result[0].geometry.viewport.southwest.lng)
+    const extent_lat = d3.extent(lat_1.concat( lat_2 ));
+    const extent_lng = d3.extent(lng_1.concat( lng_2 ));
+    const bounds = [
+        [extent_lng[0], extent_lat[0]],
+        [extent_lng[1], extent_lat[1]]
+    ];
+    global.mercator = {}
+    global.mercator.extent_lat = extent_lat;
+    global.mercator.extent_lng = extent_lng;
+    global.mercator.bounds = bounds;
+    global.mercator.center = [d3.mean(extent_lng), d3.mean(extent_lat)];
     // console.log(bounds);
     // console.log(projection(CENTER_COORD));
     // // projection.fitSize([960,500],
@@ -395,7 +450,7 @@ function add_injury_labels(types_of_injury,svg) {
         .each(function () {
             const x = d3.select(this).attr('x'); // Access x attribute
             const y = d3.select(this).attr('y'); // Access y attribute
-            d3.select(this).attr('transform', `rotate(-45 ${x} ${y})`); // Apply rotation
+            d3.select(this).attr('transform', `rotate(-30 ${x} ${y})`); // Apply rotation
         });
 }
 
@@ -411,28 +466,39 @@ function maybe_main() {
 function main() {
     const lists_of_districts = data_to_lists_of_districts(global.lazy.fatalities);
 
-    d3.select("#vis").selectAll("*").remove()
-    const width = window.innerWidth * 0.9;
-    const height = 350 * 2;
-
-
-    const margin = {top: 200, right: 30, bottom: 20, left: 30};
-
-    const svg = d3.select('#vis')
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .append("g")     
-        .attr("transform", `translate(${margin.left},${margin.top})`);
 
     const projection = d3.geoMercator()
-        .center(CENTER_COORD)
-        .scale(980 *2 )
-        .translate([width/2, height/2]);
+        .center(global.mercator.center)
+        .scale(980 * 8)
+        .translate([width/2, height/2 + height/4]);
+
+    const mercator_grid = [];
+    const lng_span = global.mercator.extent_lng[1] - global.mercator.extent_lng[0];
+    const lng_stride = lng_span / 10;
+    const lat_span = global.mercator.extent_lat[1] - global.mercator.extent_lat[0];
+    const lat_stride = lat_span / 10;
+
+    for(let i = global.mercator.extent_lng[0]; i < global.mercator.extent_lng[1]; i += lng_stride) {
+        for(let j = global.mercator.extent_lat[0]; j < global.mercator.extent_lat[1];  j +=  lat_stride) {
+            const p = projection([i,j])
+            mercator_grid.push({x: p[0], y: p[1]});
+        }
+    }
+
+    console.log(mercator_grid)
+
+    svg.selectAll(".mercator-grid")
+        .data(mercator_grid)
+        .enter()
+        .append("circle")
+        .attr("cx", d=>d.x)
+        .attr("cy", d=>d.y)
+        .attr("r", 1)
+        .style("fill", "gray");
 
     svg.append("circle")
-        .attr("cx", d => projection(CENTER_COORD)[0])
-        .attr("cy", d => projection(CENTER_COORD)[1])
+        .attr("cx", d => projection(global.mercator.center)[0])
+        .attr("cy", d => projection(global.mercator.center)[1])
         .attr("r", 1);
     const histogram_center = 300;
     const histogram_height = 100;
@@ -471,7 +537,22 @@ function main() {
 
 
     function addToScatterPlot(dataItem: Fatality) {
-        const xPosition = global.lazy.type_of_injury_scale(global.lazy.type_of_injury_index(dataItem.type_of_injury) + Math.random());
+        let offset = 0;
+        let noise = 0;
+        if(dataItem.event_location_region == "Gaza Strip") {
+            noise = Math.random()/(1.0/0.4);
+            offset = 0;
+        }
+        else if(dataItem.event_location_region == "West Bank") {
+            noise = Math.random()/(1.0/0.4);
+            offset = 0.4
+        }
+        else if(dataItem.event_location_region == "Israel") {
+            offset = 0.8
+            noise = Math.random()/(1.0/0.2);
+
+        }
+        const xPosition = global.lazy.type_of_injury_scale(global.lazy.type_of_injury_index(dataItem.type_of_injury) +  noise + offset);
     
         svg.append("circle")
             .attr("class", "fatality")
@@ -485,13 +566,14 @@ function main() {
                 return 'white'; // Jordanian or American
             })
             .on("mouseover", function (event, d) {
-                console.count("mouseover-circle")
+                d3.select(this).attr("color", "green");
                 const opacity = fatality_to_opacity(d);
                 if(opacity < 0.00001) return
                 tooltip.transition()
                 .duration(10)
                 .style("opacity", 0.9);
                 tooltip.html(`<strong>Name:</strong> ${d.name}<br>
+                                <strong>Region:</strong> ${d.event_location_region}<br>
                                 <strong>Age:</strong> ${d.age}<br>
                                 <strong>Citizenship:</strong> ${d.citizenship}<br>
                                 <strong>Date of Death:</strong> ${d.date_of_death}<br>
@@ -508,45 +590,41 @@ function main() {
     const palestinian_deaths = global.lazy.fatalities.filter(d => d.citizenship === "Palestinian")
 
     // console.log(global.lazy.districts);
-    // const district_rects = svg.selectAll("rect")
-    //     .data(global.lazy.districts)
-    //     .enter()
-    //     .append("rect")
-    //     .attr("class", "geo-bounds")
-    //     .attr("x", d => {
-    //         const northeast = d.geocode_result[0].geometry.viewport.northeast;
-    //         const southwest =  d.geocode_result[0].geometry.viewport.southwest;
-    //         console.log(northeast,southwest);
-    //         d.northeast_x_y = projection([northeast.lng, northeast.lat])
-    //         d.southwest_x_y = projection([southwest.lng, southwest.lat])
-    //         console.log(d.northeast_x_y, d.southwest_x_y);
-    //         d.x = d.southwest_x_y[0];
-    //         d.y = d.northeast_x_y[1];
-    //         d.width = d.northeast_x_y[0] - d.southwest_x_y[0];
-    //         d.height =  d.southwest_x_y[1] - d.northeast_x_y[1];
+    const district_rects = svg.selectAll(".geo-bounds")
+        .data(global.lazy.districts)
+        .enter()
+        .append("rect")
+        .on("mouseover", function (event, d) {
+            d3.select(this).classed("hover", true)
+        })
+        .on("mouseout", function(event, d) {
+            d3.select(this).classed("hover", false)
+        })
+        .attr("class", "geo-bounds")
+        .attr("x", d => {
+            const northeast = d.geocode_result[0].geometry.viewport.northeast;
+            const southwest =  d.geocode_result[0].geometry.viewport.southwest;
+            d.northeast_x_y = projection([northeast.lng, northeast.lat])
+            d.southwest_x_y = projection([southwest.lng, southwest.lat])
+            d.x = d.southwest_x_y[0];
+            d.y = d.northeast_x_y[1];
+            d.width = d.northeast_x_y[0] - d.southwest_x_y[0];
+            d.height =  d.southwest_x_y[1] - d.northeast_x_y[1];
 
-    //         console.log(d.x, d.y, d.width, d.height)
-    //         return d.x;
-    //     })
-    //     .attr("y", d => d.y)
-    //     .attr("width", d => d.width)
-    //     .attr("height", d => d.height)
-    //     .on("mouseover", function (event, d) {
-    //         console.log("mouseover", event,d)
-    //         d3.select(this).classed("hover", true)
-    //     })
-    //     .on("mouseout", function(event, d) {
-    //         console.log("mouseout", event,d)
-    //         d3.select(this).classed("hover", false)
-    //     })
-    //     .style("fill", "blue")
-    //     .style("opacity", 0.2)
+            return d.x;
+        })
+        .attr("y", d => d.y)
+        .attr("width", d => d.width)
+        .attr("height", d => d.height)
+
+        .style("fill", "blue")
+        .style("opacity", 0.2)
 
 
     const tooltip = svg.append("foreignObject")
         .attr("class", "tooltip")
         .attr("width", 400)
-        .attr("height", 800)
+        .attr("height", 300)
         .attr("x", 0)
         .attr("y", 0)
         .style("text-align", "left")
@@ -616,6 +694,30 @@ function main() {
             .on('end', dragEnded)
       );
     
+    global.scrubber.set_width = function(width: number) {
+        const x_right = +scrubber.attr('x') + +scrubber.attr('width');
+        const new_x_left = x_right - width;
+        global.scrubber.width = width;
+        global.scrubber.width_real_ms = width_to_ms_real(width);
+        padding_time_data_ms = real_ms_to_data_ms(global.scrubber.width_real_ms);
+        scrub_x = d3.scaleTime()
+        .domain([time_zero - padding_time_data_ms, dateRange[1].getTime()])
+        .range([-global.scrubber.width, histogram_width])
+        .clamp(false);
+        elapsed_real_ms_virtual = scrub_x_to_elapsed_real_ms(newX);
+        elapsed_real_ms_last = 0;
+        svg.selectAll(".fatality").remove();
+        last_interval.start=-1;
+        last_interval.end=-1;
+    }
+
+    // scrubber.on("mouseover",function(){
+    //     global.scrubber.paused = true;
+    // });
+    // scrubber.on("mouseout",function(){
+    //     global.scrubber.paused = false;
+    // })
+    
     // Functions to handle drag events
     function dragStarted(event, d) {
       global.scrubber.click_diff = event.x - Number(scrubber.attr('x'))
@@ -623,8 +725,8 @@ function main() {
       global.scrubber.dragging = true;
     }
 
-    const padding_time_data_ms = real_ms_to_data_ms(global.scrubber.width_real_ms);
-    const scrub_x = d3.scaleTime()
+    let padding_time_data_ms = real_ms_to_data_ms(global.scrubber.width_real_ms);
+    let scrub_x = d3.scaleTime()
         .domain([time_zero - padding_time_data_ms, dateRange[1].getTime()])
         .range([-global.scrubber.width, histogram_width])
         .clamp(false);
@@ -634,10 +736,10 @@ function main() {
         .domain([0, histogram_width])
         .range([0, max_real_ms])
         .clamp(false);
-    d3.interval(function(){
-        console.log(svg.selectAll(".fatality").size());
+    // d3.interval(function(){
+    //     console.log(svg.selectAll(".fatality").size());
 
-    },1000)
+    // },1000)
     function histogram_tick(elapsed: number) {
         elapsed_real_ms_diff = elapsed - elapsed_real_ms_last;
         if(!global.scrubber.paused && !global.scrubber.dragging) {
@@ -705,6 +807,12 @@ function main() {
         const oneDayPixelValue = scrub_x(new Date(time_zero + days_to_ms(1)));
         const days = widthInPixels / oneDayPixelValue;
         return days * (1000 / days_data_per_ms_real);
+    }
+
+    function width_to_ms_real(widthInPixels: number) {
+        const oneDayPixelValue = scrub_x(new Date(time_zero + days_to_ms(1)));
+        const days = widthInPixels / oneDayPixelValue;
+        return data_ms_to_real_ms(days * (1000 / days_data_per_ms_real));
     }
 
     function data_ms_to_width(data_ms: number): number {
@@ -791,14 +899,17 @@ function main() {
     const xAxis = svg.append("g")
         .attr("transform", `translate(0,${margin.top})`)
 
-    const thresholds = create_thresholds(dateRange[0],dateRange[1], 14)
+    const thresholds = create_thresholds(dateRange[0],dateRange[1], 31 * 12)
     const histogram = d3.bin()
         .value(d => d.parsed_date)
         .domain(x.domain())
         .thresholds(thresholds)
 
+    function index_it(bin,index) { bin.index = index; }
     const israeli_bins = histogram(israeli_deaths);
+    israeli_bins.forEach(index_it);
     const palestinian_bins = histogram(palestinian_deaths)
+    palestinian_bins.forEach(index_it);
 
     const y_range = height - margin.top - margin.bottom;
 
@@ -811,27 +922,75 @@ function main() {
         return Math.max(0, x(d.x1) - x(d.x0));
     }
 
-    svg.selectAll("rect")
+    svg.selectAll(".israeli-bin")
         .data(israeli_bins)
         .enter()
         .append("rect")
+        .attr("class","israeli-bin")
         .attr("x", d => x(d.x0))
         .attr("y", d => histogram_center + global.scrubber.height)
         .attr("width", d => bin_width(d))
         .attr("height", d => rect_height(d.length))
-        .style("fill", ISRAELI_BLUE);
+        .style("fill", ISRAELI_BLUE)
+        .each(function (d) {d.element = this})
 
-    svg.selectAll(".palestinian-rect")
+    svg.selectAll(".palestinian-bin")
         .data(palestinian_bins)
         .enter()
         .append("rect")
-        .attr("class", "palestinian-rect")
+        .attr("class", "palestinian-bin")
+        .attr("index", d => d.index)
         .attr("x", d => x(d.x0))
         .attr("y", d => histogram_center - rect_height(d.length))
         .attr("width", d => bin_width(d))
         .attr("height", d => rect_height(d.length))
-        .style("fill", PALESTINIAN_RED);
+        .style("fill", PALESTINIAN_RED)
+        .each(function (d) {d.element = this})
 
+    let hovered_palestinian_bin = undefined;
+    let hovered_israeli_bin = undefined;
+
+    // optimization to find highlighted bin faster
+    const px_to_bin = new Array(Math.ceil(histogram_width));
+    for(let bin_idx = 0; bin_idx < israeli_bins.length; bin_idx++) {
+        const bin_i = israeli_bins[bin_idx];
+        const bin_p = palestinian_bins[bin_idx];
+        const low = x(bin_i.x0);
+        const high = x(bin_i.x1);
+        let px = Math.ceil(low);
+        while(px <= high) {
+            console.count('px_assign_2');
+            px_to_bin[px] = [bin_i,bin_p];
+            px++;
+        }
+    }
+    const svg_group_node = svg.node();
+    svg_root.on("mousemove", function(event, data) {
+        const mouse_x = d3.pointer(event,svg_group_node)[0];
+        const bins = px_to_bin[Math.floor(mouse_x)];
+        if(hovered_palestinian_bin) {
+            hovered_palestinian_bin.style("fill", PALESTINIAN_RED);
+        }
+        if(hovered_israeli_bin) {
+            hovered_israeli_bin.style("fill", ISRAELI_BLUE);
+        }
+        if(bins) {
+            hovered_israeli_bin = d3.select(bins[0].element)
+            hovered_israeli_bin.style("fill", ISRAELI_BLUE_HIGHLIGHT)
+            hovered_palestinian_bin = d3.select(bins[1].element)
+            hovered_palestinian_bin.style("fill", PALESTINIAN_RED_HIGHLIGHT)
+        }
+    });
+
+    // remove highlight when mouseout of whole svg
+    svg_root.on("mouseout", function(event) {
+        if(hovered_palestinian_bin) {
+            hovered_palestinian_bin.style("fill", PALESTINIAN_RED);
+        }
+        if(hovered_israeli_bin) {
+            hovered_israeli_bin.style("fill", ISRAELI_BLUE);
+        }
+    })
 }
 
 fetch('/static/json/fatalities.json')
