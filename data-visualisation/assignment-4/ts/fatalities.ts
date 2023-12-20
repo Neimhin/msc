@@ -1,3 +1,11 @@
+import './d3.js';
+import { Fatality } from './Fatality.js';
+import * as pure from "./pure.js";
+import { DynamicPieChart } from "./DynamicPieChart.js";
+import { Slider } from './Slider.js';
+
+declare const d3: typeof import("d3");
+
 const global = {
     debug: true,
     test: true,
@@ -6,7 +14,7 @@ const global = {
         paused: false,
         height: 10,
         width: 30,
-        width_real_ms: 3000,
+        width_real_ms: 1959,
         click_diff: 0,
         set_width: (width: number)=>{},
     },
@@ -27,13 +35,11 @@ const ISRAELI_BLUE = "#0038b8";
 const ISRAELI_BLUE_HIGHLIGHT = d3.interpolate(ISRAELI_BLUE, "white")(0.3);
 const PALESTINIAN_RED = "#EE2A35";
 const PALESTINIAN_RED_HIGHLIGHT = d3.interpolate(PALESTINIAN_RED, "white")(0.3);
-const CENTER_LONG = 35;
-const CENTER_LAT = 31;
 
 d3.select("#vis").selectAll("*").remove()
 const width = window.innerWidth * 0.9;
 const height = 350 * 8;
-const margin = {top: 200, right: 30, bottom: 20, left: 30};
+const margin = {top: 30, right: 100, bottom: 20, left: 100};
 
 const svg_root = d3.select('#vis')
     .append('svg')
@@ -44,78 +50,26 @@ const svg = svg_root
     .append("g")     
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-const slider_width = 200;
-const slider_height = 3;
-const slider_center = 360;
-
-const slider_drag = d3.drag()
-    .on("drag", function(event) {
-        const newX = Math.max(0, Math.min(slider_width, event.x));
-        handle.attr("cx", newX);
-        slider_rect.attr("width", newX);
-        global.scrubber.set_width(newX);
-        slider_text.attr("x", slider_text_x())
-        const num_days = ms_to_days(global.scrubber.width_data_ms);
-        slider_text.text(`memory: ${num_days.toFixed(1)} days`)
-    });
-
-let slider_rect = svg.append("rect")
-    .attr("width", global.scrubber.width)
-    .attr("height", slider_height)
-    .attr("y", slider_center)
-    .attr("fill", "#ddd")
-
-const handle = svg.append("circle")
-    .attr("cx", global.scrubber.width)
-    .attr("cy", slider_center + slider_height / 2)
-    .attr("r", 8)
-    .attr("fill", "steelblue")
-    .style("opacity", 0.3)
-    .call(slider_drag);
-
-function slider_text_x() {
-    return margin.left + global.scrubber.width + 10;
-}
-
-const slider_text = svg.append("text")
-    .attr("x", margin.left + global.scrubber.width + 10)
-    .attr("y", slider_center + slider_height / 2 + 5)
-    .attr("text-anchor", "left")
-    .attr("fill", "white")
-
-
-
-export interface Fatality {
-    name: string;
-    date_of_event: string;
-    age: number;
-    citizenship: string;
-    event_location: string;
-    event_location_district: string;
-    event_location_region: string;
-    date_of_death: string;
-    gender: string;
-    took_part_in_the_hostilities?: any;
-    place_of_residence: string;
-    place_of_residence_district: string;
-    type_of_injury: string;
-    ammunition: string;
-    killed_by: string;
-    notes: string;
-    parsed_date: Date;
-    parsed_date_ms: number;
-    parsed_date_ms_with_noise: number;
-    age_with_noise: number;
+function calculateMeanAge(data: Fatality[]): number {
+    const totalAges = data.reduce((sum, fatality) => sum + fatality.age, 0);
+    const meanAge = totalAges / data.length;
+    return meanAge;
 }
 
 function on_fatalities(d: Fatality[]){
     global.lazy.fatalities = d;
     global.lazy.noon_time_to_fatalities = new Map<number, Fatality[]>();
+    const mean_age = calculateMeanAge(global.lazy.fatalities);
+    global.lazy.fatalities.sort((a, b) => a.parsed_date_ms - b.parsed_date_ms);
+    global.lazy.fatalities = global.lazy.fatalities.filter(d => d.event_location_region);
     global.lazy.fatalities.forEach(d => {
         d.parsed_date = parse_date(d.date_of_death);
         d.parsed_date.setHours(12,0,0,0);
         d.parsed_date_ms = d.parsed_date.getTime();
         d.parsed_date_ms_with_noise = d.parsed_date_ms + Math.random() * ONE_DAY_MS;
+        if(d.age !== 0 && !d.age) {
+            d.age = mean_age; // impute mean age
+        }
         d.age_with_noise = d.age + Math.random();
         d.random = Math.random();
         const fatalities_list = global.lazy.noon_time_to_fatalities.get(d.parsed_date_ms);
@@ -125,11 +79,12 @@ function on_fatalities(d: Fatality[]){
         else {
             global.lazy.noon_time_to_fatalities.set(d.parsed_date_ms, [d])
         }
+        d.broad_injury = pure.injury_to_broad_injury(d.type_of_injury);
     });
     debug.noon_times(global.lazy.noon_time_to_fatalities);
-    global.lazy.fatalities.sort((a, b) => a.parsed_date_ms - b.parsed_date_ms);
 
     global.lazy.type_of_injury_unique = new Set(global.lazy.fatalities.map(d => d.type_of_injury).filter(d=>d));
+    console.log(Array.from(global.lazy.type_of_injury_unique));
     console.log("num types of injury:", global.lazy.type_of_injury_unique.size);
     const types_of_injury = Array.from(global.lazy.type_of_injury_unique).sort();
     const type_of_injury_map: {[key: string]: number} = {};
@@ -404,21 +359,6 @@ function on_districts(d: DistrictGeo[]){
     global.mercator.extent_lng = extent_lng;
     global.mercator.bounds = bounds;
     global.mercator.center = [d3.mean(extent_lng), d3.mean(extent_lat)];
-    // console.log(bounds);
-    // console.log(projection(CENTER_COORD));
-    // // projection.fitSize([960,500],
-    // //     // {
-    // //     // type: "FeatureCollection",
-    // //     // features: [
-    // //     //     {
-    // //     //         type: "MultiPoint",
-    // //     //         coordinates: bounds,
-    // //     //     }
-    // //     // ],
-    // //     // }
-    // // )
-    // projection.center(CENTER_COORD);
-    // console.log(projection(CENTER_COORD));
     maybe_main();
 }
 
@@ -480,8 +420,6 @@ class PauseButton {
     }
 
     private createButton(): void {
-
-
         this.pauseButtonGroup.append('rect')
             .attr('x', 0)
             .attr('y', 0)
@@ -489,7 +427,6 @@ class PauseButton {
             .attr('height', this.height)
             .attr('fill', d3.interpolate('red', 'blue')(0.3));
 
-        // Pause symbol - double vertical lines
         this.pauseButtonGroup.append('rect')
             .attr("class", "pause-vert")
             .attr('x',this.width/6 )
@@ -506,7 +443,6 @@ class PauseButton {
             .attr('height', 20)
             .attr('fill', 'white');
 
-        // Play symbol - triangle
         const triangleSize = this.height * 1.5 / 3;
         const triangleLeft = (this.width - triangleSize) / 2;
         const triangleTop = this.height / 6;
@@ -519,9 +455,6 @@ class PauseButton {
     }
 
     private onPauseClicked(): void {
-        // Toggle pause logic here
-        // For example, you might use a global object or some other state management approach
-        // This is just a placeholder for your actual pause logic
         global.scrubber.paused = !global.scrubber.paused;
         if (global.scrubber.paused) {
             d3.selectAll(".pause-vert")
@@ -551,34 +484,29 @@ class YAxis {
     }
 
     private createAxis(): void {
-        // Create the yAxis
         const yAxis = d3.axisLeft(this.scale);
-
-        // Append the yAxis to the svg
         this.axisGroup = this.svg.append("g")
             .attr("class", "y-axis")
+            .attr("transform", "translate(-10 0)")
             .call(yAxis);
-
-        // Style the yAxis
         this.axisGroup.selectAll("path")
-            .style("stroke", "white");
+            .style("stroke", "white")
+            .style("opacity", 0)
         this.axisGroup.selectAll("text")
             .style("fill", "white");
         this.axisGroup.selectAll("line")
             .style("stroke", "white");
-
-        // Add label
         this.axisGroup.append("text")
             .attr("class", "axis-label")
             .attr("transform", "rotate(-90)")
-            .attr("y", 6)
+            .attr("y", -35)
+            .attr("x", -100)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
             .style("fill", "white")
             .text(this.label);
     }
 
-    // Method to update the scale of yAxis
     public updateScale(newScale: d3.ScaleLinear<number, number>): void {
         this.scale = newScale;
         const yAxis = d3.axisLeft(this.scale);
@@ -604,36 +532,42 @@ function main() {
     const histogram_height = 100;
     const histogram_width = width - margin.left - margin.right;
     const scatterPlotArea = {
-        width: histogram_width,
-        height: 200,
+        width: histogram_width * (2/3),
+        height: 250,
         x: 50,
-        y: 50,
+        y: 0,
     };
+
     const age_range = d3.extent(global.lazy.fatalities, d=>d.age);
+    if(!age_range[0] || !age_range[1]) {
+        throw new Error("no age range");
+    }
     const age_scale = d3.scaleLinear()
         .domain(age_range)
         .range([scatterPlotArea.height + scatterPlotArea.y, scatterPlotArea.y]);
-    const meanAge = calculateMeanAge(global.lazy.fatalities);
     const israeli_deaths = global.lazy.fatalities.filter(d => d.citizenship === "Israeli");
     const palestinian_deaths = global.lazy.fatalities.filter(d => d.citizenship === "Palestinian")
     const dateRange = d3.extent(global.lazy.fatalities, d => d.parsed_date );
+    if(!dateRange[0] || !dateRange[1]) {
+        throw new Error("no date range");
+    }
     const time_zero = dateRange[0].getTime();
     const totalMilliseconds = dateRange[1].getTime() - time_zero;
-    const daysPerSecond = 365/2;
+    const daysPerSecond = 31 * 6;
     const days_data_per_ms_real = daysPerSecond / 1000;
     const ms_data_per_ms_real = days_to_ms(days_data_per_ms_real);
-    const framesPerSecond = 12;
+    const framesPerSecond = 24;
     const frames_per_ms = 1000/framesPerSecond;
     const x = d3.scaleTime()
         .domain(dateRange)
         .range([0, histogram_width]);
     global.padding_time_data_ms = real_ms_to_data_ms(global.scrubber.width_real_ms);
-    slider_text.text("memory: " + ms_to_days(global.padding_time_data_ms).toFixed(1) + " days");
     global.totalWidthMilliseconds = totalMilliseconds + global.padding_time_data_ms;
     global.scrubber.width = real_ms_to_width(global.scrubber.width_real_ms);
     global.opacity_scale = d3.scaleLinear()
         .domain([real_ms_to_data_ms(global.scrubber.width_real_ms),0])
         .range([0,1]);
+
 
     global.scrub_x = d3.scaleTime()
         .domain([time_zero, dateRange[1].getTime()])
@@ -644,11 +578,18 @@ function main() {
         // .clamp(false);
     global.max_real_ms =  data_ms_to_real_ms(dateRange[1]?.getTime() - dateRange[0]?.getTime());
 
+
     const scrub_x_real_ms = d3.scaleLinear()
         .domain([0, histogram_width])
         .range([0, global.max_real_ms])
         .clamp(false);
 
+    const slider_width = scrub_x_real_ms(global.scrubber.width);
+    const slider_height = 3;
+    const slider_center = 360;
+    const slider = new Slider(svg, slider_width, slider_height, slider_center, global.scrubber.width, (newWidth) => {
+        global.scrubber.set_width(newWidth);
+    });
     for(let i = global.mercator.extent_lng[0]; i < global.mercator.extent_lng[1]; i += lng_stride) {
         for(let j = global.mercator.extent_lat[0]; j < global.mercator.extent_lat[1];  j +=  lat_stride) {
             const p = projection([i,j])
@@ -673,36 +614,74 @@ function main() {
     global.lazy.type_of_injury_scale = d3.scaleLinear()
         .domain([0,12])
         .range([0, histogram_width]);
-    add_injury_labels(Array.from(global.lazy.type_of_injury_unique), svg);
+    // add_injury_labels(Array.from(global.lazy.type_of_injury_unique), svg);
     
     global.region_scale = d3.scaleLinear()
         .domain([0,3])
         .range(0,histogram_width);
 
+    const scatter_region_width = scatterPlotArea.width / 3; // Assuming 'width' is the total width of your SVG
+    const gutter_width = 30;
+    const gazaScale = d3.scaleLinear()
+        .domain([0, 1])
+        .range([0, scatter_region_width - gutter_width]);
 
-    function calculateMeanAge(data: Fatality[]): number {
-        const totalAges = data.reduce((sum, fatality) => sum + fatality.age, 0);
-        const meanAge = totalAges / data.length;
-        return meanAge;
-    }
+    const israelScale = d3.scaleLinear()
+        .domain([0, 1])
+        .range([scatter_region_width, 2 * scatter_region_width - gutter_width]);
+
+    const westBankScale = d3.scaleLinear()
+        .domain([0, 1])
+        .range([2 * scatter_region_width, 3 * scatter_region_width - gutter_width]);
+
+    const regionNames = ["Gaza Strip", "West Bank", "Israel"];
+    const regionScales = [gazaScale, westBankScale, israelScale];
+    const highlightRects = [];
+
+    regionNames.forEach((region, index) => {
+        const scale = regionScales[index];
+        const xPosition = scale(0.5);
+
+        svg.append("text")
+            .attr("x", xPosition)
+            .attr("y", scatterPlotArea.y + scatterPlotArea.height + 20) // Position below the scatter plot
+            .attr("text-anchor", "middle")
+            .attr("fill", "white")
+            .text(region);
+
+        highlightRects[index] = svg_root.append("rect")
+            .attr("transform", `translate(${margin.left} ${margin.top})`)
+            .attr("x", scale(0))
+            .attr("y", scatterPlotArea.y + scatterPlotArea.height + 3)
+            .attr("width", scatter_region_width - gutter_width)
+            .attr("height", 20)
+            .style("fill", "white")
+            .style("opacity", 0.1)
+            .on("mouseover", function() {
+                d3.select(this).style("opacity", 0.3);
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("opacity", 0.1);
+            });
+    });
 
     function addToScatterPlot(d: Fatality) {
-        let offset = 0;
-        let noise = 0;
-        if(d.event_location_region == "Gaza Strip") {
-            noise = d.random/(1.0/0.4);
-            offset = 0;
-        }
-        else if(d.event_location_region == "West Bank") {
-            noise = d.random/(1.0/0.4);
-            offset = 0.4
-        }
-        else if(d.event_location_region == "Israel") {
-            offset = 0.8
-            noise = d.random/(1.0/0.2);
+        let xPosition;
 
+        switch (d.event_location_region) {
+            case "Gaza Strip":
+                xPosition = gazaScale(d.random);
+                break;
+            case "West Bank":
+                xPosition = westBankScale(d.random);
+                break;
+            case "Israel":
+                xPosition = israelScale(d.random);
+                break;
+            default:
+                throw new Error("none of Gaza, Israel, West Bank")
+                xPosition = 0;
         }
-        const xPosition = global.lazy.type_of_injury_scale(global.lazy.type_of_injury_index(d.type_of_injury) +  noise + offset);
     
         svg.append("circle")
             .attr("class", "fatality")
@@ -710,6 +689,7 @@ function main() {
             .data([d])
             .attr("cx", xPosition)
             .attr("cy", d => age_scale(d.age_with_noise))
+            .style("opacity", fatality_to_opacity)
             .style("fill", d=>{
                 if(d.citizenship === "Israeli")     return ISRAELI_BLUE;
                 if(d.citizenship === "Palestinian") return PALESTINIAN_RED;
@@ -781,26 +761,35 @@ function main() {
         .attr("class", "tooltip-content")
 
     const yAxis = new YAxis(svg, age_scale, "Age upon Death");
-
-    function onPauseClicked() {
-        global.scrubber.paused = !global.scrubber.paused;
-        if(global.scrubber.paused) {
-            d3.selectAll(".pause-vert")
-                .style("opacity", 0);
-            d3.selectAll(".pause-triangle")
-                .style("opacity", 1);
-        }
-        if(!global.scrubber.paused) {
-            d3.selectAll(".pause-vert")
-                .style("opacity", 1);
-            d3.selectAll(".pause-triangle")
-                .style("opacity", 0);
-        }
-    }
-
     const pause_button = new PauseButton(svg, histogram_width - 30, slider_center - 20);
+    const pie_chart_diameters = 70;
+    const pie_chart_x = scatterPlotArea.x + scatterPlotArea.width + margin.left +  10;
+    const pies_start_y = 70;
 
-    const scrubber = svg.append('rect')
+    const mannerOfDeathColors: d3.ScaleOrdinal<string, string> = d3.scaleOrdinal<string>()
+        .domain(["gunfire", "assault", "explosive", "fire/demolition"])
+        .range( ["#355070", "#B56576", "#48B8D0",   "#D16014"]); // Darker, richer tones
+
+    const demographicColors: d3.ScaleOrdinal<string, string> = d3.scaleOrdinal<string>()
+        .domain(["palestinian man", "palestinian woman",    "palestinian minor",    "israeli man",  "israeli woman",    "israeli minor"])
+        .range( ["#6C8CA1",         "#035E7B",              "#21A179",              "#D1A368",      "#C8758F",          "#547AA5"]); // More saturated colors
+
+    // Perpetrator Color Palette
+    const perpetratorColors: d3.ScaleOrdinal<string, string> = d3.scaleOrdinal<string>()
+        .domain(["israeli civilians",   "palestinian civilians",    "israeli security forces"])
+        .range( ["#F5F749",             "#F24236",                  "#2E86AB"]); // Enhanced contrast colors
+
+    const injury_pie_chart =        new DynamicPieChart(svg_root,pie_chart_diameters,pie_chart_x, pies_start_y + 0 * (pie_chart_diameters + 30),  false)
+        .title("Manner of death")
+        .color(mannerOfDeathColors)
+    const gender_age_pie_chart =    new DynamicPieChart(svg_root,pie_chart_diameters,pie_chart_x, pies_start_y + 1 * (pie_chart_diameters + 30), false)
+        .title("Demographic")
+        .color(demographicColors)
+    const perpetrator_pie_chart =   new DynamicPieChart(svg_root,pie_chart_diameters,pie_chart_x, pies_start_y + 2 * (pie_chart_diameters + 30), false)
+        .title("Perpetrator")
+        .color(perpetratorColors)
+    const scrubber_group = svg.append('g');
+    const scrubber = scrubber_group.append('rect')
         .attr('x', 0)
         .attr('y', histogram_center)
         .attr('width', global.scrubber.width)
@@ -813,6 +802,39 @@ function main() {
             .on('end', dragEnded)
       );
 
+    const lineLength = 4; // Length of the lines
+    const scrubberY = histogram_center + global.scrubber.height; // Y-coordinate for the scrubber lines
+    const scrubber_line_start = scrubber_group.append('line')
+        .attr('class', 'scrubber-start-line')
+        .attr('x1', 0)
+        .attr('y1', scrubberY)
+        .attr('x2', 0)
+        .attr('y2', scrubberY + lineLength)
+        .attr('stroke', 'white')
+        .attr('stroke-width', 0.3);
+    const scrubber_line_end = scrubber_group.append('line')
+        .attr('class', 'scrubber-end-line')
+        .attr('x1', global.scrubber.width)
+        .attr('y1', scrubberY)
+        .attr('x2', global.scrubber.width)
+        .attr('y2', scrubberY + lineLength)
+        .attr('stroke', 'white')
+        .attr('stroke-width', 0.3);
+
+    function update_scrubber_lines() {
+        const x_start = +scrubber.attr('x')
+        scrubber_line_start
+            .attr('x1', x_start)
+            .attr('x2', x_start);
+        const x_end = x_start + +scrubber.attr('width');
+        scrubber_line_end
+            .attr('x1',x_end)
+            .attr('x2',x_end);
+
+    }
+
+    global.scrubber.set_width(global.scrubber.width);
+    //slider.on_drag(global.scrubber.width);
     
     function refresh_scatter() {
         console.log("refreshing scatter");
@@ -820,33 +842,14 @@ function main() {
         const to_add = find_in_interval(current_interval);
         console.log(current_interval.as_dates(), dateRange, to_add);
         to_add.forEach(addToScatterPlot);
-        // global.lazy.fatalities.forEach(d=>{
-        //     console.log(current_interval);
-        //     if(current_interval.has(d.parsed_date_ms_with_noise)) {
-        //         console.count("adding to scatter")
-        //         addToScatterPlot(d);
-        //     }
-        // })
     }
-    
 
-    // scrubber.on("mouseover",function(){
-    //     global.scrubber.paused = true;
-    // });
-    // scrubber.on("mouseout",function(){
-    //     global.scrubber.paused = false;
-    // })
     
-    // Functions to handle drag events
     function dragStarted(event, d) {
       global.scrubber.click_diff = event.x - Number(scrubber.attr('x'))
       // Handle the start of the drag event
       global.scrubber.dragging = true;
     }
-
-    // d3.interval(function(){
-    //     console.log(svg.selectAll(".fatality").size());
-    // },1000)
 
     function calc_intervals_from_elapsed_real_ms() {
         global.looped_epoch_time = positiveModulo(global.elapsed_real_ms_virtual * ms_data_per_ms_real, global.totalWidthMilliseconds);
@@ -878,8 +881,43 @@ function main() {
             .attr('x', real_x)
             .attr('width', Math.abs(width))
         update_scatter();
+        update_scrubber_lines();
         
         global.elapsed_real_ms_last = elapsed;
+
+        // highlight relevant histogram bars
+        const x0 = real_x;
+        const x1 = real_x + Math.abs(width);
+        const data_for_pie: any[] = [];
+        d3.selectAll(".palestinian-bin")
+            .each(function(palestine_bin) {
+                const israel_bin = israeli_bins[palestine_bin.index];
+                const el = d3.select(this);
+                if(x(palestine_bin.x1) > x0 && x(palestine_bin.x0) < x1) {
+                    el.style("fill",PALESTINIAN_RED_HIGHLIGHT);
+                    d3.select(israel_bin.element)
+                        .style("fill", ISRAELI_BLUE_HIGHLIGHT);
+                    data_for_pie.push(palestine_bin)
+                    data_for_pie.push(israel_bin)
+                }
+                else {
+                    el.style("fill", PALESTINIAN_RED);
+                    d3.select(israeli_bins[palestine_bin.index].element)
+                        .style("fill", ISRAELI_BLUE);
+
+                }
+            })
+        const injuries = pure.flatten_and_count_injuries(data_for_pie);
+        if(Math.random() < 0.1) {
+            console.log(injuries);
+        }
+        injury_pie_chart.updateData(injuries);
+
+        const gender_age = pure.flatten_and_count_man_woman_child(data_for_pie);
+        gender_age_pie_chart.updateData(gender_age);
+
+        const perpetrators = pure.flatten_and_perpetrator(data_for_pie);
+        perpetrator_pie_chart.updateData(perpetrators);
     }
 
     function scrub_x_to_elapsed_real_ms(scrubber_x: number) {
@@ -889,12 +927,17 @@ function main() {
         }
         return elapsed_real_ms;
     }
+    const scrub_data_ms_from_x = d3.scaleTime()
+        .domain([0, histogram_width])
+        .range([time_zero, dateRange[1]?.getTime()])
+        .clamp(false);
 
+
+    slider.text_formatter(function(width: number){
+        const width_data_ms = scrub_data_ms_from_x(width) - scrub_data_ms_from_x(0);
+        return `Memory: ${ms_to_days(width_data_ms).toFixed(1)} days`;
+    })
     global.scrubber.set_width = function(width: number) {
-        const scrub_data_ms_from_x = d3.scaleTime()
-            .domain([0, histogram_width])
-            .range([time_zero, dateRange[1]?.getTime()])
-            .clamp(false);
         const width_data_ms = scrub_data_ms_from_x(width) - scrub_data_ms_from_x(0);
         const width_real_ms = data_ms_to_real_ms(width_data_ms);
         const x_right = +scrubber.attr('x') + +scrubber.attr('width');
@@ -906,20 +949,15 @@ function main() {
         global.opacity_scale = d3.scaleLinear()
             .domain([real_ms_to_data_ms(global.scrubber.width_real_ms),0])
             .range([0,1])
-
-        scrubber.attr("width", global.scrubber.width);
-        scrubber.attr("x", new_x_left);
         global.totalWidthMilliseconds = totalMilliseconds + global.padding_time_data_ms;
-        global.elapsed_real_ms_virtual = 0; //scrub_x_to_elapsed_real_ms(x_right);
-        global.elapsed_real_ms_last = 0;
         calc_intervals_from_elapsed_real_ms();
         refresh_scatter();
         last_interval.start=-1;
         last_interval.end=-1;
     }
-    
+
     function dragging(event, d) {
-      const newX = event.x + global.scrubber.click_diff;
+      const newX = event.x + global.scrubber.width - global.scrubber.click_diff;
       global.elapsed_real_ms_virtual = scrub_x_to_elapsed_real_ms(newX);
       global.elapsed_real_ms_last = 0;
 
@@ -972,7 +1010,7 @@ function main() {
     }
 
     global.elapsed_real_ms_last = 0;
-    global.elapsed_real_ms_virtual = 0;
+    global.elapsed_real_ms_virtual = global.scrubber.width_real_ms;
     global.elapsed_real_ms_diff = 0;
     global.looped_epoch_time = (global.elapsed_real_ms_virtual * ms_data_per_ms_real) % global.totalWidthMilliseconds;
     global.current_time_right_ms = time_zero + global.looped_epoch_time;
@@ -982,13 +1020,19 @@ function main() {
     let last_interval = current_interval.clone();
     let last_time_left_ms = current_time_left_ms;
 
+    console.log('real_ms', data_ms_to_real_ms(days_to_ms(365)))
+
     let interval_to_add = current_interval.subtract_same_length(last_interval);
     let interval_to_remove = last_interval.subtract_same_length(current_interval);
 
-    const dateText = svg.append("text")
+    const dateTextRect = svg.append('g');
+    const dateText  = dateTextRect.append("text")
         .attr("class", "date-text")
         .attr("text-anchor", "start")
         .attr("fill", "white")
+        .style('font-size', "6px")
+        .attr("transform", 'rotate(15)')
+
 
     const dateFormat = d3.timeFormat("%Y %b %d");
 
@@ -997,7 +1041,6 @@ function main() {
         if(diff < 0) return 0;
         return global.opacity_scale(diff)
     }
-
 
     function update_scatter() {
         svg.selectAll(".fatality")
@@ -1008,12 +1051,11 @@ function main() {
           })
           .style("opacity", fatality_to_opacity);
 
-        const text = dateFormat(new Date(global.current_time_right_ms));
-        const x = Number(scrubber.attr("x")) + Number(scrubber.attr("width")) - 20;
+        const text = dateFormat(scrub_data_ms_from_x(+scrubber.attr('x') + +scrubber.attr('width')));
+        const x = Number(scrubber.attr("x")) + Number(scrubber.attr("width"));
         const y = Number(scrubber.attr("y")) + 30;
-        dateText.text(text)
-            .attr("x", x)
-            .attr("y", y);
+        dateText.text(text);
+        dateTextRect.attr("transform", `translate(${x} ${y})`)
     }
 
     function positiveModulo(dividend: number, divisor: number) {
@@ -1068,51 +1110,51 @@ function main() {
         .style("fill", PALESTINIAN_RED)
         .each(function (d) {d.element = this})
 
-    let hovered_palestinian_bin = undefined;
-    let hovered_israeli_bin = undefined;
+    // let hovered_palestinian_bin = undefined;
+    // let hovered_israeli_bin = undefined;
 
-    // optimization to find highlighted bin faster
-    const px_to_bin = new Array(Math.ceil(histogram_width));
-    for(let bin_idx = 0; bin_idx < israeli_bins.length; bin_idx++) {
-        const bin_i = israeli_bins[bin_idx];
-        const bin_p = palestinian_bins[bin_idx];
-        const low = x(bin_i.x0);
-        const high = x(bin_i.x1);
-        let px = Math.ceil(low);
-        px_to_bin[px] = [bin_i,bin_p];
-        while(px <= high) {
-            console.count('px_assign_2');
-            px_to_bin[px] = [bin_i,bin_p];
-            px++;
-        }
-    }
-    const svg_group_node = svg.node();
-    svg_root.on("mousemove", function(event, data) {
-        const mouse_x = d3.pointer(event,svg_group_node)[0];
-        const bins = px_to_bin[Math.floor(mouse_x)];
-        if(hovered_palestinian_bin) {
-            hovered_palestinian_bin.style("fill", PALESTINIAN_RED);
-        }
-        if(hovered_israeli_bin) {
-            hovered_israeli_bin.style("fill", ISRAELI_BLUE);
-        }
-        if(bins) {
-            hovered_israeli_bin = d3.select(bins[0].element)
-            hovered_israeli_bin.style("fill", ISRAELI_BLUE_HIGHLIGHT)
-            hovered_palestinian_bin = d3.select(bins[1].element)
-            hovered_palestinian_bin.style("fill", PALESTINIAN_RED_HIGHLIGHT)
-        }
-    });
+    // // optimization to find highlighted bin faster
+    // const px_to_bin = new Array(Math.ceil(histogram_width));
+    // for(let bin_idx = 0; bin_idx < israeli_bins.length; bin_idx++) {
+    //     const bin_i = israeli_bins[bin_idx];
+    //     const bin_p = palestinian_bins[bin_idx];
+    //     const low = x(bin_i.x0);
+    //     const high = x(bin_i.x1);
+    //     let px = Math.ceil(low);
+    //     px_to_bin[px] = [bin_i,bin_p];
+    //     while(px <= high) {
+    //         console.count('px_assign_2');
+    //         px_to_bin[px] = [bin_i,bin_p];
+    //         px++;
+    //     }
+    // }
+    // const svg_group_node = svg.node();
+    // svg_root.on("mousemove", function(event, data) {
+    //     const mouse_x = d3.pointer(event,svg_group_node)[0];
+    //     const bins = px_to_bin[Math.floor(mouse_x)];
+    //     if(hovered_palestinian_bin) {
+    //         hovered_palestinian_bin.style("fill", PALESTINIAN_RED);
+    //     }
+    //     if(hovered_israeli_bin) {
+    //         hovered_israeli_bin.style("fill", ISRAELI_BLUE);
+    //     }
+    //     if(bins) {
+    //         hovered_israeli_bin = d3.select(bins[0].element)
+    //         hovered_israeli_bin.style("fill", ISRAELI_BLUE_HIGHLIGHT)
+    //         hovered_palestinian_bin = d3.select(bins[1].element)
+    //         hovered_palestinian_bin.style("fill", PALESTINIAN_RED_HIGHLIGHT)
+    //     }
+    // });
 
-    // remove highlight when mouseout of whole svg
-    svg_root.on("mouseout", function(event) {
-        if(hovered_palestinian_bin) {
-            hovered_palestinian_bin.style("fill", PALESTINIAN_RED);
-        }
-        if(hovered_israeli_bin) {
-            hovered_israeli_bin.style("fill", ISRAELI_BLUE);
-        }
-    })
+    // // remove highlight when mouseout of whole svg
+    // svg_root.on("mouseout", function(event) {
+    //     if(hovered_palestinian_bin) {
+    //         hovered_palestinian_bin.style("fill", PALESTINIAN_RED);
+    //     }
+    //     if(hovered_israeli_bin) {
+    //         hovered_israeli_bin.style("fill", ISRAELI_BLUE);
+    //     }
+    // })
 }
 
 fetch('/static/json/fatalities.json')
