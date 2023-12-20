@@ -456,6 +456,137 @@ function maybe_main() {
     }
 }
 
+class PauseButton {
+    private svg: d3.Selection<SVGGElement, unknown, HTMLElement, undefined>;
+    private pauseButtonGroup: d3.Selection<SVGGElement, unknown, HTMLElement, undefined>;
+    private x: number;
+    private y: number;
+    private width: number = 30;
+    private height: number = 30;
+    constructor(
+            svg: d3.Selection<SVGGElement, unknown, HTMLElement, undefined>,
+            x: number,
+            y: number,
+            ) {
+        this.svg = svg;
+        this.x = x;
+        this.y = y;
+        this.pauseButtonGroup = this.svg.append('g')
+            .attr('class', 'pause-button')
+            .attr('cursor', 'pointer')
+            .attr('transform', `translate(${this.x} ${this.y})`)
+            .on('click', () => this.onPauseClicked());
+        this.createButton();
+    }
+
+    private createButton(): void {
+
+
+        this.pauseButtonGroup.append('rect')
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', this.width)
+            .attr('height', this.height)
+            .attr('fill', d3.interpolate('red', 'blue')(0.3));
+
+        // Pause symbol - double vertical lines
+        this.pauseButtonGroup.append('rect')
+            .attr("class", "pause-vert")
+            .attr('x',this.width/6 )
+            .attr('y', this.height/6)
+            .attr('width', 5)
+            .attr('height', 20)
+            .attr('fill', 'white');
+
+        this.pauseButtonGroup.append('rect')
+            .attr("class", "pause-vert")
+            .attr('x', this.width - (this.width/3))
+            .attr('y', this.height/6)
+            .attr('width', this.width/6)
+            .attr('height', 20)
+            .attr('fill', 'white');
+
+        // Play symbol - triangle
+        const triangleSize = this.height * 1.5 / 3;
+        const triangleLeft = (this.width - triangleSize) / 2;
+        const triangleTop = this.height / 6;
+
+        this.pauseButtonGroup.append('path')
+            .attr("class", "pause-triangle")
+            .attr('d', `M ${triangleLeft} ${triangleTop} L ${triangleLeft + triangleSize} ${this.height / 2} L ${triangleLeft} ${this.height - triangleTop} Z`)
+            .style('opacity', 0)
+            .attr('fill', 'white');
+    }
+
+    private onPauseClicked(): void {
+        // Toggle pause logic here
+        // For example, you might use a global object or some other state management approach
+        // This is just a placeholder for your actual pause logic
+        global.scrubber.paused = !global.scrubber.paused;
+        if (global.scrubber.paused) {
+            d3.selectAll(".pause-vert")
+                .style("opacity", 0);
+            d3.selectAll(".pause-triangle")
+                .style("opacity", 1);
+        } else {
+            d3.selectAll(".pause-vert")
+                .style("opacity", 1);
+            d3.selectAll(".pause-triangle")
+                .style("opacity", 0);
+        }
+    }
+}
+
+class YAxis {
+    private svg: d3.Selection<SVGGElement, unknown, HTMLElement, undefined>;
+    private scale: d3.ScaleLinear<number, number>;
+    private axisGroup: d3.Selection<SVGGElement, unknown, HTMLElement, undefined>;
+    private label: string;
+
+    constructor(svg: d3.Selection<SVGGElement, unknown, HTMLElement, undefined>, scale: d3.ScaleLinear<number, number>, label: string) {
+        this.svg = svg;
+        this.scale = scale;
+        this.label = label;
+        this.createAxis();
+    }
+
+    private createAxis(): void {
+        // Create the yAxis
+        const yAxis = d3.axisLeft(this.scale);
+
+        // Append the yAxis to the svg
+        this.axisGroup = this.svg.append("g")
+            .attr("class", "y-axis")
+            .call(yAxis);
+
+        // Style the yAxis
+        this.axisGroup.selectAll("path")
+            .style("stroke", "white");
+        this.axisGroup.selectAll("text")
+            .style("fill", "white");
+        this.axisGroup.selectAll("line")
+            .style("stroke", "white");
+
+        // Add label
+        this.axisGroup.append("text")
+            .attr("class", "axis-label")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .style("fill", "white")
+            .text(this.label);
+    }
+
+    // Method to update the scale of yAxis
+    public updateScale(newScale: d3.ScaleLinear<number, number>): void {
+        this.scale = newScale;
+        const yAxis = d3.axisLeft(this.scale);
+        this.axisGroup.call(yAxis);
+    }
+}
+
+
 function main() {
     const lists_of_districts = data_to_lists_of_districts(global.lazy.fatalities);
     const projection = d3.geoMercator()
@@ -503,7 +634,6 @@ function main() {
     global.opacity_scale = d3.scaleLinear()
         .domain([real_ms_to_data_ms(global.scrubber.width_real_ms),0])
         .range([0,1]);
-    const yAxis = d3.axisLeft(age_scale);
 
     global.scrub_x = d3.scaleTime()
         .domain([time_zero, dateRange[1].getTime()])
@@ -650,38 +780,25 @@ function main() {
         .style("opacity", 0)
         .attr("class", "tooltip-content")
 
-    svg.append("g")
-    .attr("class", "y-axis")
-    .call(yAxis);
-    svg.selectAll(".y-axis path")
-        .style("stroke", "white");
-    svg.selectAll(".y-axis text")
-        .style("fill", "white")
-    svg.selectAll(".y-axis line")
-        .style("stroke", "white")
+    const yAxis = new YAxis(svg, age_scale, "Age upon Death");
 
     function onPauseClicked() {
         global.scrubber.paused = !global.scrubber.paused;
+        if(global.scrubber.paused) {
+            d3.selectAll(".pause-vert")
+                .style("opacity", 0);
+            d3.selectAll(".pause-triangle")
+                .style("opacity", 1);
+        }
+        if(!global.scrubber.paused) {
+            d3.selectAll(".pause-vert")
+                .style("opacity", 1);
+            d3.selectAll(".pause-triangle")
+                .style("opacity", 0);
+        }
     }
-    const pauseButton = svg.append('g')
-        .attr('class', 'pause-button')
-        .attr('cursor', 'pointer')
-        .on('click', onPauseClicked);
 
-    pauseButton.append('rect')
-        .attr('x', 10)
-        .attr('y', 10)
-        .attr('width', 30)
-        .attr('height', 30)
-        .attr('fill', 'red');
-
-    pauseButton.append('text')
-        .attr('x', 25)
-        .attr('y', 30)
-        .attr('text-anchor', 'middle')
-        .attr('fill', 'white')
-        .text('Pause');
-
+    const pause_button = new PauseButton(svg, histogram_width - 30, slider_center - 20);
 
     const scrubber = svg.append('rect')
         .attr('x', 0)
