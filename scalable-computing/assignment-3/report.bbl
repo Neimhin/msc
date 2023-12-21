@@ -19,55 +19,330 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
-    \entry{Devitt_2013}{article}{}
-      \name{author}{3}{}{%
-        {{hash=180815463d935cc858b03475d140a713}{%
-           family={Devitt},
-           familyi={D\bibinitperiod},
-           given={Simon\bibnamedelima J},
-           giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
-        {{hash=b0b0728e985c235044ba35a10e46011d}{%
-           family={Munro},
-           familyi={M\bibinitperiod},
-           given={William\bibnamedelima J},
-           giveni={W\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
-        {{hash=43de8552ab61d76a124fd195717ad5a8}{%
-           family={Nemoto},
-           familyi={N\bibinitperiod},
-           given={Kae},
-           giveni={K\bibinitperiod}}}%
+    \entry{harremoës-2008}{inbook}{}
+      \name{author}{2}{}{%
+        {{hash=3e8a3af32f7e2fc3cb01c712be57425c}{%
+           family={Harremoës},
+           familyi={H\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=89062cdd3867c6cfc12d5d20a7ca828f}{%
+           family={Topsøe},
+           familyi={T\bibinitperiod},
+           given={Flemming},
+           giveni={F\bibinitperiod}}}%
       }
       \list{publisher}{1}{%
-        {IOP Publishing}%
+        {Elsevier}%
       }
-      \strng{namehash}{c85ef1e7204b8955c5a836ee397906f5}
-      \strng{fullhash}{c85ef1e7204b8955c5a836ee397906f5}
-      \strng{bibnamehash}{c85ef1e7204b8955c5a836ee397906f5}
-      \strng{authorbibnamehash}{c85ef1e7204b8955c5a836ee397906f5}
-      \strng{authornamehash}{c85ef1e7204b8955c5a836ee397906f5}
-      \strng{authorfullhash}{c85ef1e7204b8955c5a836ee397906f5}
-      \field{sortinit}{D}
-      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \strng{namehash}{2defd573e048aae20b180861a5df26d8}
+      \strng{fullhash}{2defd573e048aae20b180861a5df26d8}
+      \strng{bibnamehash}{2defd573e048aae20b180861a5df26d8}
+      \strng{authorbibnamehash}{2defd573e048aae20b180861a5df26d8}
+      \strng{authornamehash}{2defd573e048aae20b180861a5df26d8}
+      \strng{authorfullhash}{2defd573e048aae20b180861a5df26d8}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{issn}{1361-6633}
-      \field{journaltitle}{Reports on Progress in Physics}
-      \field{month}{6}
-      \field{number}{7}
-      \field{title}{Quantum error correction for beginners}
-      \field{volume}{76}
-      \field{year}{2013}
-      \field{pages}{076001}
+      \field{booktitle}{Philosophy of Information}
+      \field{chapter}{1}
+      \field{title}{The Quantitative Theory of Information}
+      \field{year}{2008}
+      \field{pages}{171}
+      \range{pages}{1}
+    \endentry
+    \entry{peruzzo-2014}{article}{}
+      \name{author}{8}{}{%
+        {{hash=da632f662bb1ab5c3e05ddb80b6cd201}{%
+           family={Peruzzo},
+           familyi={P\bibinitperiod},
+           given={Alberto},
+           giveni={A\bibinitperiod}}}%
+        {{hash=44d80c9bccbe7462fe524bbf9cd54a08}{%
+           family={McClean},
+           familyi={M\bibinitperiod},
+           given={Jarrod},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c0ad2cf76d13d7b9fb852ca865569241}{%
+           family={Shadbolt},
+           familyi={S\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=cbadbf9460f01d20432bc4fb34345309}{%
+           family={Yung},
+           familyi={Y\bibinitperiod},
+           given={Man-Hong},
+           giveni={M\bibinithyphendelim H\bibinitperiod}}}%
+        {{hash=30e428aa9e63bc24127324a4c1fefabc}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Xiao-Qi},
+           giveni={X\bibinithyphendelim Q\bibinitperiod}}}%
+        {{hash=2d8133b5eb867e28af9ca9ea41105b5c}{%
+           family={Love},
+           familyi={L\bibinitperiod},
+           given={Peter\bibnamedelima J.},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=083dcdd0db2687433b22fabfb2e55c17}{%
+           family={Aspuru-Guzik},
+           familyi={A\bibinithyphendelim G\bibinitperiod},
+           given={Alán},
+           giveni={A\bibinitperiod}}}%
+        {{hash=7b625f48d9f8201090af393e1d66980a}{%
+           family={O’Brien},
+           familyi={O\bibinitperiod},
+           given={Jeremy\bibnamedelima L.},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{bddcbb30e0909355294b8653d4787a0e}
+      \strng{fullhash}{5e0d3548ad5f86de3d79ee61e836ec14}
+      \strng{bibnamehash}{5e0d3548ad5f86de3d79ee61e836ec14}
+      \strng{authorbibnamehash}{5e0d3548ad5f86de3d79ee61e836ec14}
+      \strng{authornamehash}{bddcbb30e0909355294b8653d4787a0e}
+      \strng{authorfullhash}{5e0d3548ad5f86de3d79ee61e836ec14}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Quantum computers promise to efficiently solve important problems that are intractable on a conventional computer. For quantum systems, where the physical dimension grows exponentially, finding the eigenvalues of certain operators is one such intractable problem and remains a fundamental challenge. The quantum phase estimation algorithm efficiently finds the eigenvalue of a given eigenvector but requires fully coherent evolution. Here we present an alternative approach that greatly reduces the requirements for coherent evolution and combine this method with a new approach to state preparation based on ansätze and classical optimization. We implement the algorithm by combining a highly reconfigurable photonic quantum processor with a conventional computer. We experimentally demonstrate the feasibility of this approach with an example from quantum chemistry—calculating the ground-state molecular energy for He–H+. The proposed approach drastically reduces the coherence time requirements, enhancing the potential of quantum resources available today and in the near future.}
+      \field{day}{23}
+      \field{issn}{2041-1723}
+      \field{journaltitle}{Nature Communications}
+      \field{month}{7}
+      \field{number}{1}
+      \field{title}{A variational eigenvalue solver on a photonic quantum processor}
+      \field{volume}{5}
+      \field{year}{2014}
+      \field{dateera}{ce}
+      \field{pages}{4213}
       \range{pages}{1}
       \verb{doi}
-      \verb 10.1088/0034-4885/76/7/076001
+      \verb 10.1038/ncomms5213
       \endverb
       \verb{urlraw}
-      \verb http://dx.doi.org/10.1088/0034-4885/76/7/076001
+      \verb https://doi.org/10.1038/ncomms5213
       \endverb
       \verb{url}
-      \verb http://dx.doi.org/10.1088/0034-4885/76/7/076001
+      \verb https://doi.org/10.1038/ncomms5213
       \endverb
+      \warn{\item Overwriting field 'year' with year value from field 'date' for entry 'peruzzo-2014'}
+    \endentry
+    \entry{smith-2008}{article}{}
+      \name{author}{2}{}{%
+        {{hash=66a4586e0f679a1bc1a6ec09bf4e497b}{%
+           family={Smith},
+           familyi={S\bibinitperiod},
+           given={Graeme},
+           giveni={G\bibinitperiod}}}%
+        {{hash=bb396e307a522c185980a80873d8de84}{%
+           family={Yard},
+           familyi={Y\bibinitperiod},
+           given={Jon},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{3f173b2854c90769dbe282e7246e8fe2}
+      \strng{fullhash}{3f173b2854c90769dbe282e7246e8fe2}
+      \strng{bibnamehash}{3f173b2854c90769dbe282e7246e8fe2}
+      \strng{authorbibnamehash}{3f173b2854c90769dbe282e7246e8fe2}
+      \strng{authornamehash}{3f173b2854c90769dbe282e7246e8fe2}
+      \strng{authorfullhash}{3f173b2854c90769dbe282e7246e8fe2}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Communication over a noisy quantum channel introduces errors in the transmission that must be corrected. A fundamental bound on quantum error correction is the quantum capacity, which quantifies the amount of quantum data that can be protected. We show theoretically that two quantum channels, each with a transmission capacity of zero, can have a nonzero capacity when used together. This unveils a rich structure in the theory of quantum communications, implying that the quantum capacity does not completely specify a channel's ability to transmit quantum information.}
+      \field{journaltitle}{Science}
+      \field{number}{5897}
+      \field{title}{Quantum Communication with Zero-Capacity Channels}
+      \field{volume}{321}
+      \field{year}{2008}
+      \field{pages}{1812\bibrangedash 1815}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1126/science.1162242
+      \endverb
+      \verb{eprint}
+      \verb https://www.science.org/doi/pdf/10.1126/science.1162242
+      \endverb
+      \verb{urlraw}
+      \verb https://www.science.org/doi/abs/10.1126/science.1162242
+      \endverb
+      \verb{url}
+      \verb https://www.science.org/doi/abs/10.1126/science.1162242
+      \endverb
+    \endentry
+    \entry{swayne-2023}{online}{}
+      \name{author}{1}{}{%
+        {{hash=dac25342c4344f6d779213504cc04a41}{%
+           family={Swayne},
+           familyi={S\bibinitperiod},
+           given={Matt},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{dac25342c4344f6d779213504cc04a41}
+      \strng{fullhash}{dac25342c4344f6d779213504cc04a41}
+      \strng{bibnamehash}{dac25342c4344f6d779213504cc04a41}
+      \strng{authorbibnamehash}{dac25342c4344f6d779213504cc04a41}
+      \strng{authornamehash}{dac25342c4344f6d779213504cc04a41}
+      \strng{authorfullhash}{dac25342c4344f6d779213504cc04a41}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Quantum Insider}
+      \field{month}{11}
+      \field{title}{AWS Reveals Quantum Chip That Suppresses Bit Flip Errors By 100X}
+      \field{urlday}{1}
+      \field{urlmonth}{12}
+      \field{urlyear}{2023}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://thequantuminsider.com/2023/11/29/aws-reveals-quantum-chip-that-suppresses-bit-flip-errors-by-100x/
+      \endverb
+      \verb{url}
+      \verb https://thequantuminsider.com/2023/11/29/aws-reveals-quantum-chip-that-suppresses-bit-flip-errors-by-100x/
+      \endverb
+    \endentry
+    \entry{vandersypen-2001}{article}{}
+      \name{author}{6}{}{%
+        {{hash=32374120f06a95944f0ca5e62ad87444}{%
+           family={Vandersypen},
+           familyi={V\bibinitperiod},
+           given={Lieven\bibnamedelimb M.\bibnamedelimi K.},
+           giveni={L\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=4d699184e97e79510fba7d47b54242fa}{%
+           family={Steffen},
+           familyi={S\bibinitperiod},
+           given={Matthias},
+           giveni={M\bibinitperiod}}}%
+        {{hash=b29f33472c6622c139313867dc0ea650}{%
+           family={Breyta},
+           familyi={B\bibinitperiod},
+           given={Gregory},
+           giveni={G\bibinitperiod}}}%
+        {{hash=67a7bcb847ca4ff2bba98cfc4194ac31}{%
+           family={Yannoni},
+           familyi={Y\bibinitperiod},
+           given={Costantino\bibnamedelima S.},
+           giveni={C\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=7edaae6c2f45ce8337885ffb013ec399}{%
+           family={Sherwood},
+           familyi={S\bibinitperiod},
+           given={Mark\bibnamedelima H.},
+           giveni={M\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=415ddff2f58b25977b1a2dedf18f4501}{%
+           family={Chuang},
+           familyi={C\bibinitperiod},
+           given={Isaac\bibnamedelima L.},
+           giveni={I\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{401a499b1006ef90815afd661176a1c7}
+      \strng{fullhash}{8b0d46c88ba4919369aebd84e93f5c1f}
+      \strng{bibnamehash}{8b0d46c88ba4919369aebd84e93f5c1f}
+      \strng{authorbibnamehash}{8b0d46c88ba4919369aebd84e93f5c1f}
+      \strng{authornamehash}{401a499b1006ef90815afd661176a1c7}
+      \strng{authorfullhash}{8b0d46c88ba4919369aebd84e93f5c1f}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The number of steps any classical computer requires in order to find the prime factors of an l-digit integer N increases exponentially with l, at least using algorithms known at present1. Factoring large integers is therefore conjectured to be intractable classically, an observation underlying the security of widely used cryptographic codes1,2. Quantum computers3, however, could factor integers in only polynomial time, using Shor's quantum factoring algorithm4,5,6. Although important for the study of quantum computers7, experimental demonstration of this algorithm has proved elusive8,9,10. Here we report an implementation of the simplest instance of Shor's algorithm: factorization of N = 15 (whose prime factors are 3 and 5). We use seven spin-1/2 nuclei in a molecule as quantum bits11,12, which can be manipulated with room temperature liquid-state nuclear magnetic resonance techniques. This method of using nuclei to store quantum information is in principle scalable to systems containing many quantum bits13, but such scalability is not implied by the present work. The significance of our work lies in the demonstration of experimental and theoretical techniques for precise control and modelling of complex quantum computers. In particular, we present a simple, parameter-free but predictive model of decoherence effects14 in our system.}
+      \field{issn}{1476-4687}
+      \field{journaltitle}{Nature}
+      \field{month}{12}
+      \field{number}{6866}
+      \field{title}{Experimental realization of Shor's quantum factoring algorithm using nuclear magnetic resonance}
+      \field{volume}{414}
+      \field{year}{2001}
+      \field{pages}{883\bibrangedash 887}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1038/414883a
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1038/414883a
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1038/414883a
+      \endverb
+    \endentry
+    \entry{yin-2017}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{10}{}{%
+        {{hash=7af90968b09906aae6abddb5d8264eab}{%
+           family={Yin},
+           familyi={Y\bibinitperiod},
+           given={Juan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=2923de2da7f9b32b957552e414b6bc16}{%
+           family={Cao},
+           familyi={C\bibinitperiod},
+           given={Yuan},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=aa6cb925ecb13d74e40edc7b64ab13ad}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Yu-Huai},
+           giveni={Y\bibinithyphendelim H\bibinitperiod}}}%
+        {{hash=bd8801b8801d09120e458ad0ed048942}{%
+           family={Liao},
+           familyi={L\bibinitperiod},
+           given={Sheng-Kai},
+           giveni={S\bibinithyphendelim K\bibinitperiod}}}%
+        {{hash=0bf1b08466636bf5ead9445ddbec1524}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Liang},
+           giveni={L\bibinitperiod}}}%
+        {{hash=420bd1fbc482417a949eeff1bcae578e}{%
+           family={Ren},
+           familyi={R\bibinitperiod},
+           given={Ji-Gang},
+           giveni={J\bibinithyphendelim G\bibinitperiod}}}%
+        {{hash=ff78895e0b979d2eb1b3142e778030fa}{%
+           family={Cai},
+           familyi={C\bibinitperiod},
+           given={Wen-Qi},
+           giveni={W\bibinithyphendelim Q\bibinitperiod}}}%
+        {{hash=390bad1295f59b5c6c2a35025d6b828e}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Wei-Yue},
+           giveni={W\bibinithyphendelim Y\bibinitperiod}}}%
+        {{hash=a9c8728e355996d027a7e56b60820a18}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Bo},
+           giveni={B\bibinitperiod}}}%
+        {{hash=87b14845c54ffe23eb25443623a4d6e3}{%
+           family={Dai},
+           familyi={D\bibinitperiod},
+           given={Hui},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Association for the Advancement of Science}%
+      }
+      \strng{namehash}{ead2eb7b6bf756ed2e232b81ac123d8f}
+      \strng{fullhash}{45112d828aa6f4183eaec8c76639de5c}
+      \strng{bibnamehash}{45112d828aa6f4183eaec8c76639de5c}
+      \strng{authorbibnamehash}{45112d828aa6f4183eaec8c76639de5c}
+      \strng{authornamehash}{ead2eb7b6bf756ed2e232b81ac123d8f}
+      \strng{authorfullhash}{45112d828aa6f4183eaec8c76639de5c}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Science}
+      \field{number}{6343}
+      \field{title}{Satellite-based entanglement distribution over 1200 kilometers}
+      \field{volume}{356}
+      \field{year}{2017}
+      \field{pages}{1140\bibrangedash 1144}
+      \range{pages}{5}
     \endentry
   \enddatalist
 \endrefsection

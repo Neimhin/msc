@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./static/js/", // Redirect output structure to the directory
+    "outDir": "./js/", // Redirect output structure to the directory
     "rootDir": "./ts/", // Specify the root directory of input files
     "sourceMap": true, // Enable source map support for debugging
     "target": "es6", // Set the JavaScript language version for emitted JavaScript and include compatible library declarations

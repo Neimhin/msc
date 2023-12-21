@@ -134,7 +134,9 @@ of its inputs to 0 and leaves the rest of the inputs the same. Its
 input and output shape is (8,8,32). The next layer simply unravels
 the (8,8,32) tensor into an array of length $2048=8\cdot8\cdot32$.
 The final layer `Dense' layer first computes 10 separate linear combinations of length 2048 input vector.
-The output of this `Dense' layer is just the `softmax' function applied to the vector of ten linear combinations, $[ z_1, \ldots, z_{10}]$.
+The output of this `Dense' layer is just the `softmax'
+function applied to the vector of ten linear combinations,
+$[ z_1, \ldots, z_{10}]$.
 A definition of the softmax function is given in Equation \ref{eq:softmax}
 and a description of the final output of the model is given in Equation \ref{eq:out-proba}.
 
@@ -145,7 +147,7 @@ and a description of the final output of the model is given in Equation \ref{eq:
 
 \begin{equation}
     \label{eq:out-proba}
-    \text{output of dense layer} = [ \text{softmax}(z_0), \text{softmax}(z_1), \ldots, \text{softmax}(z_{10}) ] 
+    \text{output of dense layer} = [ \text{softmax}(z_1), \text{softmax}(z_2), \ldots, \text{softmax}(z_{10}) ] 
 \end{equation}
 
 
@@ -155,7 +157,7 @@ The final Dense layer has the most parameters, namely $2048\cdot10+10=20490$.
 The number of parameters in a convolution layer is determined by the kernel size and the number of filters and the number of channels,
 $$\text{no. params}=(k_w\cdot k_h\cdot c + 1)\cdot f$$,
 where $k_w$ and $k_h$ are the kernel dimensions, $c$ is the number of filters, there's 1 bias for each kernel, and $f$ is the number of kernels/filter.
-whereas the number of parameters in a Dense layer is determined by the input and output sizes.
+However, the number of parameters in a Dense layer is determined by the input and output sizes.
 Since the input dimension for the Dense layer is quite large (2048), this layer ends up having more
 parameters than any of the convolution layers.
 

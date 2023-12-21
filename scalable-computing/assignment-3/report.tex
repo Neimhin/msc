@@ -81,11 +81,11 @@ directly correlates to the efficiency of optimal compression systems.
 As uncompressed string length increases,
 the average bits required for encoding approaches the source's entropy,
 under the assumption of encoding individual symbols.
-
-\kti The Slepian and Wolf result shows us that when we
-want to compress two distinct but correlated information
-sources we can use information from one of the sources
-to reduce the number of bits needed to encode the second source.
+As data and information systems grow,
+ensuring security without compromising scalability gets more difficult.
+QKD offers a pathway to enhance rather than sacrifice security
+in tandem with the expansion
+of data networks and communication systems.
 
 \kti Slepian-Wolf coding reveals
 that compressing two correlated information
@@ -93,7 +93,7 @@ sources can be optimized by using
 information from one source to reduce the encoding bits needed for the other.
 
 \kti A Nash equilibrium represents each player's best response
-to the given set of strategies of the other palyers.
+to the given set of strategies of the other players.
 It does not necessarily correspond to the optimal outcome for all players involved
 -- it is a state of mutual best response, not necessarily a state of optimal collective payoff.
 
@@ -103,8 +103,58 @@ offers rigorous security but is impractical for widespread use due to key distri
 Conversely, computational security, though less theoretically robust, is more feasible in common applications.
 Quantum Key Distribution (QKD) could make unconditionally secure methods like the one-time pad more practical.
 
+\begin{comment}
+\kti The maximum entropy principle has gives us a decision criterion for selecting
+a probability distribution when the true distribution is unknown,
+namely that we should choose
+the distribution such that the entropy w.r.t. any known data is maximized.
+Harremoës and Topsøe \cite[23]{harremoës-2008} introduce the idea in an interesting way;
+by constructing a game in which the optimal strategy
+for one of the players (Nature) turns out equivalent
+to applying the maximum entropy principle.
+The theatrical discussion \cite[24-25]{harremoës-2008}
+between the statistician and the information theorist
+has the information theorist implicitly applying the maximum
+entropy principle to select a probability distribution that maximizes entropy
+and hence {\em minimizes risk} of a high `cost', given all that is known.
+For me these two examples highlighted
+the dialectic between {\em discovery} and {\em invention} in mathematics.
+\end{comment}
+
+\kti The maximum entropy principle,
+which advises selecting the distribution
+with maximized entropy based on known data,
+offers a decision-making framework in uncertain scenarios.
+Harremoës and Topsøe \cite[23]{harremoës-2008} introduce the idea in an interesting way;
+by constructing a game in which the optimal strategy
+for one of the players (Nature) turns out equivalent
+to applying the maximum entropy principle.
+For me, the example highlighted
+the dialectic between {\em discovery}
+and {\em invention} in mathematics.
+
+\begin{comment}
+\kti The no-cloning theorem can be derived from
+requirement that quantum gates must be reversible,
+and it tells us that
+"quantum information cannot be created, copied, or destroyed".
+The no-cloning theorem makes the classical repetition code
+(an encoding that facilitates error correction and/or detection)
+impossible for quantum information.
+Further, since quantum information is both
+susceptible to errors
+and liable to leak,
+the difficulty of error correction is one of the
+major obstacles in the development of useful quantum computation.
+\end{comment}
+
+\kti The no-cloning theorem, a result of quantum gate reversibility,
+dictates that quantum information cannot be copied or destroyed.
+This prevents a simple transfer of classical error correction methods,
+posing a significant hurdle in quantum computation development.
 \section{Key Learnings}
 
+\begin{comment}
 \kl The linking identity, Equation (1.9) in \cite{harremoës-2008}, relates the actual average code length when 
 a code $\kappa$ adapted to $Q$,
 is used to encode a source with distribution
@@ -112,7 +162,14 @@ $P$ to two important quantities; 1. The entropy of the true distribution $P$ of 
 The divergence of true distribution $P$ from the assumed distribution $Q$ to which the id-code is adapted, 
 $D(P||Q)$. While the text \cite{harremoës-2008} derives this identity from other assumptions,
 I find the linking identity to be a more intuitive definition of divergence.
+\end{comment}
 
+\kl The linking identity \cite[8]{harremoës-2008} gives the relationship between average code length,
+source entropy, and the divergence from assumed to true distribution,
+and for me,
+it offers the most intuitive understanding of KL-divergence.
+
+\begin{comment}
 \kl Bits can be encoded as qubits, but qubits cannot be encoded as bits,
 presenting a challenge to the field of information theory where the bit is the fundamental unit.
 However, it can still be argued that the bit remains a valid fundamental unit in information theory.
@@ -125,20 +182,16 @@ Therefore, even though qubits represent a more complex state of information theo
 any information we can effectively obtain and communicate about the system is in the form of bits.
 This reality reinforces philosophically the bit as the basic unit of information epistemologically,
 even if the qubit does introduce a richer ontological structure.
+\end{comment}
 
-\kl The no-cloning theorem can be derived from
-requirement that quantum gates must be reversible,
-and it tells us that
-"quantum information cannot be created, copied, or destroyed".
-The no-cloning theorem makes the classical repetition code
-(an encoding that facilitates error correction and/or detection)
-impossible for quantum information.
-Further, since quantum information is both
-susceptible to errors
-and liable to leak,
-the difficulty of error correction is one of the
-major obstacles in the development of useful quantum computation.
+\kl While bits can be encoded in qubits,
+the inverse isn't true,
+presenting challenges in information theory.
+However, since observations of quantum systems collapse to classical states,
+bits remain the fundamental information unit epistemologically,
+despite the richer ontological structure of qubits.
 
+\begin{comment}
 \kl Quantum computation has similarities to analog computation,
 such as the Difference Engine,
 or the way multiplication of continuous
@@ -154,7 +207,9 @@ copy the information perfectly, whereas digital information can
 be copied and disseminated perfectly with an arbitrary degree of confidence.
 Work on achieving similar guarantees for continuous and quantum information is ongoing,
 but the challenge may be insurmountable.
+\end{comment}
 
+\begin{comment}
 \kl Digital information makes sense in an entirely logical framework, i.e. detached from
 physical reality, but at the same time the tools of information theory allow us
 to create physical manifestations of digital information, in storage systems, in RF or acoustic signals,
@@ -166,28 +221,24 @@ i.e. are hands are tied more strictly to the physical reality.
 I think the lesson here is that quantum information theory provides {\em optimizations} for specific tasks,
 but digital information, being a touch more abstract, a touch less shackled to physical reality,
 has in fact led to it, thus far, being the weapon of choice for practical problems.
+\end{comment}
 
-\kl The maximum entropy principle has gives us a decision criterion for selecting
-a probability distribution when the true distribution is unknown,
-namely that we should choose
-the distribution such that the entropy w.r.t. any known data is maximized.
-Harremoës and Topsøe \cite[23]{harremoës-2008} introduce the idea in an interesting way;
-by constructing a game in which the optimal strategy
-for one of the players (Nature) turns out equivalent
-to applying the maximum entropy principle.
-The theatrical discussion \cite[24-25]{harremoës-2008}
-between the statistician and the information theorist
-has the information theorist implicitly applying the maximum
-entropy principle to select a probability distribution that maximizes entropy
-and hence {\em minimizes risk} of a high `cost', given all that is known.
-For me these two examples highlighted
-the dialectic between {\em discovery} and {\em invention} in mathematics.
+\kl Digital information's abstraction from physical reality
+has been key to its scalability and dominance.
+Quantum information theory, however, is more intimately tied to physical realities.
+While quantum information theory can optimize specific tasks,
+digital information remains more practical for a broader range of applications.
+This contrast between digital and quantum information
+highlights a fundamental scalability trade-off:
+the ease and flexibility of scaling digital information systems
+versus the physical tethering of quantum systems.
 
 \kl We can never achieve perfect certainty that a message is received
 perfectly when sent through a channel, but we can engineer systems
 to guarantee arbitrarily high certainty depending on how much we are
 willing to sacrifice in latency, throughput, money etc.
 
+\begin{comment}
 \kl We can already construct coding schemes that give maximum capacity
 with negligible error in the limit.
 Shannon constructed one to prove the second main theorem of information theory.
@@ -198,6 +249,15 @@ One goal of modern coding scheme development,
 then, is to construct schemes that approach the capacity for practically short messages.
 However, another line of research seeks to construct coding schemes with tolerably non-negligible errors,
 but potentially higher capacity.
+\end{comment}
+
+\kl Achieving maximum coding capacity with negligible error
+is only theoretically possible for infinitely long messages.
+Current research focuses on optimizing coding schemes
+for practical message lengths.
+However, another line of research seeks to construct coding schemes
+with tolerably non-negligible errors,
+but potentially higher capacity.
 
 \kl I think we are gradually gaining insight into compression as a form or requisite of intelligence
 (I’m thinking of GPTs as fancy text compressors which then miraculously mimic intelligence).
@@ -207,7 +267,7 @@ from looking at intelligence as the thing that identifies and encodes
 structure while intelligently discarding unstructure.
 
 
-\section{Applications of Quantum Information and Computation since 2008}
+\section{Quantum Information and Computation since 2008}
 A major challenge in practical application of quantum information theory
 is the instability of quantum systems, which means, for instance,
 that it is
@@ -221,6 +281,12 @@ erroneously from \( \ket{0} \) to \( \ket{1} \).
 However, qubits are additionally susceptible to phase errors,
 e.g. a state like \( \alpha\ket{0} + \beta\ket{1} \) changing to
 \( \alpha\ket{0} - \beta\ket{1} \).
+
+There are very fresh reports that a team at AWS have improved
+quantum error correction 100-fold by separating out the
+different types of
+qubit flips and tackling them individually \cite{swayne-2023},
+but a technical publication is yet to emerge.
 
 \begin{comment}
 The Deutsch-Jozsa \cite{deutsch-1992} algorithm was one of the first
@@ -239,6 +305,8 @@ to gain a practical speed increase compared to classical computers,
 so naturally a great deal of the energy and money
 going to into quantum research has been
 on incremental improvements to implementations.
+
+\begin{comment}
 Unlike classical information,
 which was born fully fledged in Shannon's 1948 paper,
 the theoretical aspect of quantum computation is anchored to
@@ -251,6 +319,7 @@ double-edged swords, e.g. the no-cloning theorem
 is necessary for the security of quantum key distribution,
 but poses a huge challenge to reliable communication
 of quantum information in general.
+\end{comment}
 
 There are two main approaches to making progress on practical applications
 of quantum systems to information and computation problems:
@@ -261,24 +330,17 @@ variational eigenvalue solving was published in 2014 \cite{peruzzo-2014}.
 The technique has much lower requirements for coherence than
 the quantum phase estimation algorithm,
 and therefore made some computations newly feasible.
-However, sattelite-based entanglement distribution \cite{yin-2017},
+However, satelite-based entanglement distribution \cite{yin-2017},
 a landmark technology introduced in 2017,
 drastically increased practical coherence distance without a big increase in coherence time.
 
-There are very fresh reports that a team at AWS have improved
-quantum error correction 100-fold by separating out the
-different types of
-qubit flips and tackling them individually \cite{swayne-2023}.
-
-
-\cite{devitt-2013}
-
+\begin{comment}
 Quantum Secure Direct Communication (QSDC) \cite{long-2017},
 unlike QKD, is a quantum cryptography
 technique that does not require the distribution of a shared secret key.
 To quote Long's salacious emphasis ``QSDC has become one hot research area'' in the decade following the 2008 publication of the chapter
 by Harremoës and Topsøe \cite{harremoës-2008}.
-
+\end{comment}
 
 Harremoës and Topsøe \cite[38]{harremoës-2008} noted that
 the {\em additivity conjecture} remained unproven in 2008,
@@ -289,8 +351,29 @@ its ability to transmit information.
 
 \section{Quantum Information and Computation from now until 2028}
 
-\setlength\bibitemsep{0.3\itemsep}
-\renewcommand{\bibfont}{\small}
-{\tiny \printbibliography}
+We inch closer to quantum engineering capabilities
+that we know theoretically
+will be highly disruptive.
+The trend lines of quantum coherence guarantees
+and quantum algorithm requisites are steadily converging.
+But, I think there is also a good possibility of
+new breakthrough technologies emerging more quickly out of the blue.
+The key to quantum information and computation is
+in leveraging its fundamental oddities,
+and I think there is still a great deal of headroom
+in exploring the truly novel capabilities quantum information
+might facilitate when we unshackle ourselves from classical idioms.
+The discovery that certain quantum channels are {\em non-additive}
+is an example of the kind of out-of-the-blue quantum weirdness
+that might lead to equally surprising practical applications in the coming years.
 
+The classical computation framework already serves us very well
+for tackling almost any problem, albeit at limited scales,
+and so researchers in quantum will focus on tasks where
+the quantity, the scale, has a quality of its own.
+
+
+\setlength\bibitemsep{0.3\itemsep}
+\renewcommand{\bibfont}{\footnotesize}
+\printbibliography
 \end{document}

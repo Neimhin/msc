@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "http-server"
+  },
   "devDependencies": {
     "@types/d3": "^7.4.3",
     "@types/p5": "^1.7.4"

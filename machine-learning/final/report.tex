@@ -78,6 +78,9 @@ the time of last update is between the start and end of the interval,
 then we know that there were at least 2 interactions with the bike station.
 
 \section{Short Questions}
+\subsection{(i)}
+What is an ROC curve?
+
 The name Receiver Operating Characteristic (ROC) is not very enlightening as to what an ROC curve is.
 
 Often, a binary classifier consists of a function $c:X\rightarrow [0,1]$ which maps an input $x\in X$ to a the
@@ -108,6 +111,8 @@ The `steps'
 in an ROC curve occur where a small change in $\alpha$ result
 in a change in classification of a single data point.
 
+\textbf{How can it be used to evaluate the performance of a classifier?}
+
 If the test set is fair then a `coin-flip' classifier, that just makes a random
 classification for each input, will have an ROC curve approximating the line from $(0,0)$ to $(1,1)$,
 with more data points giving a closer approximation. In this way the ROC curve lets you
@@ -116,11 +121,35 @@ implicitly compare a binary classifier to a `coin-flip` classifier.
 In general a classifier is better if the area under the ROC curve is greater, where the maximum area is 1.
 Being reductionist, this means that a classifier is better if it's ROC curve gets closer to the point the $(0,1)$.
 
+\textbf{Why would you use an ROC curve instead of a classification accuracy metric?}
 If the cost of different types of errors (false positive, false negative) are significantly
 different for the particular use-case, or if the dataset is imbalanced,
 then an ROC curve can be more illuminating than a reductionist accuracy metric
 for evaluating whether specific requirements are being met, and it can be used to
 search for the threshold $\alpha$ which balances the requirements of the task most appropriately.
+
+\subsection{(ii)}
+Linear regression will give inaccurate predictions when the target values are
+not linearly correlated the input features.
+For example if the target output is strongly correlated to the distance
+of the input features from some point, i.e. there is a circular/spherical pattern,
+then a linear regression will likely give poor predictions for a large
+proportion of the data. Depending on the type of non-linearity between the
+inputs and outputs it may be possible to augment the input features, e.g. by taking polynomial
+combinations of the input features, such that the targets do become
+linearly correlated with some subset of the augmented input features.
+If this type of feature engineering doesn't work then a different model
+that can handle non-linearity, such as a k-NN regression model,
+could be used instead.
+
+Linear regression can be sensitive to outliers,
+where I define an outlier to be a datapoint which was generated
+by some process distinct from expected process, i.e. a typo,
+a faulty sensor.
+
+\includegraphics{fig/outlier_example_linear_regression.pdf}
+
+\subsection{(iii)}
 
 \bigskip{}
 \printbibliography

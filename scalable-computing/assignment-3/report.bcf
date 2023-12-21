@@ -4,11 +4,11 @@
   <bcf:options component="biber" type="global">
     <bcf:option type="singlevalued">
       <bcf:key>output_encoding</bcf:key>
-      <bcf:value>latin9</bcf:value>
+      <bcf:value>utf8</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>input_encoding</bcf:key>
-      <bcf:value>latin9</bcf:value>
+      <bcf:value>utf8</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>debug</bcf:key>
@@ -91,7 +91,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxbibnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>99</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
@@ -99,7 +99,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxsortnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>99</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxitems</bcf:key>
@@ -321,7 +321,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxbibnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>99</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
@@ -329,7 +329,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxsortnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>99</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxitems</bcf:key>
@@ -2349,7 +2349,15 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">main.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1" intorder="1">Devitt_2013</bcf:citekey>
+    <bcf:citekey order="1" intorder="1">harremoës-2008</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">harremoës-2008</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">harremoës-2008</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">swayne-2023</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">vandersypen-2001</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">peruzzo-2014</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">yin-2017</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">harremoës-2008</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">smith-2008</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
@@ -2381,4 +2389,13 @@
     </bcf:sort>
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
+  <bcf:datalist section="0"
+                name="nty/global//global/global"
+                type="entry"
+                sortingtemplatename="nty"
+                sortingnamekeytemplatename="global"
+                labelprefix=""
+                uniquenametemplatename="global"
+                labelalphanametemplatename="global">
+  </bcf:datalist>
 </bcf:controlfile>

@@ -1235,10 +1235,10 @@ function main() {
     // })
 }
 
-fetch('/static/json/fatalities.json')
+fetch('/json/fatalities.json')
     .then(on_response)
     .then(on_fatalities)
 
-fetch('/static/json/districts_geocode.json')
+fetch('/json/districts_geocode.json')
     .then(on_response)
     .then(on_districts)
