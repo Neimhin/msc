@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/d3.js"></script>
+        <style>
+        /* CSS styles */
+        .grid-container {
+            display: inline-block;
+            border: 1px solid black;
+        }
+        .grid-cell {
+            border: 1px solid #ddd;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+        .vis {
+          background-color: black;
+        }
+        body {
+          background-color: rgb(112, 0, 0);
+        }
+        span {
+          border-color: black;
+          border-radius: 30px;
+          border: 3px rgb(233, 212, 212);
+          position: center;
+        }
+        .geo-bounds:hover {
+          color: green;
+        }
+        .hover {
+          background-color: green;
+        }
+        .injury-label {
+          overflow: visible;
+        }
+        .tooltip-content {
+          background: rgba(0, 0, 0, 0.509);
+        }
+    </style>
+  </head>
+  <body style="text-align: center">
+    <h1 style="text-align: left; color: white">
+      Fatalities in Israel and Palestine
+    </h1>
+    <h2 style="text-align: left; color: white">
+      Oct. 2000 — Oct. 2023
+    </h2>
+    <h2>
+
+    </h2>
+    <span id="vis"></span>
+    <script type="module" src="/js/fatalities.js"></script>
+  </body>
+</html>
+
