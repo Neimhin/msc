@@ -61,7 +61,8 @@ function on_fatalities(d: Fatality[]){
     global.lazy.noon_time_to_fatalities = new Map<number, Fatality[]>();
     const mean_age = calculateMeanAge(global.lazy.fatalities);
     global.lazy.fatalities.sort((a, b) => a.parsed_date_ms - b.parsed_date_ms);
-    global.lazy.fatalities = global.lazy.fatalities.filter(d => d.event_location_region);
+    // global.lazy.fatalities = global.lazy.fatalities.filter(d => d.event_location_region);
+    console.log(global.lazy.fatalities.filter(d=>!d.event_location_region).length)
     global.lazy.fatalities.forEach(d => {
         d.parsed_date = parse_date(d.date_of_death);
         d.parsed_date.setHours(12,0,0,0);
@@ -665,6 +666,62 @@ function main() {
             });
     });
 
+
+    const tooltip = svg.append("foreignObject")
+        .attr("class", "tooltip")
+        .attr("width", scatterPlotArea.width)
+        .attr("height", 300)
+        .attr("x", 0)
+        .attr("y", 0)
+        .style("text-align", "left")
+        .style("text-size", "10px")
+        .style("color", "white")
+        .style("z-index",'10')
+      .append("xhtml:div")
+        .style("opacity", 0)
+        .attr("class", "toooltip-content")
+
+    const scatter_legend_spacing = 9;
+    const scatter_legend_group = svg.append('g')
+        .attr("transform", `translate(0 ${histogram_center + 20})`)
+    const scatter_legend_palestinian_group = scatter_legend_group.append('g')
+    scatter_legend_palestinian_group.append("circle")
+        .attr("class", "fatality-legend")
+        .attr("r", 3)
+        .style("fill", PALESTINIAN_RED)
+    scatter_legend_palestinian_group.append("text")
+        .attr("dominant-baseline", "middle")
+        .style("font-size", '10px')
+        .attr("x",5)
+        .style("fill", 'white')
+        .text("Death of a Palestinian Citizen")
+    const scatter_legend_israeli_group = scatter_legend_group
+        .append('g')
+        .attr("transform", `translate(0, ${scatter_legend_spacing})`)
+    scatter_legend_israeli_group.append("circle")
+        .attr("class", "fatality-legend")
+        .attr("r", 3)
+        .style("fill", ISRAELI_BLUE)
+    scatter_legend_israeli_group.append("text")
+        .attr("dominant-baseline", "middle")
+        .style("font-size", '10px')
+        .attr("x",5)
+        .style("fill", 'white')
+        .text("Death of an Israeli Citizen")
+    const scatter_legend_other_group = scatter_legend_group
+        .append('g')
+        .attr("transform", `translate(0, ${scatter_legend_spacing * 2})`)
+    scatter_legend_other_group.append("circle")
+        .attr("class", "fatality-legend")
+        .attr("r", 3)
+        .style("fill", 'white')
+    scatter_legend_other_group.append("text")
+        .attr("dominant-baseline", "middle")
+        .style("font-size", '10px')
+        .attr("x",5)
+        .style("fill", 'white')
+        .text("Death of a Jordanian or American")
+
     function addToScatterPlot(d: Fatality) {
         let xPosition;
 
@@ -682,6 +739,8 @@ function main() {
                 throw new Error("none of Gaza, Israel, West Bank")
                 xPosition = 0;
         }
+
+
     
         svg.append("circle")
             .attr("class", "fatality")
@@ -696,23 +755,21 @@ function main() {
                 return 'white'; // Jordanian or American
             })
             .on("mouseover", function (event, d) {
-                d3.select(this).attr("color", "green");
+
                 const opacity = fatality_to_opacity(d);
                 if(opacity < 0.00001) return
                 tooltip.transition()
-                .duration(10)
-                .style("opacity", 0.9);
+                    .duration(300)
+                    .style("opacity", 0.9);
                 tooltip.html(`<strong>Name:</strong> ${d.name}<br>
                                 <strong>Region:</strong> ${d.event_location_region}<br>
                                 <strong>Age:</strong> ${d.age}<br>
                                 <strong>Citizenship:</strong> ${d.citizenship}<br>
-                                <strong>Date of Death:</strong> ${d.date_of_death}<br>
+                                <strong>Date of Death:</strong> ${dateFormat(d.parsed_date_ms)}<br>
                                 <strong>Notes:</strong> ${d.notes}`);
             })
             .on("mouseout", function (event, d) {
-                tooltip.transition()
-                    .duration(10)
-                    .style("opacity", 0);
+                d
             });
     }
 
@@ -748,17 +805,7 @@ function main() {
         .style("opacity", 0.2)
 
 
-    const tooltip = svg.append("foreignObject")
-        .attr("class", "tooltip")
-        .attr("width", 400)
-        .attr("height", 300)
-        .attr("x", 0)
-        .attr("y", 0)
-        .style("text-align", "left")
-        .style("color", "white")
-      .append("xhtml:div")
-        .style("opacity", 0)
-        .attr("class", "tooltip-content")
+
 
     const yAxis = new YAxis(svg, age_scale, "Age upon Death");
     const pause_button = new PauseButton(svg, histogram_width - 30, slider_center - 20);
@@ -772,7 +819,7 @@ function main() {
 
     const demographicColors: d3.ScaleOrdinal<string, string> = d3.scaleOrdinal<string>()
         .domain(["palestinian man", "palestinian woman",    "palestinian minor",    "israeli man",  "israeli woman",    "israeli minor"])
-        .range( ["#6C8CA1",         "#035E7B",              "#21A179",              "#D1A368",      "#C8758F",          "#547AA5"]); // More saturated colors
+        .range( ["#6C8CA1",         "#035E7B",              "#21A179",              "#D1A368",      "#C8758F",          "#E59500"]); // More saturated colors
 
     // Perpetrator Color Palette
     const perpetratorColors: d3.ScaleOrdinal<string, string> = d3.scaleOrdinal<string>()
@@ -783,7 +830,7 @@ function main() {
         .title("Manner of death")
         .color(mannerOfDeathColors)
     const gender_age_pie_chart =    new DynamicPieChart(svg_root,pie_chart_diameters,pie_chart_x, pies_start_y + 1 * (pie_chart_diameters + 30), false)
-        .title("Demographic")
+        .title("Demographic of Victim")
         .color(demographicColors)
     const perpetrator_pie_chart =   new DynamicPieChart(svg_root,pie_chart_diameters,pie_chart_x, pies_start_y + 2 * (pie_chart_diameters + 30), false)
         .title("Perpetrator")
@@ -802,14 +849,22 @@ function main() {
             .on('end', dragEnded)
       );
 
-    const lineLength = 4; // Length of the lines
-    const scrubberY = histogram_center + global.scrubber.height; // Y-coordinate for the scrubber lines
+    const lineLength = -10; // Length of the lines
+    const scrubberY = histogram_center; // Y-coordinate for the scrubber lines
     const scrubber_line_start = scrubber_group.append('line')
         .attr('class', 'scrubber-start-line')
         .attr('x1', 0)
         .attr('y1', scrubberY)
         .attr('x2', 0)
-        .attr('y2', scrubberY + lineLength)
+        .attr('y2', scrubberY + lineLength - 10)
+        .attr('stroke', 'white')
+        .attr('stroke-width', 0.3);
+    const scrubber_line_start_hor = scrubber_group.append('line')
+        .attr('class', 'scrubber-end-start-hor')
+        .attr('x1', 0)
+        .attr('y1', scrubberY + lineLength - 10)
+        .attr('x2', histogram_width + 5)
+        .attr('y2', scrubberY + lineLength - 10)
         .attr('stroke', 'white')
         .attr('stroke-width', 0.3);
     const scrubber_line_end = scrubber_group.append('line')
@@ -820,6 +875,28 @@ function main() {
         .attr('y2', scrubberY + lineLength)
         .attr('stroke', 'white')
         .attr('stroke-width', 0.3);
+    const scrubber_line_end_hor = scrubber_group.append('line')
+        .attr('class', 'scrubber-end-line-hor')
+        .attr('x1', global.scrubber.width)
+        .attr('y1', scrubberY + lineLength)
+        .attr('x2', histogram_width + 5)
+        .attr('y2', scrubberY + lineLength)
+        .attr('stroke', 'white')
+        .attr('stroke-width', 0.3);
+    const scrubber_start_text = scrubber_group.append("text")
+        .attr('x', histogram_width + 5)
+        .attr('y', scrubberY - 20)
+        .attr('dominant-baseline','middle')
+        .style('fill','white')
+        .style('font-size','10px')
+        .text('hello')
+    const scrubber_end_text = scrubber_group.append("text")
+        .attr('x', histogram_width + 5)
+        .attr('y', scrubberY - 10)
+        .attr('dominant-baseline','middle')
+        .style('fill','white')
+        .style('font-size','10px')
+        .text('hello')
 
     function update_scrubber_lines() {
         const x_start = +scrubber.attr('x')
@@ -830,7 +907,12 @@ function main() {
         scrubber_line_end
             .attr('x1',x_end)
             .attr('x2',x_end);
-
+        scrubber_line_end_hor
+            .attr('x1',x_end);
+        scrubber_line_start_hor
+            .attr('x1',x_start);
+        scrubber_start_text.text(dateFormat(scrub_data_ms_from_x(x_start)));
+        scrubber_end_text.text(dateFormat(scrub_data_ms_from_x(x_end)));
     }
 
     global.scrubber.set_width(global.scrubber.width);
@@ -942,6 +1024,8 @@ function main() {
         const width_real_ms = data_ms_to_real_ms(width_data_ms);
         const x_right = +scrubber.attr('x') + +scrubber.attr('width');
         const new_x_left = x_right - width;
+        const new_data_ms_left = scrub_data_ms_from_x(new_x_left);
+        global.elapsed_ms_real_virtual = new_data_ms_left;
         global.scrubber.width = width;
         global.scrubber.width_data_ms = width_data_ms;
         global.scrubber.width_real_ms = width_real_ms
@@ -1050,12 +1134,6 @@ function main() {
             }
           })
           .style("opacity", fatality_to_opacity);
-
-        const text = dateFormat(scrub_data_ms_from_x(+scrubber.attr('x') + +scrubber.attr('width')));
-        const x = Number(scrubber.attr("x")) + Number(scrubber.attr("width"));
-        const y = Number(scrubber.attr("y")) + 30;
-        dateText.text(text);
-        dateTextRect.attr("transform", `translate(${x} ${y})`)
     }
 
     function positiveModulo(dividend: number, divisor: number) {
