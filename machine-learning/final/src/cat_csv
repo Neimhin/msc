@@ -1,0 +1,19 @@
+#!/bin/bash
+header=`head -1 "$1" | tr -d '\r'`
+function cat_except_first() {
+	new_header=`head -1 "$1" | tr -d '\r'`
+	if [ "$header" != "$new_header" ]; then
+		1>&2 echo failed
+		1>&2 echo $1
+		1>&2 echo "$header ${#header}"
+		1>&2 echo "$new_header ${#new_header}"
+		exit 1
+	fi
+	tail -n +2 "$1"
+	echo ""
+}
+1>&2 echo starting
+echo "$header"
+for file in "$@"; do
+	cat_except_first $file
+done

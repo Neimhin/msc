@@ -1,0 +1,194 @@
+from random import shuffle
+from click import DateTime
+import pandas as pd
+import argparse
+import lib
+import os
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import MinMaxScaler
+import pandas as pd
+import holidays
+from sklearn.metrics import mean_squared_error
+import holidays
+
+argument_parser = argparse.ArgumentParser()
+argument_parser.add_argument("--input",type=str)
+arg = argument_parser.parse_args()
+print(arg.input)
+directory = arg.input + ".d"
+os.makedirs(directory,exist_ok=True)
+
+# part 1: load the data
+df = lib.read_csv(arg.input)
+df = lib.even_30m_only(df)
+
+global_available = df.groupby("TIME ROUND 5m")["AVAILABLE BIKES"].sum()
+global_available_diff = global_available.diff().abs()
+
+# convert global_available_diff to a DataFrame with columns
+# "TIME ROUND 5m" (global_available_diff.index) "TOTAL AVAILABLE BIKES" (global_available.values)
+# "TOTAL AVAILABLE BIKES DIFF ABS" (global_available_diff.values)
+feature_df = pd.DataFrame({
+    "TIME ROUND 5m": global_available_diff.index,
+    "TOTAL AVAILABLE BIKES": global_available.values,
+    "TOTAL AVAILABLE BIKES DIFF ABS": global_available_diff.values
+})
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split, TimeSeriesSplit
+import matplotlib.pyplot as plt
+from datetime import datetime
+import lib
+from sklearn.model_selection import KFold
+
+# Step 1: Prepare the data with additional features
+min_timestamp = df["TIME"].min().timestamp()
+feature_df['TIME ROUND 5m'] = pd.to_datetime(feature_df['TIME ROUND 5m'])
+feature_df["Workday (hols)"] = feature_df['TIME ROUND 5m'].map(lib.working_day)
+feature_df['Minutes'] = feature_df['TIME ROUND 5m'].apply(lambda x: x.timestamp() - min_timestamp)
+feature_df['Workday'] = feature_df['TIME ROUND 5m'].dt.weekday < 5  # Monday=0, Sunday=6
+feature_df['Day of Year'] = feature_df['TIME ROUND 5m'].dt.dayofyear
+feature_df['Day of Year Squared'] = np.square(feature_df['Day of Year'])
+
+feature_df['Interval'] = feature_df['TIME ROUND 5m'].dt.hour * 2 + feature_df['TIME ROUND 5m'].dt.minute // 30
+intervals_one_hot = pd.get_dummies(feature_df['Interval'], prefix='Interval')
+feature_df = pd.concat([feature_df, intervals_one_hot], axis=1)
+
+from sklearn.linear_model import Lasso
+from sklearn.model_selection import KFold, GridSearchCV
+
+feature_df = feature_df.set_index(feature_df["TIME ROUND 5m"])
+features = ["Minutes", "Workday (hols)"] + [col for col in feature_df.columns if col.startswith("Interval")]
+X = feature_df[features]
+y = feature_df["TOTAL AVAILABLE BIKES DIFF ABS"].fillna(0)
+
+X_pre_pandemic = X[X.index < lib.PANDEMIC_START]
+y_pre_pandemic = y[y.index < lib.PANDEMIC_START]
+#X = X.set_index(df_global_available_diff["TIME ROUND 5m"])
+#y = y.set_index()
+cv = KFold(n_splits=5,shuffle=False)
+
+# Plot
+
+plt.figure(figsize=(12, 6))
+colors = ['red', 'blue', 'green', 'purple', 'orange']  # Colors for different splits
+split_labels = [f"Split {i+1}" for i in range(5)]  # Labels for different splits
+for i, (train_index, test_index) in enumerate(cv.split(y_pre_pandemic)):
+    plt.scatter(y_pre_pandemic.index[test_index], y_pre_pandemic.iloc[test_index], c=colors[i], label=split_labels[i])
+plt.title('KFold Splits on Pre-Pandemic Data')
+plt.xlabel('Date')
+plt.ylabel('Usage')
+plt.legend()
+plt.savefig(directory + "/pre-pandemic-cross-val-split.pdf")
+
+
+dual_day_mse = []
+dual_time_mse = []
+base_day_mse = []
+base_time_mse = []
+
+def train_lasso_dual(X_train,y_train):
+    # Subset 1: Where "Workday (hols)" = True
+    X_workday = X_train[X_train['Workday (hols)'] == 1]
+    y_workday = y_train[X_train['Workday (hols)'] == 1]
+
+    # Best model for Workday
+    workday_alpha = 0.02
+    non_workday_alpha = 0.1
+    model_workday = Lasso(alpha=workday_alpha)
+    model_workday.fit(X_workday, y_workday)
+
+    # Subset 2: Where "Workday (hols)" = False
+    X_non_workday = X_train[X_train['Workday (hols)'] == 0]
+    y_non_workday = y_train[X_train['Workday (hols)'] == 0]
+
+    # Best model for Non-Workday
+    model_non_workday = Lasso(alpha=non_workday_alpha)
+    model_non_workday.fit(X_non_workday, y_non_workday)
+
+    return model_workday, model_non_workday
+
+def dual_model_predict(X,y,model_workday, model_non_workday):
+    workday_filter = X['Workday (hols)'] == 1
+    non_workday_filter = X['Workday (hols)'] == 0
+    y_pred = np.zeros_like(y)
+    y_pred[workday_filter] = model_workday.predict(X[workday_filter])
+    y_pred[non_workday_filter] = model_non_workday.predict(X[non_workday_filter])
+    return y_pred
+
+def evaluate_dual_model(X, y, model_workday, model_non_workday):
+    y_pred = dual_model_predict(X,y,model_workday,model_non_workday)
+    y_day = y.groupby(y.index.date).sum()
+    y_pred = pd.Series(y_pred,name="PRED",index=y.index)
+    y_pred_day = y_pred.groupby(y_pred.index.date).sum()
+    mse = mean_squared_error(y, y_pred)
+    day_mse = mean_squared_error(y_day,y_pred_day)
+    print("day mse:", day_mse)
+    return mse, day_mse
+
+# Firstly evaluate the models on pre pandemic data only
+print(X_pre_pandemic.index)
+for train_index, test_index in cv.split(X_pre_pandemic):
+    X_train = X_pre_pandemic.iloc[train_index]
+    y_train = y_pre_pandemic.iloc[train_index]
+    X_test = X_pre_pandemic.iloc[test_index]
+    y_test = y_pre_pandemic.iloc[test_index]
+    #X_train, X_test, y_train, y_test = train_test_split(X_pre_pandemic, y_pre_pandemic, test_size=0.2, random_state=42,shuffle=False)
+
+    model_workday, model_non_workday = train_lasso_dual(X_train,y_train)
+    # # Subset 1: Where "Workday (hols)" = True
+    # X_workday = X_train[X_train['Workday (hols)'] == 1]
+    # y_workday = y_train[X_train['Workday (hols)'] == 1]
+
+    # # Best model for Workday
+    # workday_alpha = 0.02
+    # non_workday_alpha = 0.1
+    # model_workday = Lasso(alpha=workday_alpha)
+    # model_workday.fit(X_workday, y_workday)
+
+    # # Subset 2: Where "Workday (hols)" = False
+    # X_non_workday = X_train[X_train['Workday (hols)'] == 0]
+    # y_non_workday = y_train[X_train['Workday (hols)'] == 0]
+
+    # # Best model for Non-Workday
+    # model_non_workday = Lasso(alpha=non_workday_alpha)
+    # model_non_workday.fit(X_non_workday, y_non_workday)
+
+
+    def evaluate_baseline(X,y):
+        workday_mean = y_train[X_train['Workday (hols)'] == 1].mean()
+        non_workday_mean = y_train[~(X_train['Workday (hols)'] == 1)].mean()
+        predictions = X['Workday (hols)'].apply(lambda x: workday_mean if x else non_workday_mean)
+        predictions_day = predictions.groupby(predictions.index.date).sum()
+        true_day = y.groupby(y.index.date).sum()
+        mse = mean_squared_error(y, predictions)
+        mse_day = mean_squared_error(true_day, predictions_day)
+        return mse, mse_day
+    
+    mse_dual = evaluate_dual_model(X_test, y_test,model_workday,model_non_workday)
+    mse_baseline = evaluate_baseline(X_test,y_test)
+
+    dual_time_mse.append(mse_dual[0])
+    dual_day_mse.append(mse_dual[1])
+    base_time_mse.append(mse_baseline[0])
+    base_day_mse.append(mse_baseline[1])
+
+results = pd.DataFrame({
+    "mse on time dual lasso": dual_time_mse,
+    "mse on day dual lasso": dual_day_mse,
+    "mse on time baseline": base_time_mse,
+    "mse on day baseline": base_day_mse,
+})
+
+results.to_csv(directory + "/dual_lasso_eval.csv")
+print(results)
+print(results.describe())
+
+model_workday, model_non_workday = train_lasso_dual(X_pre_pandemic,y_pre_pandemic)
+
+y_all_pred = dual_model_predict(X,y,model_workday,model_non_workday)
+pd.DataFrame({
+    "true": y,
+    "pred": y_all_pred,
+}).to_csv(directory + "/prediction_all.csv")
