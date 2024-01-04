@@ -1,0 +1,3 @@
+Mean Month Difference Pre-Pandemic Era: 46.93151258294931
+Mean Month Difference Pandemic Era: -12989.36303305649
+Mean Month Difference Pandemic Era: -4516.644558122683

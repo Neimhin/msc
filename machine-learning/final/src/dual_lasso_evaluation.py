@@ -94,8 +94,8 @@ def train_lasso_dual(X_train,y_train):
     y_workday = y_train[X_train['Workday (hols)'] == 1]
 
     # Best model for Workday
-    workday_alpha = 0.02
-    non_workday_alpha = 0.1
+    workday_alpha = 0.01
+    non_workday_alpha = 0.01
     model_workday = Lasso(alpha=workday_alpha)
     model_workday.fit(X_workday, y_workday)
 
@@ -127,6 +127,22 @@ def evaluate_dual_model(X, y, model_workday, model_non_workday):
     print("day mse:", day_mse)
     return mse, day_mse
 
+def predict_baseline(X,y,X_train,y_train):
+    workday_mean = y_train[X_train['Workday (hols)'] == 1].mean()
+    non_workday_mean = y_train[~(X_train['Workday (hols)'] == 1)].mean()
+    predictions = X['Workday (hols)'].apply(lambda x: workday_mean if x else non_workday_mean)
+    return predictions
+
+def evaluate_baseline(X,y,X_train,y_train):
+    workday_mean = y_train[X_train['Workday (hols)'] == 1].mean()
+    non_workday_mean = y_train[~(X_train['Workday (hols)'] == 1)].mean()
+    predictions = X['Workday (hols)'].apply(lambda x: workday_mean if x else non_workday_mean)
+    predictions_day = predictions.groupby(predictions.index.date).sum()
+    true_day = y.groupby(y.index.date).sum()
+    mse = mean_squared_error(y, predictions)
+    mse_day = mean_squared_error(true_day, predictions_day)
+    return mse, mse_day
+
 # Firstly evaluate the models on pre pandemic data only
 print(X_pre_pandemic.index)
 for train_index, test_index in cv.split(X_pre_pandemic):
@@ -134,40 +150,11 @@ for train_index, test_index in cv.split(X_pre_pandemic):
     y_train = y_pre_pandemic.iloc[train_index]
     X_test = X_pre_pandemic.iloc[test_index]
     y_test = y_pre_pandemic.iloc[test_index]
-    #X_train, X_test, y_train, y_test = train_test_split(X_pre_pandemic, y_pre_pandemic, test_size=0.2, random_state=42,shuffle=False)
 
     model_workday, model_non_workday = train_lasso_dual(X_train,y_train)
-    # # Subset 1: Where "Workday (hols)" = True
-    # X_workday = X_train[X_train['Workday (hols)'] == 1]
-    # y_workday = y_train[X_train['Workday (hols)'] == 1]
-
-    # # Best model for Workday
-    # workday_alpha = 0.02
-    # non_workday_alpha = 0.1
-    # model_workday = Lasso(alpha=workday_alpha)
-    # model_workday.fit(X_workday, y_workday)
-
-    # # Subset 2: Where "Workday (hols)" = False
-    # X_non_workday = X_train[X_train['Workday (hols)'] == 0]
-    # y_non_workday = y_train[X_train['Workday (hols)'] == 0]
-
-    # # Best model for Non-Workday
-    # model_non_workday = Lasso(alpha=non_workday_alpha)
-    # model_non_workday.fit(X_non_workday, y_non_workday)
-
-
-    def evaluate_baseline(X,y):
-        workday_mean = y_train[X_train['Workday (hols)'] == 1].mean()
-        non_workday_mean = y_train[~(X_train['Workday (hols)'] == 1)].mean()
-        predictions = X['Workday (hols)'].apply(lambda x: workday_mean if x else non_workday_mean)
-        predictions_day = predictions.groupby(predictions.index.date).sum()
-        true_day = y.groupby(y.index.date).sum()
-        mse = mean_squared_error(y, predictions)
-        mse_day = mean_squared_error(true_day, predictions_day)
-        return mse, mse_day
     
     mse_dual = evaluate_dual_model(X_test, y_test,model_workday,model_non_workday)
-    mse_baseline = evaluate_baseline(X_test,y_test)
+    mse_baseline = evaluate_baseline(X_test,y_test,X_train,y_train)
 
     dual_time_mse.append(mse_dual[0])
     dual_day_mse.append(mse_dual[1])
@@ -191,4 +178,11 @@ y_all_pred = dual_model_predict(X,y,model_workday,model_non_workday)
 pd.DataFrame({
     "true": y,
     "pred": y_all_pred,
-}).to_csv(directory + "/prediction_all.csv")
+}).to_csv(directory + "/prediction_all_dual_lasso.csv")
+
+
+y_all_pred = predict_baseline(X,y,X_pre_pandemic,y_pre_pandemic)
+pd.DataFrame({
+    "true": y,
+    "pred": y_all_pred,
+}).to_csv(directory + "/prediction_all_baseline.csv")

@@ -153,21 +153,22 @@ non_workday_std_scores = lasso_grid_non_workday.cv_results_['std_test_score']
 # Create subplots
 fig, ax = plt.subplots(1, 2, figsize=(8, 4))
 # Plot for Workday Model
-ax[0].errorbar(alpha_values, workday_mean_scores, yerr=workday_std_scores, fmt='o', color='b', ecolor='lightgray', elinewidth=3, capsize=0)
-ax[0].set_title('Workday Model Hyperparameter Tuning with CV')
+ax[0].errorbar(alpha_values, workday_mean_scores, yerr=workday_std_scores, fmt='o', color='b', elinewidth=0.8, capsize=2)
+ax[0].set_title('Workday Model Tuning')
 ax[0].set_xlabel('Alpha')
 ax[0].set_ylabel('Mean Squared Error')
 ax[0].set_xscale('log')
 ax[0].invert_xaxis()
 
 # Plot for Non-Workday Model
-ax[1].errorbar(alpha_values, non_workday_mean_scores, yerr=non_workday_std_scores, fmt='o', color='r', ecolor='lightgray', elinewidth=3, capsize=0)
-ax[1].set_title('Non-Workday Model Hyperparameter Tuning with CV')
+ax[1].errorbar(alpha_values, non_workday_mean_scores, yerr=non_workday_std_scores, fmt='o', color='r', elinewidth=0.8, capsize=2)
+ax[1].set_title('Non-Workday Model Tuning')
 ax[1].set_xlabel('Alpha')
 ax[1].set_ylabel('Mean Squared Error')
 ax[1].set_xscale('log')
 ax[1].invert_xaxis()
+plt.tight_layout()
 plt.savefig(directory + "/dual_lasso_hyperparameter_tuning.pdf")
 
-workday_alpha = 0.02
-non_workday_alpha = 0.1
+workday_alpha = 0.01
+non_workday_alpha = 0.01
