@@ -1,0 +1,141 @@
+report-and-code.pdf: report.pdf tmp/all-source.pdf
+	pdfunite $^ $@
+
+report.pdf: report.tex
+	./compile
+
+.PHONY: clean
+clean:
+	-rm fig/gradient-descent-b2.csv.pdf
+
+fig/gradient-descent-b2.csv.pdf: fig/gradient-descent-b2.csv
+	python src/csv_to_pdf.py $< $@
+
+SRC_DIR := src
+TMP_DIR := tmp
+OUTPUT_DIR := output
+
+PYTHON_FILES := $(wildcard $(SRC_DIR)/*.py)
+PDF_FILES := $(addprefix $(TMP_DIR)/,$(notdir $(PYTHON_FILES:.py=.pdf)))
+fig/ai-code.pdf: src/ai.py
+	enscript -M A3 -Epython --line-numbers --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - $@
+
+$(TMP_DIR)/%.pdf: $(SRC_DIR)/%.py
+	@mkdir -p $(TMP_DIR)
+	@enscript -M A3 --line-numbers -Epython --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - $@
+tmp/all-source.pdf: $(PDF_FILES)
+	@pdfunite $^ $@
+
+code.zip: $(PYTHON_FILES) merged-all-30min.csv Makefile
+	zip -r $@ $^ merged-all-30min.csv
+
+data/db-20231201-20240101-fresh.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/969e942a-ab88-46e1-ae85-bd3a62112bc1/download/dublinbike-historical-data-2023-12.csv > $@
+
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/969e942a-ab88-46e1-ae85-bd3a62112bc1/download/dublinbike-historical-data-2023-12.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/d4bd9069-630b-4ae5-b58b-cf8f74e8de9e/download/dublinbike-historical-data-2023-11.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/0027dd4c-c749-4ea2-8413-e323d959f44c/download/dublinbike-historical-data-2023-10.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/455f744b-8bea-403a-a7a6-a32904d9e255/download/dublinbike-historical-data-2023-09.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/95e5514b-c516-4173-bdc2-27181cd8d75e/download/dublinbike-historical-data-2023-08.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/70925ddc-18b6-4325-9103-1a2f3f320f5a/download/dublinbike-historical-data-2023-07.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/8b99c18f-bb0e-4f27-bdbb-c649f83dd487/download/dublinbike-historical-data-2023-06.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/2ab9de3a-f965-4917-bf53-4dbe9dbfab4d/download/dublinbike-historical-data-2023-05.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/61ad0229-43a8-44c6-8bc3-fc8580b0794a/download/dublinbike-historical-data-2023-04.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/6b505ff7-35b7-4a6f-abce-b62b8889aae8/download/dublinbike-historical-data-2023-03.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/4ee172c9-dfc1-4e4b-afc7-0dc83c17a240/download/dublinbike-historical-data-2023-02.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/ac920fc9-d73d-4565-81e0-31c179bc741c/download/dublinbike-historical-data-2023-01.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/79ab48c8-6135-4fd5-a7af-e74495a34777/download/dublinbike-historical-data-2022-12.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/4ef07f87-23d0-433c-b80c-0c6ae2ed4c1b/download/dublinbike-historical-data-2022-11.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/6350733b-b823-4174-95fd-c76c711cc384/download/dublinbike-historical-data-2022-10.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/2c8d84e5-4034-4356-a134-0e783f0febca/download/dublinbike-historical-data-2022-09.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/924dcd0a-66eb-4ec7-bfe4-f3df9d8dfef4/download/dublinbike-historical-data-2022-08.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/9b024f2c-3011-4ece-8b75-10cec711b333/download/dublinbike-historical-data-2022-07.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/b0100d31-2b1c-4f8d-86c8-a2bd4c6c026c/download/dublinbike-historical-data-2022-06.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/e859cda6-93cb-4175-ab49-7d7cffb1f471/download/dublinbike-historical-data-2022-05.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/98869541-aa65-48b7-b4b7-4a72775a9c2f/download/dublinbike-historical-data-2022-04.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/7f4dfdf6-a651-4fc3-9f13-d91d49ff3ddb/download/dublinbike-historical-data-2022-03.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/39d9346f-69fc-40bb-baba-97f3ef3dcfdf/download/dublinbike-historical-data-2022-02.csv
+# https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/d4a7a8ef-24d4-4d47-967f-945e4a6a3a7b/download/dublinbike-historical-data-2022-01.csv
+data/db-20231201-20240101.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/969e942a-ab88-46e1-ae85-bd3a62112bc1/download/dublinbike-historical-data-2023-12.csv > $@
+
+data/db-20231101-20231201.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/d4bd9069-630b-4ae5-b58b-cf8f74e8de9e/download/dublinbike-historical-data-2023-11.csv > $@
+data/db-20231001-20231101.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/0027dd4c-c749-4ea2-8413-e323d959f44c/download/dublinbike-historical-data-2023-10.csv > $@
+data/db-20230901-20231001.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/455f744b-8bea-403a-a7a6-a32904d9e255/download/dublinbike-historical-data-2023-09.csv > $@
+data/db-20230801-20230901.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/95e5514b-c516-4173-bdc2-27181cd8d75e/download/dublinbike-historical-data-2023-08.csv > $@
+data/db-20230701-20230801.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/70925ddc-18b6-4325-9103-1a2f3f320f5a/download/dublinbike-historical-data-2023-07.csv > $@
+data/db-20230601-20230701.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/8b99c18f-bb0e-4f27-bdbb-c649f83dd487/download/dublinbike-historical-data-2023-06.csv > $@
+data/db-20230501-20230601.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/2ab9de3a-f965-4917-bf53-4dbe9dbfab4d/download/dublinbike-historical-data-2023-05.csv > $@
+data/db-20230401-20230501.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/61ad0229-43a8-44c6-8bc3-fc8580b0794a/download/dublinbike-historical-data-2023-04.csv > $@
+data/db-20230301-20230401.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/6b505ff7-35b7-4a6f-abce-b62b8889aae8/download/dublinbike-historical-data-2023-03.csv > $@
+data/db-20230201-20230301.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/4ee172c9-dfc1-4e4b-afc7-0dc83c17a240/download/dublinbike-historical-data-2023-02.csv > $@
+data/db-20230101-20230201.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/ac920fc9-d73d-4565-81e0-31c179bc741c/download/dublinbike-historical-data-2023-01.csv > $@
+data/db-20221201-20230101.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/79ab48c8-6135-4fd5-a7af-e74495a34777/download/dublinbike-historical-data-2022-12.csv > $@
+data/db-20221101-20221201.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/4ef07f87-23d0-433c-b80c-0c6ae2ed4c1b/download/dublinbike-historical-data-2022-11.csv > $@
+data/db-20221001-20221101.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/6350733b-b823-4174-95fd-c76c711cc384/download/dublinbike-historical-data-2022-10.csv > $@
+data/db-20220901-20221001.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/2c8d84e5-4034-4356-a134-0e783f0febca/download/dublinbike-historical-data-2022-09.csv > $@
+data/db-20220801-20220901.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/924dcd0a-66eb-4ec7-bfe4-f3df9d8dfef4/download/dublinbike-historical-data-2022-08.csv > $@
+data/db-20220701-20220801.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/9b024f2c-3011-4ece-8b75-10cec711b333/download/dublinbike-historical-data-2022-07.csv > $@
+data/db-20220601-20220701.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/b0100d31-2b1c-4f8d-86c8-a2bd4c6c026c/download/dublinbike-historical-data-2022-06.csv > $@
+data/db-20220501-20220601.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/e859cda6-93cb-4175-ab49-7d7cffb1f471/download/dublinbike-historical-data-2022-05.csv > $@
+data/db-20220401-20220501.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/98869541-aa65-48b7-b4b7-4a72775a9c2f/download/dublinbike-historical-data-2022-04.csv > $@
+data/db-20220301-20220401.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/7f4dfdf6-a651-4fc3-9f13-d91d49ff3ddb/download/dublinbike-historical-data-2022-03.csv > $@
+data/db-20220201-20220301.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/39d9346f-69fc-40bb-baba-97f3ef3dcfdf/download/dublinbike-historical-data-2022-02.csv > $@
+data/db-20220101-20220201.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/d4a7a8ef-24d4-4d47-967f-945e4a6a3a7b/download/dublinbike-historical-data-2022-01.csv > $@
+data/db-20211001-20220101.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/5bc73751-4280-4423-b64d-18f4cc17986d/download/dublinbikes_20211001_20220101.csv > $@
+data/db-20210701-20211001.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/91ccfcb7-0c5b-41e4-be1b-e5d35c609638/download/dublinbikes_20210701_20211001.csv > $@
+data/db-20210401-20210701.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/1c18f219-3885-403e-aa55-4d4c78ee0204/download/dublinbikes_20210401_20210701.csv > $@
+data/db-20210101-20210401.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/7987ddc8-674a-4368-b344-560804771b98/download/dublinbikes_20210101_20210401.csv > $@
+data/db-20201001-20210101.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/5328239f-bcc6-483d-9c17-87166efc3a1a/download/dublinbikes_20201001_20210101.csv > $@
+data/db-20200701-20201001.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/99a35442-6878-4c2d-8dff-ec43e91d21d7/download/dublinbikes_20200701_20201001.csv > $@
+data/db-20200401-20200701.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/8ddaeac6-4caf-4289-9835-cf588d0b69e5/download/dublinbikes_20200401_20200701.csv > $@
+data/db-20200101-20200401.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/aab12e7d-547f-463a-86b1-e22002884587/download/dublinbikes_20200101_20200401.csv > $@
+data/db-20191001-20200101.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/5d23332e-4f49-4c41-b6a0-bffb77b33d64/download/dublinbikes_20191001_20200101.csv > $@
+data/db-20190701-20191001.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/305d39ac-b6a0-4216-a535-0ae2ddf59819/download/dublinbikes_20190701_20191001.csv > $@
+data/db-20190401-20190701.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/76fdda3d-d8be-441b-92dd-0ee36d9c5316/download/dublinbikes_20190401_20190701.csv > $@
+data/db-20190101-20190401.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/538165d7-535e-4e1d-909a-1c1bfae901c5/download/dublinbikes_20190101_20190401.csv > $@
+data/db-20181001-20190101.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/67ea095f-67ad-47f5-b8f7-044743043848/download/dublinbikes_20181001_20190101.csv > $@
+data/db-20180701-20181001.csv:
+	curl https://data.smartdublin.ie/dataset/33ec9fe2-4957-4e9a-ab55-c5e917c7a9ab/resource/9496fac5-e4d7-4ae9-a49a-217c7c4e83d9/download/dublinbikes_20180701_20181001.csv > $@
+
+downloads := data/db-20231201-20240101.csv data/db-20231101-20231201.csv data/db-20231001-20231101.csv data/db-20230901-20231001.csv data/db-20230801-20230901.csv data/db-20230701-20230801.csv data/db-20230601-20230701.csv data/db-20230501-20230601.csv data/db-20230401-20230501.csv data/db-20230301-20230401.csv data/db-20230201-20230301.csv data/db-20230101-20230201.csv data/db-20221201-20230101.csv data/db-20221101-20221201.csv data/db-20221001-20221101.csv data/db-20220901-20221001.csv data/db-20220801-20220901.csv data/db-20220701-20220801.csv data/db-20220601-20220701.csv data/db-20220501-20220601.csv data/db-20220401-20220501.csv data/db-20220301-20220401.csv data/db-20220201-20220301.csv data/db-20220101-20220201.csv data/db-20211001-20220101.csv data/db-20210701-20211001.csv data/db-20210401-20210701.csv data/db-20210101-20210401.csv data/db-20201001-20210101.csv data/db-20200701-20201001.csv data/db-20200401-20200701.csv data/db-20200101-20200401.csv data/db-20191001-20200101.csv data/db-20190701-20191001.csv data/db-20190401-20190701.csv data/db-20190101-20190401.csv data/db-20181001-20190101.csv data/db-20180701-20181001.csv
+all-downloads: $(downloads)
+
+data/all.csv: all-downloads
+	./src/cat_csv data/db-*.csv > $@
