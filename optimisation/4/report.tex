@@ -1,0 +1,91 @@
+%% LyX 2.3.6 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+
+
+\documentclass[10pt]{article}
+\usepackage{helvet}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage[framemethod=TikZ]{mdframed}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\geometry{verbose,tmargin=2cm,bmargin=4cm,lmargin=2cm,rmargin=2cm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\usepackage{tcolorbox}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{todonotes}
+\usepackage{graphicx}
+\usepackage[backend=bibtex,maxbibnames=99]{biblatex}
+\addbibresource{main.bib}
+
+\floatstyle{plaintop}
+\newfloat{listing}{htbp}{lop}
+\floatname{listing}{Listing}
+
+\definecolor{lightgray}{gray}{0.9} % Defines the color 'lightgray' with a specific shade.
+
+\newmdenv[
+  linecolor=lightgray,
+  backgroundcolor=white,
+  outerlinewidth=1pt,
+  roundcorner=2pt,
+  innertopmargin=10pt,
+  innerbottommargin=10pt,
+  innerrightmargin=10pt,
+  innerleftmargin=10pt
+]{greyborder}
+
+
+\makeatletter
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\del}{\nabla}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% A simple dot to overcome graphicx limitations
+\newcommand{\lyxdot}{.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{accents}
+\usepackage{titlesec}
+\usepackage{marginnote}
+% \titleformat{\section}[block]{\normalfont\bfseries}{}{0em}{}
+
+
+\usepackage{enumitem}
+\usepackage{comment}
+% \setlist{nolistsep}
+
+\usepackage{tcolorbox}
+\definecolor{light-blue}{cmyk}{0.24, 0.12, 0.0, 0.04, 1.00}
+% \titlespacing\section{0pt}{0pt}{0pt}
+% \titlespacing\subsection{0pt}{0pt}{0pt}
+% \titlespacing\subsubsection{0pt}{0pt}{0pt}
+
+\setlength{\headheight}{40pt}
+
+\makeatother
+
+\title{Week 2 Optimisation for Machine Learning}
+\author{Neimhin Robinson Gunning, 16321701}
+\date{\today}
+
+\begin{document}
+\maketitle
+\lhead{Neimhin Robinson Gunning} \rhead{CS7CS4 Week 2 Assignment}
+\include{main.tex}
+\bigskip{}
+\printbibliography
+\end{document}

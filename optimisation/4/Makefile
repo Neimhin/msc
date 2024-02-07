@@ -11,6 +11,9 @@ clean:
 fig/gradient-descent-b2.csv.pdf: fig/gradient-descent-b2.csv
 	python src/csv_to_pdf.py $< $@
 
+fig/f-g.pdf: src/vis_f_g.py
+	python $< $@
+
 SRC_DIR := src
 TMP_DIR := tmp
 OUTPUT_DIR := output
