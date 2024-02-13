@@ -2,12 +2,61 @@ import datetime
 import pandas as pd
 import lib
 import holidays
+import numpy as np
+from sklearn.metrics import mean_squared_error
 
 epoch = pd.to_datetime('1970-01-01')
 
 def months_since_epoch(ser):
     return ((ser.dt.year - 1970) * 12 + ser.dt.month ) 
 
+
+def dual_model_predict(X,y,model_workday,model_non_workday):
+    workday_filter = X['Workday (hols)'] == 1
+    non_workday_filter = X['Workday (hols)'] == 0
+    y_pred = np.zeros_like(y)
+    y_pred[workday_filter] = model_workday.predict(X[workday_filter])
+    y_pred[non_workday_filter] = model_non_workday.predict(X[non_workday_filter])
+    return y_pred
+
+def evaluate_dual_model(X, y, model_workday, model_non_workday, grouper=None):
+    print(X.index)
+    print(y.index)
+    y_pred = dual_model_predict(X,y,model_workday,model_non_workday)
+    if grouper:
+        y_pred = pd.Series(y_pred,index=y.index)
+        y = y.groupby(grouper).sum()
+        y_pred = y_pred.groupby(grouper).sum()
+    mse = mean_squared_error(y, y_pred)
+    return mse
+
+def evaluate_baseline(X,y,X_train,y_train,grouper=None):
+    workday_mean = y_train[X_train['Workday (hols)'] == 1].mean()
+    non_workday_mean = y_train[~(X_train['Workday (hols)'] == 1)].mean()
+    predictions = X['Workday (hols)'].apply(lambda x: workday_mean if x else non_workday_mean)
+    if grouper:
+        predictions = predictions.groupby(grouper).sum()
+        y = y.groupby(grouper).sum()
+    mse = mean_squared_error(y, predictions)
+    return mse
+
+# def evaluate_baseline_group_first(X,y,X_train,y_train,grouper=None):
+#     print(y_train)
+#     if grouper:
+#         y = y.groupby(grouper).sum()
+#         X = X.groupby(grouper).sum()
+#         X_train = X_train.groupby(grouper).sum()
+#         y_train = y_train.groupby(grouper).sum()
+#     print(X_train)
+#     workday_mean = y_train[X_train['Workday (hols)'] == 1].mean()
+#     non_workday_mean = y_train[~(X_train['Workday (hols)'] == 1)].mean()
+#     print(workday_mean)
+#     print(non_workday_mean)
+#     print(y.isna().sum())
+#     print(y_train.isna().sum())
+#     predictions = X['Workday (hols)'].apply(lambda x: workday_mean if x else non_workday_mean)
+#     mse = mean_squared_error(y, predictions)
+#     return mse
 
 ie_holidays = holidays.Ireland()
 def is_ie_holiday(d):

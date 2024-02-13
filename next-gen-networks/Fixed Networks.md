@@ -186,7 +186,7 @@ $L_{DCF}=\frac{\delta T}{D_{DCF}\cdot \delta \lambda}\approx 5km$. Amount of DCF
 $L_{DCF}=\frac{\delta T}{D_{DCF}\cdot \delta\lambda}=\frac{251.6}{-150\cdot0.296}=-5.666km$
 
 
-![[Pasted image 20231128145006.png]]
+![[q5.png]]
 
 #### QoS tools
 A QoS tool is some sort of functionality that makes decisions about packets.

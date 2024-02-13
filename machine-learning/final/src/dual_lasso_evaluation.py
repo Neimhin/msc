@@ -70,23 +70,19 @@ y_pre_pandemic = y[y.index < lib.PANDEMIC_START]
 cv = KFold(n_splits=5,shuffle=False)
 
 # Plot
-
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(8, 3))
 colors = ['red', 'blue', 'green', 'purple', 'orange']  # Colors for different splits
 split_labels = [f"Split {i+1}" for i in range(5)]  # Labels for different splits
 for i, (train_index, test_index) in enumerate(cv.split(y_pre_pandemic)):
-    plt.scatter(y_pre_pandemic.index[test_index], y_pre_pandemic.iloc[test_index], c=colors[i], label=split_labels[i])
+    plt.scatter(y_pre_pandemic.index[test_index], y_pre_pandemic.iloc[test_index], c=colors[i], label=split_labels[i],s=0.5)
 plt.title('KFold Splits on Pre-Pandemic Data')
-plt.xlabel('Date')
-plt.ylabel('Usage')
+plt.xlabel('Time')
+plt.ylabel('Pseudousage')
 plt.legend()
+plt.tight_layout()
 plt.savefig(directory + "/pre-pandemic-cross-val-split.pdf")
 
 
-dual_day_mse = []
-dual_time_mse = []
-base_day_mse = []
-base_time_mse = []
 
 def train_lasso_dual(X_train,y_train):
     # Subset 1: Where "Workday (hols)" = True
@@ -94,8 +90,8 @@ def train_lasso_dual(X_train,y_train):
     y_workday = y_train[X_train['Workday (hols)'] == 1]
 
     # Best model for Workday
-    workday_alpha = 0.01
-    non_workday_alpha = 0.01
+    workday_alpha = 1/100
+    non_workday_alpha = 1/100
     model_workday = Lasso(alpha=workday_alpha)
     model_workday.fit(X_workday, y_workday)
 
@@ -143,6 +139,32 @@ def evaluate_baseline(X,y,X_train,y_train):
     mse_day = mean_squared_error(true_day, predictions_day)
     return mse, mse_day
 
+# mse_test_dual_model = lib.evaluate_dual_model(X_test, y_test, model_workday, model_non_workday)
+# mse_baseline = lib.evaluate_baseline(X_test,y_test,X_train,y_train)
+
+# print("dual model mse:", mse_test_dual_model)
+# print("baseline model mse:", mse_baseline)
+
+# print("dual model mse day:",lib.evaluate_dual_model(X_test, y_test, model_workday, model_non_workday,pd.Grouper(freq='d')))
+# print("baseline model mse day:", lib.evaluate_baseline(X_test,y_test,X_train,y_train,pd.Grouper(freq='d')))
+
+# print("dual model mse week:",lib.evaluate_dual_model(X_test, y_test, model_workday, model_non_workday,pd.Grouper(freq='w')))
+# print("baseline model mse week:", lib.evaluate_baseline(X_test,y_test,X_train,y_train,pd.Grouper(freq='w')))
+
+# print("dual model mse month:",lib.evaluate_dual_model(X_test, y_test, model_workday, model_non_workday,pd.Grouper(freq='M')))
+# print("baseline model mse month:", lib.evaluate_baseline(X_test,y_test,X_train,y_train,pd.Grouper(freq='M')))
+
+
+
+dual_day_mse = []
+base_day_mse = []
+dual_time_mse = []
+base_time_mse = []
+dual_week_mse = []
+base_week_mse = []
+dual_month_mse = []
+base_month_mse = []
+
 # Firstly evaluate the models on pre pandemic data only
 print(X_pre_pandemic.index)
 for train_index, test_index in cv.split(X_pre_pandemic):
@@ -153,19 +175,46 @@ for train_index, test_index in cv.split(X_pre_pandemic):
 
     model_workday, model_non_workday = train_lasso_dual(X_train,y_train)
     
-    mse_dual = evaluate_dual_model(X_test, y_test,model_workday,model_non_workday)
-    mse_baseline = evaluate_baseline(X_test,y_test,X_train,y_train)
+    # mse_dual = evaluate_dual_model(X_test, y_test,model_workday,model_non_workday)
+    # mse_baseline = evaluate_baseline(X_test,y_test,X_train,y_train)
 
-    dual_time_mse.append(mse_dual[0])
-    dual_day_mse.append(mse_dual[1])
-    base_time_mse.append(mse_baseline[0])
-    base_day_mse.append(mse_baseline[1])
+    dual_time_mse.append(lib.evaluate_dual_model(X_test,y_test,model_workday, model_non_workday))
+    base_time_mse.append(lib.evaluate_baseline(X_test,y_test,X_train,y_train))
+
+    
+    dual_day_mse.append(lib.evaluate_dual_model(X_test,y_test,model_workday, model_non_workday,pd.Grouper(freq='d')))
+    base_day_mse.append(lib.evaluate_baseline(X_test,y_test,X_train,y_train,pd.Grouper(freq='d')))
+
+    dual_week_mse.append(lib.evaluate_dual_model(X_test,y_test,model_workday,model_non_workday,pd.Grouper(freq='w')))
+    base_week_mse.append(lib.evaluate_baseline(X_test,y_test,X_train,y_train,pd.Grouper(freq='w')))
+
+    dual_month_mse.append(lib.evaluate_dual_model(X_test,y_test,model_workday,model_non_workday,pd.Grouper(freq='M')))
+    base_month_mse.append(lib.evaluate_baseline(X_test,y_test,X_train,y_train,pd.Grouper(freq='M')))
+
+    # mse_test_dual_model = lib.evaluate_dual_model(X_test, y_test, model_workday, model_non_workday)
+    # mse_baseline = lib.evaluate_baseline(X_test,y_test,X_train,y_train)
+
+    # print("dual model mse:", mse_test_dual_model)
+    # print("baseline model mse:", mse_baseline)
+
+    # print("dual model mse day:",lib.evaluate_dual_model(X_test, y_test, model_workday, model_non_workday,pd.Grouper(freq='d')))
+    # print("baseline model mse day:", lib.evaluate_baseline(X_test,y_test,X_train,y_train,pd.Grouper(freq='d')))
+
+    # print("dual model mse week:",lib.evaluate_dual_model(X_test, y_test, model_workday, model_non_workday,pd.Grouper(freq='w')))
+    # print("baseline model mse week:", lib.evaluate_baseline(X_test,y_test,X_train,y_train,pd.Grouper(freq='w')))
+
+    # print("dual model mse month:",lib.evaluate_dual_model(X_test, y_test, model_workday, model_non_workday,pd.Grouper(freq='M')))
+    # print("baseline model mse month:", lib.evaluate_baseline(X_test,y_test,X_train,y_train,pd.Grouper(freq='M')))
 
 results = pd.DataFrame({
     "mse on time dual lasso": dual_time_mse,
-    "mse on day dual lasso": dual_day_mse,
     "mse on time baseline": base_time_mse,
+    "mse on day dual lasso": dual_day_mse,
     "mse on day baseline": base_day_mse,
+    "mse on week dual lasso": dual_week_mse,
+    "mse on week baseline": base_week_mse,
+    "mse on month dual lasso": dual_month_mse,
+    "mse on month baseline": base_month_mse,
 })
 
 results.to_csv(directory + "/dual_lasso_eval.csv")

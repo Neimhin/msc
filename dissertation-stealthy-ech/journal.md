@@ -47,3 +47,9 @@ Had to extract final link step to add /usr/lib/x86_64-linux-gnu/libgsasl.so /usr
 #### steps (build curl with ech make, not cmake):
 - didn't work
 
+Finally: just use the Makefile (./configure, make -j8, don't use cmake)
+
+## Jan 14th 2024
+
+definition of function to create client hello struct is in `~/code/openssl/ssl/statem/statem_clnt.c`
+static int tls_construct_client_hello_aux(SSL_CONNECTION *s, WPACKET *pkt)

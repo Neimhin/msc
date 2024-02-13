@@ -61,6 +61,7 @@ function on_fatalities(d: Fatality[]){
     global.lazy.noon_time_to_fatalities = new Map<number, Fatality[]>();
     const mean_age = calculateMeanAge(global.lazy.fatalities);
     global.lazy.fatalities.sort((a, b) => a.parsed_date_ms - b.parsed_date_ms);
+    console.log(global.lazy.fatalities[0],global.lazy.fatalities[global.lazy.fatalities.length - 1])
     // global.lazy.fatalities = global.lazy.fatalities.filter(d => d.event_location_region);
     console.log(global.lazy.fatalities.filter(d=>!d.event_location_region).length)
     global.lazy.fatalities.forEach(d => {

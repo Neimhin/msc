@@ -1,3 +1,0 @@
-mkdir -p out
-latexmk --output-directory=./out -pdf report.tex
-cp out/report.pdf ./
