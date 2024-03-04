@@ -1,7 +1,7 @@
 report-and-code.pdf: report.pdf tmp/all-source.pdf
 	pdfunite $^ $@
 
-report.pdf: report.tex
+report.pdf: report.tex main.tex
 	./compile
 
 .PHONY: clean
@@ -22,6 +22,9 @@ PYTHON_FILES := $(wildcard $(SRC_DIR)/*.py)
 PDF_FILES := $(addprefix $(TMP_DIR)/,$(notdir $(PYTHON_FILES:.py=.pdf)))
 fig/ai-code.pdf: src/ai.py
 	enscript -M A3 -Epython --line-numbers --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - $@
+
+funcs.pdf: funcs.txt
+	@enscript -M A3 --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - $@
 
 $(TMP_DIR)/%.pdf: $(SRC_DIR)/%.py
 	@mkdir -p $(TMP_DIR)

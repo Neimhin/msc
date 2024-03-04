@@ -1,4 +1,13 @@
 
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\textwidth]{funcs.pdf}
+  \end{center}
+  \caption{Two bivariate functions downloaded from \texttt{https://www.scss.tcd.ie/Doug.Leith/CS7DS2/week4.php}}\label{lst:funcs.txt}
+\end{figure}
+
+
 Let \begin{equation}
   f(x,y)=3(x-5)^4+10(y-9)^2
   \label{eq:f}
@@ -9,8 +18,12 @@ and
   \label{eq:g}
 \end{equation}
 
+Using \texttt{sympy} we find the derivatives:
+$$\nabla f=[\frac{df}{dx},\frac{df}{dy}]=[12(x-5)^{3},20y-180]$$
+$$\nabla g=[\frac{dg}{dx},\frac{dg}{dy}]=[\text{Heaviside}(x-5),10\text{sign}(y-9)]$$
 
-Clearly, the minimum of both $f(x,y)$ and $g(x,y)$ is $0$ and they both minimized by $x=5$, $y=9$.
+
+Clearly, the minimum of both $f(x,y)$ and $g(x,y)$ is $0$ and they are both minimized by $x=5$, $y=9$.
 
 The Polyak step size is \begin{equation}
   \alpha_{\text{Polyak}}=\frac{f(x)-f^*}{\del f(x)^T\del f(x)}

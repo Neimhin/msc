@@ -1,11 +1,29 @@
+import sympy as sp
+import functools
+
+x, y = sp.symbols('x y', real=True)
+f = 3 * (x - 5)**4 + (10 * ((y - 9)**2))
+g = sp.Max(x - 5, 0) + (10 * sp.Abs(y - 9))
+
+
 class GradientDescent():
     def __init__(self):
         self._max_iter = 1000
         self._debug = False
         self._converged = lambda x1, x2: False
+        self._epsilon = 0.0001
+        self._beta = 0
 
     def step_size(self, a):
         self._step_size = a
+        return self
+
+    def beta(self, b):
+        self._beta = b
+        return self
+
+    def epsilon(self, e):
+        self._epsilon = e
         return self
 
     def function(self, f):
@@ -32,8 +50,11 @@ class GradientDescent():
         self._converged = c
         return self
 
+    def set_iterate(self, f):
+        self.iterate = functools.partial(f, self)
+        return self
+
     def iterate(self):
-        import math
         x_value = self._start
         old_x_value = None
         iteration = 0
@@ -50,14 +71,13 @@ class GradientDescent():
                 break
             old_x_value = x_value
 
+    def run2csv(self, fname):
+        import pandas as pd
+        iterations = list(self.iterate())
+        df = pd.DataFrame(iterations)
+        df.to_csv(fname)
+
+
 if __name__ == "__main__":
-    import sympy as sp
-    x = sp.symbols('x:2')
-    for y in range(100):
-        alpha = polyak_step_size(x[0]**3-x[1]**2, x, [y, y], 0)
-        print(alpha)
-
-
-
-
-
+    print(f.diff(x), f.diff(y))
+    print(g.diff(x), g.diff(y))

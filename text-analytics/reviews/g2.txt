@@ -1,0 +1,122 @@
+0) Indicate the title and authorship of the article reviewed.
+1) Is the title succinct and apt with respect to the paper content?
+Rating:
+Comments:
+
+2) Does the abstract accurately and concisely set the context for the
+work and indicate the main hypotheses?
+Rating:
+Comments:
+
+3) Are the keywords appropriate?
+Rating:
+Comments:
+
+4) Does the paper present clearly the research topic and the research
+questions to be pursued within the paper research?
+Rating:
+Comments:
+
+5) Does the research review synthesize a background literature within
+a conceptual framework that the authors propose and defend, making
+clear how the research questions pursued are left open by prior
+literature?
+Rating:
+Comments:
+
+Subsection 2.2 focuses on text similarity. The Jaccard and cosine similarities are mentioned, but there is no discussion of how the vectores used in Jaccard and cosine similarity might be generated. Details on this aspect of the conceptual framework would be beneficial, e.g. is it proposed that vector representations be generated in a supervised or unsupervised fashion?
+Finally, there appears to be no intention on the part of the authors to identify questions about text-similarity analysis left open in the literature, rather they are proposing to use existing analysis methods, which is reasonable.
+
+6) Does the research question seek to relate properties of texts
+to qualities and quantities outside the texts with reference
+to an articulated theory of dependence between them?
+Rating:
+Comments:
+
+Subsection 3.1 identifies a supposed gap in the literature in terms of 'large scale algorithmic analysis'. I feel this direction focuses excessively on the method of analysis rather than a substantive question. I think it's appropriate to think of emojis as part of the text, and therefore the proposed question does not seek to relate properties of the texts to qualities and quantities outside the text. For example the research question could have focused on affect, as promised in the introduction.
+
+7) Does the methods section indicate clearly what corpora will be
+required and what sources will be adopted for the separate
+categories in support of answering the research questions?
+Rating:
+Comments:
+
+8) Does the description of research methods indicate how the
+corpus will be processed in order to assess it according to
+the categorization scheme proposed within the paper?
+Rating:
+Comments:
+
+9) Does the description of research methods indicate how the relevant
+quantities and qualities will be measured and assessed,
+stipulating what would count as a confirmation of the authors’
+hypotheses and what would count as falsification of the authors’
+hypotheses?
+Rating:
+Comments:
+
+10) Are the research methods appropriate to the question studied?
+Rating:
+Comments:
+
+11) Does the underlying research result in the assembly of a data set
+that will be useful to the wider research community?
+Rating:
+Comments:
+
+12) Are results clearly provided?
+Rating:
+Comments:
+
+13) Does the discussion of results provide a clear interpretation,
+with reference to the research questions posed?
+Rating:
+Comments:
+
+14) Do the conclusions emphasize how the interpreted results
+contribute to the literature?
+Rating:
+Comments:
+
+15) Are tables and figures clearly annotated and captioned?
+Rating:
+Comments:
+
+16) Does the paper present comprehensive bibliographic details for
+works cited?
+Rating:
+Comments:
+
+US should be capicalised in "Sender-intended functions of emojis in us messaging".
+
+Some of the numbers used in the references are unconventional/unexplained, e.g. e0221297 (Gesselman et al 2019), e0144296 (Kralj et al 2015). These numbers are sometimes mistakenly added in Google Scholar's bibtex export function.
+
+17) Is the paper well written in a scholarly mode of presentation?
+Rating:
+Comments:
+    In the abstract it is stated that the "study contributes nuanced insights", which is sort a self-compliment. The discussion of contributions should be more specific, allowing the reader to decide whether there are any nuanced insights.
+
+    In Subseciton 2.3 there is some confusion in the sentence beginning "Text sentiment identification...", where it is perhaps being stated that statistical models `comprehend context'. I think the authors should be careful about such personification of models and algorithms.
+
+    References in the style of 'by Zainuddin and Selamat (2014)' could be simplified to just '(Zainuddin and Selamat 2014)'.
+
+18) Does the description of individual contributions suggest an
+equitable division of labour?
+Rating:
+Comments:
+
+19) Does the description of individual contributions provide
+sufficiently rich description of the individual contributions in
+a manner that allows an independent reader to assess who
+contributed what and in a fashion that justifies any percentage
+estimates of work?
+Rating:
+Comments:
+
+20) What qualities of this paper would you argue that your own
+group should try to emulate?
+Comments:
+
+21) What qualities of this paper would you argue that your own
+group should try to avoid?
+Comments:

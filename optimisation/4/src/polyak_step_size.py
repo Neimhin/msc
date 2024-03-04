@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def polyak_step_size(sp_func, sp_x, x, f_star):
+def polyak_step_size(self, sp_func, sp_x, x, f_star):
     assert len(sp_x) == len(x)
     subs = {sp_xi: xi for sp_xi, xi in zip(sp_x, x)}
     fx = sp_func.subs(subs)
