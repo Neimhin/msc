@@ -1,0 +1,269 @@
+G10   Please complete one copy of this form for each paper that you are
+G10   given to review.
+G10   
+G10   Authors will not know through this process who reviewed any
+G10   submission; it is recommended that this remain anonymous.
+G10   
+G10   Each review form should be returned as a plain text file with the file
+G10   name:
+G10   SURNAME-FIRSTNAME-STUDENTNUMBER-CS7IS4-REVIEW-GROUPn.txt
+G10   where n in "GROUPn" is replaced by the cardinal number corresponding
+G10   to that of the group who submitted the article to review, and where
+G10   STUDENTNUMBER and SURNAME are that of the *reviewer*.
+G10   
+G10   If the SURNAME is more than one name, insert a hyphen between each.
+G10   
+G10   These should be aggregated into a zip file and uploaded via Blackboard,
+G10   adhering to the naming conventions described below for the individual
+G10   files.  The zip file should be named using the convention:
+G10   SURNAME-FIRSTNAME-STUDENTNUMBER-CS7IS4-PEER-REVIEWS.zip
+G10   as described in the first set of lecture notes.
+G10   
+G10   The student number and surname will be removed from the files that
+G10   are returned to authors.
+G10   
+G10   For each question where a scale is used, the intended scale is from 1
+G10   to 5, where 5 is the score for the best possible contribution and 1 is
+G10   the score for work that is at the opposite end of the spectrum.  For
+G10   each category of rating, justify your rating and provide feedback on
+G10   how the work could be improved.
+G10   
+G10   If a question addresses a section of the paper for which the current
+G10   draft has no text or only a place-holder section heading, you may
+G10   provide the rating "0" and comment accordingly.
+G10   
+G10   If any item is such that you feel you do not understand it, then use
+G10   your comments for the item to indicate how you made sense of the item
+G10   and provide a rating and constructive commentary to the authors in
+G10   relation of your understanding of the question (noting that if your
+G10   understanding of the item makes it identical to another item, then it
+G10   is best to apply synonymy avoidance to arrive at a distinct
+G10   understanding of the item rather than evaluating the paper with
+G10   respect to the same question twice).
+G10   
+G10   Reviews will be marked on the basis of the quality of feedback
+G10   provided.
+G10   
+G10   
+G10   0)  Indicate the title and authorship of the article reviewed.
+G10
+G10   Title: Exploration of the similarity of the music and corresponding lyrics 
+G10   Authors:  Yuanpei Teng, Peichen Sun, Hasha Vardhan Gajendar Kumar, Haokun Zhang, Jiawei Shen, Barath Nithish Lingasamy
+G10   
+G10   1)  Is the title succinct and apt with respect to the essay content?
+G10
+G10   Rating: 3
+G10
+G10   Comments:
+G10
+G10   Starting with "Exploration of" is perhaps unneccesary verbosity. One could perhaps say "Similarities between music and corresponding lyrics".
+G10   I feel a little more specificity in the title could be beneficial, i.e. 'melodic structure' rather than just 'music'.
+G10   Putting 'the' before 'music' in the title reads odd.
+G10   
+G10   2)  Does the abstract accurately and concisely set the context for the
+G10     work and indicate the main hypotheses?
+G10   
+G10   Rating: 3
+G10   
+G10   Comments:
+G10   
+G10   The context is set but the main hypotheses are not indicated.
+G10   It is inappropriate to '[try] to prove' a musician maintains similar style across music and lyrics. Rather the goal should be to develop and test hypotheses about the similarity.
+G10   
+G10   3)  Are the keywords appropriate?
+G10   
+G10   Rating: 4
+G10   
+G10   Comments:
+G10   
+G10   The keyword 'machine learning' is perhaps inappropriate as the paper is doubtful a contribution to machine learning generally, more likely an application of machine learnig for the purpose of text/data analysis.
+G10   
+G10   4)  Does the essay present clearly the research topic and the research
+G10       questions to be pursued within the essay research?
+G10   
+G10   Rating: 2
+G10   
+G10   Comments:
+G10   
+G10   The section "Articulation of Research Question" is confusing to read, due perhaps to typos. It also contains comments about 'persuasiveness' which are not relevant to articulating the research question. The research question remains quite general, 'whether there are certain similarities', and would benefit from a greater degree of specificity. I think the authors would benefit greatly from laying out some specific hypotheses they find interesting about similarities between melodic structure and lyrics texts, e.g. "repetitive melodies are associated with repetitive lyrics", "a larger melodic lexicon is associated with a larger lyrical lexicon".
+G10   
+G10   5)  Does the research review synthesize a background literature within
+G10       a conceptual framework that the authors propose and defend, making
+G10       clear how the research questions pursued are left open by prior
+G10       literature?
+G10   
+G10   Rating: 3
+G10   
+G10   Comments:
+G10   
+G10   The authors note ABC notation expresses music/melody in a serial fashion, similar to orthography. The study therefore focuses on comparing these two serial formats, i.e. textual formats, which represent/reflect non-textual constructs (music, language).
+G10   The authors note several types of vector representations for texts (TF-IDF, word2vec), which can be compared with cosine similarity. What is lacking is a defense of how these vector representations can be used to compare texts across the two domains (music, lyrics).
+G10   Some interesting points about approaches to similarity analysis are raised, deriving acoustic features, mining opinions from online forums, colocation of songs in playlists, but these points are not integrated well into the overall discussion, and it is not clear whether or why the authors intend to employ any of these methods.
+G10
+G10   6)  Does the detailed statement of the research question and
+G10       hypotheses make clear how the quantities used to measure texts
+G10       are adequate as measures of the theoretical constructs
+G10       explored?
+G10       
+G10   
+G10   Rating: 1
+G10   
+G10   Comments:
+G10
+G10   The theoretical constructs of interest are not developed clearly. I believe the authors intend to use TF-IDF and cosine similarity of TF-IDF, but have not related this quantity to theoretical constructs, and have not defended the comparison of TF-IDFs derived from ABC texts and Lyrics texts. My understanding is that to compare two TF-IDF vectors, they should be derived from texts with the same domain of possible tokens.
+G10   Other quantities I suggest the authors consider are: compression rate (as a proxy for repetitiveness), lexcial diversity, length/verbosity.
+G10   
+G10   7) Does the methods section indicate clearly what corpora will be
+G10      required for text categories and what sources will be adopted for
+G10      any separate categories of information in support of answering the
+G10      research questions?
+G10   
+G10   Rating: 2
+G10   
+G10   Comments:
+G10
+G10   For some reason the authors neglect to name the specific artists in their study. Also, since only 40 songs will be analysed, the full list of songs could be supplied inan index.
+G10   The dataset described is not clearly linked to specific research questions articulated in the paper.
+G10   
+G10   8)  Does the description of research methods indicate how the
+G10       corpus will be processed in order to assess it according to
+G10       the categorization scheme proposed within the essay?
+G10   
+G10   Rating: 3
+G10   
+G10   Comments:
+G10   Conversion of music from MIDI to ABC notation is mentioned, but the specific conversion tool/algorithm is not mentioned.
+G10   Some text preprocessing techniques are mentioned, but are not well motivated with respect to a research question.
+G10   
+G10   9)  Does the description of research methods indicate how the relevant
+G10       quantities and qualities will be measured and assessed,
+G10       stipulating what would count as a confirmation of the authors'
+G10       hypotheses and what would count as falsification of the authors'
+G10       hypotheses?
+G10   
+G10   Rating: 2
+G10   
+G10   Comments:
+G10
+G10   A protocol for measurement and assessment of the relevant quantities is not provided in detail, but the authors mention the use of cosine distance, Pearson correlation and Levenshtein distance.
+G10   The author's hypotheses are not clearly stated, and therefore there is no account of what would constitute falsification of the hypotheses.
+G10   
+G10   
+G10   10) Are the research methods proposed appropriate to the question addressed?
+G10   
+G10   Rating: 2
+G10   
+G10   Comments:
+G10   
+G10   While it seems some of the research methods may be appropriate, the research question is too general, and there is not enough clarity in how the research methods relate to specific questions.
+G10   
+G10   11) Does the underlying research result in the assembly of a data set
+G10       that will be useful to the wider research community?
+G10   
+G10   Rating: 4
+G10   
+G10   Comments:
+G10   While the proposed dataset is small and simple it may be useful to the wider research community.
+G10   
+G10   
+G10   12) Are results clearly provided?
+G10   
+G10   Rating: 0
+G10   
+G10   Comments: n/a
+G10   
+G10   
+G10   13) Does the discussion of results provide a clear interpretation,
+G10       with reference to the research questions posed?
+G10   
+G10   Rating: 0
+G10   
+G10   Comments: n/a
+G10   
+G10   
+G10   14) Do the conclusions emphasize how the interpreted results
+G10       contribute to the literature?
+G10   
+G10   Rating: 0
+G10   
+G10   Comments: n/a
+G10   
+G10   
+G10   15) Are tables and figures clearly annotated and captioned?
+G10   
+G10   Rating: 2
+G10   
+G10   Comments:
+G10   There is one figure which has a title, but not in the typical style, and has no caption. It is also never referenced in text. Also, the term 'flow chart' in the figure title is possibly misleading as flow charts typically containing yes/no questions determinig the direction flow. The provided diagram does not contain such questions.
+G10   The authors should place the caption for the figure below the figure, with the number of the figure, and the caption.
+G10   "Figure 1: A flowchart detailing the methodology adopted in this study"
+G10   It seems the authors are using LaTeX, so they could benefit from using the `\begin{figure} \caption{\label{fig:flowchart}...}\end{figure}` environment.
+G10   
+G10   16) Does the essay present comprehensive bibliographic details for
+G10       the printed editions works cited?
+G10   
+G10   Rating: 4
+G10   
+G10   Comments:
+G10   The citation style has some violations, e.g. using parentheses around in-text citations where the author is the subject of the sentence.
+G10   The bibliographic details for Berenzweig (2004) and Simonetta (2018), contains et al. in place of the remaining authors.
+G10   Chicago style stipulates: "In the bibliography, list up to 10 authors. If there are more than 10, list the first seven followed by “et al.”"
+G10   
+G10   17) Is the essay well written in a scholarly mode of presentation?
+G10   
+G10   Rating: 3
+G10   
+G10   Comments:
+G10   Some sections contain way to much detail about things that are irrelevant or at best belong in an appendix.
+G10   It is mentioned, for example, that "An average accuracy of 85% was achieved in three rounds ...", but the meaning or relevance of this statement is not clear.
+G10   There is little coherence between paragraphs, resulting in a mere sequence of summaries or references, especially in the "Related Works" section.
+G10   Some sentences are confusing and need revision, e.g. the first sentence of the "Articulation of Research Question" section.
+G10   There are numerous typos and/or grammatical errors, e.g.  "To analysis the similarity".
+G10
+G10   
+G10   18) Does the description of individual contributions suggest an
+G10       equitable division of labour?
+G10   
+G10   Rating:
+G10   
+G10   Comments:
+G10   
+G10   
+G10   19) Does the description of individual contributions provide
+G10       sufficiently rich description of the individual contributions in
+G10       a manner that allows an independent reader to assess who
+G10       contributed what and in a fashion that justifies any percentage
+G10       estimates of work?
+G10   
+G10   Rating: 4
+G10   
+G10   Comments:
+G10   The description of contributions are reasonably detailed, but at times details background reading rather than the contribution of text/ideas/concepts/figures of relevance.
+G10   Noone has claimed credit for producing the 'flow chart' for instance.
+G10   A percentage estimate of work is not provided.
+G10   
+G10   
+G10   20) Are there qualities of this paper would you argue that your own
+G10       group should try to emulate?  Comment on what qualities those are.
+G10   
+G10   
+G10   Rating: 3
+G10   
+G10   Comments:
+G10   The use of diagrams to compactly convey rich information. Perhaps not for the methodology, but maybe for the structure of the datasets or specific components within the methodology.
+G10   
+G10   
+G10   21) Are there qualities of this paper would you argue that your own
+G10       group should try to avoid?  Comment on what qualities those are.
+G10   
+G10   Rating: 2
+G10   
+G10   Comments:
+G10   Our group should avoid indiscriminantly mentioning lots of different works, studies, approaches, when they are not directly relevant to the questions at hand.
+G10   
+G10   22) Is this work a good candidate for a "best paper" prize?
+G10   
+G10   Rating: 2
+G10   
+G10   Comments:
+G10   Greater clarity on what exactly is being researched is need. With that clarity the paper could then benefit from an articulation of the significance of the research.
