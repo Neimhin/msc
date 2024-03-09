@@ -56,7 +56,7 @@ G2
 G2   Comments:
 G2   
 G2       I feel the authors are engaged in an 'Analysis of Paralinguistics' rather than a 'Paralinguistic Analysis'.
-G2       In fact, the word Paralinguistic in the title overpromises since the study is only of emojis and emoticons, not other sorts of paralinguistic expression.
+G2       In fact, the word Paralinguistic in the title overpromises since the study is only of emojis and emoticons, not any other sorts of paralinguistic expression.
 G2   
 G2       The title indicates that emojis and emoticons are involved, but gives no clues about what this study contributes relative to other studies of emojis and emoticons.
 G2   
@@ -74,18 +74,17 @@ G2
 G2   
 G2   3)  Are the keywords appropriate?
 G2   
-G2   Rating:
+G2   Rating: 0
 G2   
-G2   Comments:
-G2   
+G2   Comments: n/a
 G2   
 G2   4)  Does the essay present clearly the research topic and the research
 G2       questions to be pursued within the essay research?
 G2   
-G2   Rating:
+G2   Rating: 4
 G2   
 G2   Comments:
-G2   
+G2   The Introduction section is well written and motivates interesting questions. It could perhaps benefit from a treatment of the authors' conceptual framework for thinking about what does and does not constitute language. In particular, emoticons and emojis are considered to be paralinguistic content on the one hand, but also to exhibit a syntax and semantics. Are the authors satisified that non-linguistic (paralinguistic) expressions may have a syntax and semantics? Is this an oxymoron?
 G2   
 G2   5)  Does the research review synthesize a background literature within
 G2       a conceptual framework that the authors propose and defend, making
@@ -95,10 +94,12 @@ G2
 G2   Rating:
 G2   
 G2   Comments:
+G2
+G2       Details of the framework proposed by Yang et al. (2021) would be beneficial, especially if the authors a proposing to use that framework in the conception of their methodology. If not, why is the study mentioned?
 G2   
 G2       Subsection 2.2 focuses on text similarity. The Jaccard and cosine similarities are mentioned, but there is no discussion of how the vectores used in Jaccard and cosine similarity might be generated. Details on this aspect of the conceptual framework would be beneficial, e.g. is it proposed that vector representations be generated in a supervised or unsupervised fashion?
 G2   
-G2       Finally, there appears to be no intention on the part of the authors to identify questions about text-similarity analysis left open in the literature, rather they are proposing to use existing analysis methods, which is reasonable.
+G2       Finally, there appears to be no intention on the part of the authors to identify questions about text-similarity analysis left open in the literature, rather they are proposing to use existing analysis methods, which is reasonable, but perhaps the discussion belongs in the Methods.
 G2   
 G2   
 G2   6)  Does the detailed statement of the research question and
@@ -199,15 +200,22 @@ G2
 G2   
 G2   17) Is the essay well written in a scholarly mode of presentation?
 G2   
-G2   Rating:
+G2   Rating: 3
 G2   
 G2   Comments:
+G2       The Abstract and Introduction are ell written with a consistent scholarly style, but other sections are more erratic.
 G2   
 G2       In the abstract it is stated that the "study contributes nuanced insights", which is sort a self-compliment. The discussion of contributions should be more specific, allowing the reader to decide whether there are any nuanced insights.
 G2   
 G2       In Subseciton 2.3 there is some confusion in the sentence beginning "Text sentiment identification...", where it is perhaps being stated that statistical models `comprehend context'. I think the authors should be careful about such personification of models and algorithms.
 G2   
 G2       References in the style of 'by Zainuddin and Selamat (2014)' could be simplified to just '(Zainuddin and Selamat 2014)'.
+G2
+G2       Some typos, e.g:
+G2          "a great deal of promise because **to** methods like..."
+G2  
+G2       Some excessive exaggeration, e.g:
+G2          "The use of incredibly sophisticated machine learning..."
 G2   
 G2   18) Does the description of individual contributions suggest an
 G2       equitable division of labour?
