@@ -1,0 +1,252 @@
+G2   Please complete one copy of this form for each paper that you are
+G2   given to review.
+G2   
+G2   Authors will not know through this process who reviewed any
+G2   submission; it is recommended that this remain anonymous.
+G2   
+G2   Each review form should be returned as a plain text file with the file
+G2   name:
+G2   SURNAME-FIRSTNAME-STUDENTNUMBER-CS7IS4-REVIEW-GROUPn.txt
+G2   where n in "GROUPn" is replaced by the cardinal number corresponding
+G2   to that of the group who submitted the article to review, and where
+G2   STUDENTNUMBER and SURNAME are that of the *reviewer*.
+G2   
+G2   If the SURNAME is more than one name, insert a hyphen between each.
+G2   
+G2   These should be aggregated into a zip file and uploaded via Blackboard,
+G2   adhering to the naming conventions described below for the individual
+G2   files.  The zip file should be named using the convention:
+G2   SURNAME-FIRSTNAME-STUDENTNUMBER-CS7IS4-PEER-REVIEWS.zip
+G2   as described in the first set of lecture notes.
+G2   
+G2   The student number and surname will be removed from the files that
+G2   are returned to authors.
+G2   
+G2   For each question where a scale is used, the intended scale is from 1
+G2   to 5, where 5 is the score for the best possible contribution and 1 is
+G2   the score for work that is at the opposite end of the spectrum.  For
+G2   each category of rating, justify your rating and provide feedback on
+G2   how the work could be improved.
+G2   
+G2   If a question addresses a section of the paper for which the current
+G2   draft has no text or only a place-holder section heading, you may
+G2   provide the rating "0" and comment accordingly.
+G2   
+G2   If any item is such that you feel you do not understand it, then use
+G2   your comments for the item to indicate how you made sense of the item
+G2   and provide a rating and constructive commentary to the authors in
+G2   relation of your understanding of the question (noting that if your
+G2   understanding of the item makes it identical to another item, then it
+G2   is best to apply synonymy avoidance to arrive at a distinct
+G2   understanding of the item rather than evaluating the paper with
+G2   respect to the same question twice).
+G2   
+G2   Reviews will be marked on the basis of the quality of feedback
+G2   provided.
+G2   
+G2   
+G2   0)  Indicate the title and authorship of the article reviewed.
+G2   TITLE: A Paralinguistic Analysis of Emojis and Emoticons
+G2   AUTHORS: Siddhesh Suresh Bangar, Shaunak Pedgaonkar, Eamon Phelan, Parthiban Thandapani, Jiaxuan Xie, Pragati Aboti
+G2   
+G2   1)  Is the title succinct and apt with respect to the essay content?
+G2   
+G2   Rating: 3
+G2   
+G2   Comments:
+G2   
+G2       I feel the authors are engaged in an 'Analysis of Paralinguistics' rather than a 'Paralinguistic Analysis'.
+G2       In fact, the word Paralinguistic in the title overpromises since the study is only of emojis and emoticons, not other sorts of paralinguistic expression.
+G2   
+G2       The title indicates that emojis and emoticons are involved, but gives no clues about what this study contributes relative to other studies of emojis and emoticons.
+G2   
+G2   2)  Does the abstract accurately and concisely set the context for the
+G2     work and indicate the main hypotheses?
+G2   
+G2   Rating: 3
+G2   
+G2   Comments:
+G2   
+G2   Hypotheses are not stated clearly, rather approaches and topics of study are mentioned. E.g. the 'syntactic and semantic dimensions' of emojis are mentioned, but no hypotheses about syntactic or semantic dimensions.
+G2   
+G2   There is a reference to 'semantic coherence', which is not mentioned again in the paper.
+G2   
+G2   
+G2   3)  Are the keywords appropriate?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   4)  Does the essay present clearly the research topic and the research
+G2       questions to be pursued within the essay research?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   5)  Does the research review synthesize a background literature within
+G2       a conceptual framework that the authors propose and defend, making
+G2       clear how the research questions pursued are left open by prior
+G2       literature?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2       Subsection 2.2 focuses on text similarity. The Jaccard and cosine similarities are mentioned, but there is no discussion of how the vectores used in Jaccard and cosine similarity might be generated. Details on this aspect of the conceptual framework would be beneficial, e.g. is it proposed that vector representations be generated in a supervised or unsupervised fashion?
+G2   
+G2       Finally, there appears to be no intention on the part of the authors to identify questions about text-similarity analysis left open in the literature, rather they are proposing to use existing analysis methods, which is reasonable.
+G2   
+G2   
+G2   6)  Does the detailed statement of the research question and
+G2       hypotheses make clear how the quantities used to measure texts
+G2       are adequate as measures of the theoretical constructs
+G2       explored?
+G2       
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   Subsection 3.1 identifies a supposed gap in the literature in terms of 'large scale algorithmic analysis'. I feel this direction focuses excessively on the method of analysis rather than a substantive question. I think it's appropriate to think of emojis as part of the text, and therefore the proposed question does not seek to relate properties of the texts to qualities and quantities outside the text. For example the research question could have focused on affect, as promised in the introduction, but instead seems to be focused on statistics relating to the distribution of emojis in texts. As such there seem to be no 'theoretical constructs' proposed.
+G2   
+G2   7) Does the methods section indicate clearly what corpora will be
+G2      required for text categories and what sources will be adopted for
+G2      any separate categories of information in support of answering the
+G2      research questions?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   8)  Does the description of research methods indicate how the
+G2       corpus will be processed in order to assess it according to
+G2       the categorization scheme proposed within the essay?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   9)  Does the description of research methods indicate how the relevant
+G2       quantities and qualities will be measured and assessed,
+G2       stipulating what would count as a confirmation of the authors'
+G2       hypotheses and what would count as falsification of the authors'
+G2       hypotheses?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   10) Are the research methods proposed appropriate to the question addressed?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   11) Does the underlying research result in the assembly of a data set
+G2       that will be useful to the wider research community?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   12) Are results clearly provided?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   13) Does the discussion of results provide a clear interpretation,
+G2       with reference to the research questions posed?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   14) Do the conclusions emphasize how the interpreted results
+G2       contribute to the literature?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   15) Are tables and figures clearly annotated and captioned?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   16) Does the essay present comprehensive bibliographic details for
+G2       the printed editions works cited?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2       US should be capicalised in "Sender-intended functions of emojis in us messaging".
+G2   
+G2       Some of the numbers used in the references are unconventional/unexplained, e.g. e0221297 (Gesselman et al 2019), e0144296 (Kralj et al 2015). These numbers are sometimes mistakenly added in Google Scholar's bibtex export function.
+G2   
+G2   
+G2   17) Is the essay well written in a scholarly mode of presentation?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2       In the abstract it is stated that the "study contributes nuanced insights", which is sort a self-compliment. The discussion of contributions should be more specific, allowing the reader to decide whether there are any nuanced insights.
+G2   
+G2       In Subseciton 2.3 there is some confusion in the sentence beginning "Text sentiment identification...", where it is perhaps being stated that statistical models `comprehend context'. I think the authors should be careful about such personification of models and algorithms.
+G2   
+G2       References in the style of 'by Zainuddin and Selamat (2014)' could be simplified to just '(Zainuddin and Selamat 2014)'.
+G2   
+G2   18) Does the description of individual contributions suggest an
+G2       equitable division of labour?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   19) Does the description of individual contributions provide
+G2       sufficiently rich description of the individual contributions in
+G2       a manner that allows an independent reader to assess who
+G2       contributed what and in a fashion that justifies any percentage
+G2       estimates of work?
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   20) Are there qualities of this paper would you argue that your own
+G2       group should try to emulate?  Comment on what qualities those are.
+G2   
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   21) Are there qualities of this paper would you argue that your own
+G2       group should try to avoid?  Comment on what qualities those are.
+G2   
+G2   Rating:
+G2   
+G2   Comments:
+G2   
+G2   
+G2   22) Is this work a good candidate for a "best paper" prize?
+G2   
+G2   Rating:
+G2   
+G2   Comments:

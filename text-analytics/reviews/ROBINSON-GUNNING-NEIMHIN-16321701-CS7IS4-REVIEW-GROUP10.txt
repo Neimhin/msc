@@ -1,39 +1,46 @@
 0) Indicate the title and authorship of the article reviewed.
+Title: Exploration of the similarity of the music and corresponding lyrics 
+Authors:  Yuanpei Teng, Peichen Sun, Hasha Vardhan Gajendar Kumar, Haokun Zhang, Jiawei Shen, Barath Nithish Lingasamy
 1) Is the title succinct and apt with respect to the paper content?
-Rating:
+Rating: 3
 Comments:
+Starting with "Exploration of" is perhaps unneccesary verbosity. One could perhaps say "Similarities between music and corresponding lyrics.
+I feel a little more specificity in the title could be beneficial, i.e. 'melodic structure' rather than just 'music'.
+Putting 'the' before 'music' in the title reads odd.
 
 2) Does the abstract accurately and concisely set the context for the
 work and indicate the main hypotheses?
-Rating:
+Rating: 3
 Comments:
+The context is set but the main hypotheses are not indicated.
+It is inappropriate to '[try] to prove' a musician maintains similar style across music and lyrics. Rather the goal should be to develop and test hypotheses about the similarity.
 
 3) Are the keywords appropriate?
-Rating:
+Rating: 4
 Comments:
+The keyword 'machine learning' is perhaps inappropriate as the paper is doubtful a contribution to machine learning generally, more likely an application of machine learnig for the purpose of text/data analysis.
 
 4) Does the paper present clearly the research topic and the research
 questions to be pursued within the paper research?
-Rating:
+Rating: 2
 Comments:
+The section "Articulation of Research Question" is confusing to read, due perhaps to typos. It also contains comments about 'persuasiveness' which are not relevant to articulating the research question. The research question remains quite general, 'whether there are certain similarities', and would benefit from a greater degree of specificity. I think the authors would benefit greatly from laying out some specific hypotheses they find interesting about similarities between melodic structure and lyrics texts, e.g. "repetitive melodies are associated with repetitive lyrics", "a larger melodic lexicon is associated with a larger lyrical lexicon".
 
 5) Does the research review synthesize a background literature within
 a conceptual framework that the authors propose and defend, making
 clear how the research questions pursued are left open by prior
 literature?
-Rating:
+Rating: 3
 Comments:
-
-Subsection 2.2 focuses on text similarity. The Jaccard and cosine similarities are mentioned, but there is no discussion of how the vectores used in Jaccard and cosine similarity might be generated. Details on this aspect of the conceptual framework would be beneficial, e.g. is it proposed that vector representations be generated in a supervised or unsupervised fashion?
-Finally, there appears to be no intention on the part of the authors to identify questions about text-similarity analysis left open in the literature, rather they are proposing to use existing analysis methods, which is reasonable.
+The authors note ABC notation expresses music/melody in a serial fashion, similar to orthography. The study therefore focuses on comparing these two serial formats, i.e. textual formats, which represent/reflect non-textual constructs (music, language).
+The authors note several types of vector representations for texts (TF-IDF, word2vec), which can be compared with cosine similarity. What is lacking is a defense of how these vector representations can be used to compare texts across the two domains (music, lyrics).
+Some interesting points about approaches to similarity analysis are raised, deriving acoustic features, mining opinions from online forums, colocation of songs in playlists, but these points are not integrated well into the overall discussion, and it is not clear whether or why the authors intend to employ any of these methods.
 
 6) Does the research question seek to relate properties of texts
 to qualities and quantities outside the texts with reference
 to an articulated theory of dependence between them?
 Rating:
 Comments:
-
-Subsection 3.1 identifies a supposed gap in the literature in terms of 'large scale algorithmic analysis'. I feel this direction focuses excessively on the method of analysis rather than a substantive question. I think it's appropriate to think of emojis as part of the text, and therefore the proposed question does not seek to relate properties of the texts to qualities and quantities outside the text. For example the research question could have focused on affect, as promised in the introduction.
 
 7) Does the methods section indicate clearly what corpora will be
 required and what sources will be adopted for the separate
@@ -87,18 +94,9 @@ works cited?
 Rating:
 Comments:
 
-US should be capicalised in "Sender-intended functions of emojis in us messaging".
-
-Some of the numbers used in the references are unconventional/unexplained, e.g. e0221297 (Gesselman et al 2019), e0144296 (Kralj et al 2015). These numbers are sometimes mistakenly added in Google Scholar's bibtex export function.
-
 17) Is the paper well written in a scholarly mode of presentation?
 Rating:
 Comments:
-    In the abstract it is stated that the "study contributes nuanced insights", which is sort a self-compliment. The discussion of contributions should be more specific, allowing the reader to decide whether there are any nuanced insights.
-
-    In Subseciton 2.3 there is some confusion in the sentence beginning "Text sentiment identification...", where it is perhaps being stated that statistical models `comprehend context'. I think the authors should be careful about such personification of models and algorithms.
-
-    References in the style of 'by Zainuddin and Selamat (2014)' could be simplified to just '(Zainuddin and Selamat 2014)'.
 
 18) Does the description of individual contributions suggest an
 equitable division of labour?

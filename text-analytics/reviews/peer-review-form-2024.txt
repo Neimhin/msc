@@ -86,6 +86,11 @@ Rating:
 
 Comments:
 
+    Subsection 2.2 focuses on text similarity. The Jaccard and cosine similarities are mentioned, but there is no discussion of how the vectores used in Jaccard and cosine similarity might be generated. Details on this aspect of the conceptual framework would be beneficial, e.g. is it proposed that vector representations be generated in a supervised or unsupervised fashion?
+
+    Finally, there appears to be no intention on the part of the authors to identify questions about text-similarity analysis left open in the literature, rather they are proposing to use existing analysis methods, which is reasonable.
+
+
 6)  Does the detailed statement of the research question and
     hypotheses make clear how the quantities used to measure texts
     are adequate as measures of the theoretical constructs

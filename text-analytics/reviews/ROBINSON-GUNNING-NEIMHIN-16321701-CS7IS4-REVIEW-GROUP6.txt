@@ -1,0 +1,118 @@
+G6    0) Indicate the title and authorship of the article reviewed.
+G6    1) Is the title succinct and apt with respect to the paper content?
+G6    Rating:
+G6    Comments:
+G6    
+G6    2) Does the abstract accurately and concisely set the context for the
+G6    work and indicate the main hypotheses?
+G6    Rating:
+G6    Comments:
+G6    
+G6    3) Are the keywords appropriate?
+G6    Rating:
+G6    Comments:
+G6    
+G6    4) Does the paper present clearly the research topic and the research
+G6    questions to be pursued within the paper research?
+G6    Rating:
+G6    Comments:
+G6    
+G6    5) Does the research review synthesize a background literature within
+G6    a conceptual framework that the authors propose and defend, making
+G6    clear how the research questions pursued are left open by prior
+G6    literature?
+G6    Rating:
+G6    Comments:
+G6    
+G6    6) Does the research question seek to relate properties of texts
+G6    to qualities and quantities outside the texts with reference
+G6    to an articulated theory of dependence between them?
+G6    Rating:
+G6    Comments:
+G6    
+G6    7) Does the methods section indicate clearly what corpora will be
+G6    required and what sources will be adopted for the separate
+G6    categories in support of answering the research questions?
+G6    Rating:
+G6    Comments:
+G6    
+G6    8) Does the description of research methods indicate how the
+G6    corpus will be processed in order to assess it according to
+G6    the categorization scheme proposed within the paper?
+G6    Rating:
+G6    Comments:
+G6    
+G6    9) Does the description of research methods indicate how the relevant
+G6    quantities and qualities will be measured and assessed,
+G6    stipulating what would count as a confirmation of the authors’
+G6    hypotheses and what would count as falsification of the authors’
+G6    hypotheses?
+G6    Rating:
+G6    Comments:
+G6    
+G6    10) Are the research methods appropriate to the question studied?
+G6    Rating:
+G6    Comments:
+G6    
+G6    11) Does the underlying research result in the assembly of a data set
+G6    that will be useful to the wider research community?
+G6    Rating:
+G6    Comments:
+G6    
+G6    12) Are results clearly provided?
+G6    Rating:
+G6    Comments:
+G6    
+G6    13) Does the discussion of results provide a clear interpretation,
+G6    with reference to the research questions posed?
+G6    Rating:
+G6    Comments:
+G6    
+G6    14) Do the conclusions emphasize how the interpreted results
+G6    contribute to the literature?
+G6    Rating:
+G6    Comments:
+G6    
+G6    15) Are tables and figures clearly annotated and captioned?
+G6    Rating:
+G6    Comments:
+G6    
+G6    16) Does the paper present comprehensive bibliographic details for
+G6    works cited?
+G6    Rating:
+G6    Comments:
+G6    
+G6    The authors have not used the suggested Chicago citation style.
+G6    
+G6    17) Is the paper well written in a scholarly mode of presentation?
+G6    Rating:
+G6    Comments:
+G6    
+G6    The phrase "is the foundation for NLP processing" doubles the word "processing".
+G6    
+G6    The point about how tokenization "can easily understand the text's linguistic structure" is confusing to read and dangerously personifies algorithms.
+G6    
+G6    Rather than saying "our paper will deploy sophisticated pronoun identification techniques" it would be better to name specifically the identification techniques to be used. The reader should be left to judge whether the techniques are sophisticated.
+G6    
+G6    18) Does the description of individual contributions suggest an
+G6    equitable division of labour?
+G6    Rating:
+G6    Comments:
+G6    
+G6    19) Does the description of individual contributions provide
+G6    sufficiently rich description of the individual contributions in
+G6    a manner that allows an independent reader to assess who
+G6    contributed what and in a fashion that justifies any percentage
+G6    estimates of work?
+G6    Rating:
+G6    Comments:
+G6    
+G6    20) What qualities of this paper would you argue that your own
+G6    group should try to emulate?
+G6    Comments:
+G6    The concise statement of the research questions in bold lends clarity and a focal point for first read of the paper.
+G6    
+G6    21) What qualities of this paper would you argue that your own
+G6    group should try to avoid?
+G6    Comments:
+G6    
