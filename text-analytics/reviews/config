@@ -1,0 +1,16 @@
+#!/bin/bash
+rm Makefile || 1
+
+# Each review form should be returned as a plain text file with the file
+# name:
+# SURNAME-FIRSTNAME-STUDENTNUMBER-CS7IS4-REVIEW-GROUPn.txt
+# where n in "GROUPn" is replaced by the cardinal number corresponding
+# to that of the group who submitted the article to review, and where
+# STUDENTNUMBER and SURNAME are that of the *reviewer*.
+
+printf "REVIEWS := " >> Makefile
+for n in 2 5 6 10; do
+  printf "ROBINSON-GUNNING-NEIMHIN-16321701-CS7IS4-REVIEW-GROUP$n.txt "
+done >> Makefile
+
+cat Makefile.in >> Makefile
