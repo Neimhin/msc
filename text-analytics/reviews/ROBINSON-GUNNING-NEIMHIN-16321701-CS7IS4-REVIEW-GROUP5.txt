@@ -1,128 +1,140 @@
-G5    0) Indicate the title and authorship of the article reviewed.
-G5    1) Is the title succinct and apt with respect to the paper content?
-G5    Rating:
-G5    Comments:
-G5    
-G5    2) Does the abstract accurately and concisely set the context for the
-G5    work and indicate the main hypotheses?
-G5    Rating:
-G5    Comments:
-G5    
-G5    3) Are the keywords appropriate?
-G5    Rating:
-G5    Comments:
-G5    
-G5    4) Does the paper present clearly the research topic and the research
-G5    questions to be pursued within the paper research?
-G5    Rating:
-G5    Comments:
-G5    
-G5    5) Does the research review synthesize a background literature within
-G5    a conceptual framework that the authors propose and defend, making
-G5    clear how the research questions pursued are left open by prior
-G5    literature?
-G5    Rating:
-G5    Comments:
-G5    
-G5    6) Does the research question seek to relate properties of texts
-G5    to qualities and quantities outside the texts with reference
-G5    to an articulated theory of dependence between them?
-G5    Rating:
-G5    Comments:
-G5    
-G5    7) Does the methods section indicate clearly what corpora will be
-G5    required and what sources will be adopted for the separate
-G5    categories in support of answering the research questions?
-G5    Rating:
-G5    Comments:
-G5    
-G5    8) Does the description of research methods indicate how the
-G5    corpus will be processed in order to assess it according to
-G5    the categorization scheme proposed within the paper?
-G5    Rating:
-G5    Comments:
-G5    
-G5    9) Does the description of research methods indicate how the relevant
-G5    quantities and qualities will be measured and assessed,
-G5    stipulating what would count as a confirmation of the authors’
-G5    hypotheses and what would count as falsification of the authors’
-G5    hypotheses?
-G5    Rating:
-G5    Comments:
-G5    
-G5    The use of a neural network has not been well-motivated in the text. It's as if the use of a neural network is taken as a given by the authors. In particular, the authors should explain why simpler, more interpretable tools aren't sufficient for their purposes (unless of course simpler tools are sufficient!).
-G5    
-G5    10) Are the research methods appropriate to the question studied?
-G5    Rating:
-G5    Comments:
-G5    
-G5    11) Does the underlying research result in the assembly of a data set
-G5    that will be useful to the wider research community?
-G5    Rating:
-G5    Comments:
-G5    
-G5    12) Are results clearly provided?
-G5    Rating:
-G5    Comments:
-G5    
-G5    13) Does the discussion of results provide a clear interpretation,
-G5    with reference to the research questions posed?
-G5    Rating:
-G5    Comments:
-G5    
-G5    14) Do the conclusions emphasize how the interpreted results
-G5    contribute to the literature?
-G5    Rating:
-G5    Comments:
-G5    
-G5    15) Are tables and figures clearly annotated and captioned?
-G5    Rating:
-G5    Comments:
-G5    
-G5    16) Does the paper present comprehensive bibliographic details for
-G5    works cited?
-G5    Rating:
-G5    Comments:
-G5    
-G5    Many of the references fail to adhere to the Chicago style:
-G5    e.g. (Koutsombogera Vogel, 2018) should be (Koutsombogera and Vogel, 2018)
-G5    e.g. it is not clear what (Koutsombogera, Costello, Vogel) is referring to.
-G5    e.g. it is not clear what (Koutsombogera, Sarthy, Vogel) is referring to.
-G5    
-G5    
-G5    17) Is the paper well written in a scholarly mode of presentation?
-G5    Rating:
-G5    Comments:
-G5    
-G5    Some of the language used is overly congratulatory or praising, rather than having an objective/descriptive style.
-G5    e.g. "The corpus is intended to enhance..." could be replaced with a more objective description of the MULTISIMO dataset, or to make the point could be replaced with an example of how the dataset has enhanced understanding.
-G5    e.g. rather than saying "a careful examination" it would be better to demonstrate the research team's care and rigor, through precision, attention to detail, etc.
-G5    
-G5    Some examples of typos/unfinished sentences:
-G5    e.g. "in successive dialoge segments was positively correlation"
-G5    
-G5    The style could benefit from modesty in some sections:
-G5    e.g. "The outcome of this research is intended to have a deep impact"
-G5    
-G5    18) Does the description of individual contributions suggest an
-G5    equitable division of labour?
-G5    Rating:
-G5    Comments:
-G5    
-G5    19) Does the description of individual contributions provide
-G5    sufficiently rich description of the individual contributions in
-G5    a manner that allows an independent reader to assess who
-G5    contributed what and in a fashion that justifies any percentage
-G5    estimates of work?
-G5    Rating: 2
-G5    Comments:
-G5    
-G5    The declaration of contributions lacks details of the specific contributions of each group member.
-G5    
-G5    20) What qualities of this paper would you argue that your own
-G5    group should try to emulate?
-G5    Comments:
-G5    
-G5    21) What qualities of this paper would you argue that your own
-G5    group should try to avoid?
-G5    Comments:
+0) Indicate the title and authorship of the article reviewed.
+Title: Assessment of Collaborative Interactions Based on the Multimodal Dataset
+MULTISIMO
+
+Authors: Shenghan Hou, Devang Kankaria, Naveen Prakash Ramesh, Alok Singh,
+Zitong Liang
+
+1) Is the title succinct and apt with respect to the paper content?
+Rating: 3
+Comments:
+The title does not mention the analysis of dominance, which is a central question
+in the paper.
+
+2) Does the abstract accurately and concisely set the context for the
+work and indicate the main hypotheses?
+Rating: 3
+Comments:
+Again the abstract fails to mention specific variables of interest;
+dominance, introversion, extroversion, conscientiousness.
+Hypotheses are not indicated.
+
+3) Are the keywords appropriate?
+Rating: 1
+Comments:
+The keywords seem to be placeholder keywords from a template file.
+
+4) Does the paper present clearly the research topic and the research
+questions to be pursued within the paper research?
+Rating:
+Comments:
+
+5) Does the research review synthesize a background literature within
+a conceptual framework that the authors propose and defend, making
+clear how the research questions pursued are left open by prior
+literature?
+Rating:
+Comments:
+
+6) Does the research question seek to relate properties of texts
+to qualities and quantities outside the texts with reference
+to an articulated theory of dependence between them?
+Rating:
+Comments:
+
+7) Does the methods section indicate clearly what corpora will be
+required and what sources will be adopted for the separate
+categories in support of answering the research questions?
+Rating:
+Comments:
+
+8) Does the description of research methods indicate how the
+corpus will be processed in order to assess it according to
+the categorization scheme proposed within the paper?
+Rating:
+Comments:
+
+9) Does the description of research methods indicate how the relevant
+quantities and qualities will be measured and assessed,
+stipulating what would count as a confirmation of the authors’
+hypotheses and what would count as falsification of the authors’
+hypotheses?
+Rating:
+Comments:
+
+The use of a neural network has not been well-motivated in the text. It's as if the use of a neural network is taken as a given by the authors. In particular, the authors should explain why simpler, more interpretable tools aren't sufficient for their purposes (unless of course simpler tools are sufficient!).
+
+10) Are the research methods appropriate to the question studied?
+Rating:
+Comments:
+
+11) Does the underlying research result in the assembly of a data set
+that will be useful to the wider research community?
+Rating:
+Comments:
+
+12) Are results clearly provided?
+Rating:
+Comments:
+
+13) Does the discussion of results provide a clear interpretation,
+with reference to the research questions posed?
+Rating:
+Comments:
+
+14) Do the conclusions emphasize how the interpreted results
+contribute to the literature?
+Rating:
+Comments:
+
+15) Are tables and figures clearly annotated and captioned?
+Rating:
+Comments:
+
+16) Does the paper present comprehensive bibliographic details for
+works cited?
+Rating:
+Comments:
+
+Many of the references fail to adhere to the Chicago style:
+e.g. (Koutsombogera Vogel, 2018) should be (Koutsombogera and Vogel, 2018)
+e.g. it is not clear what (Koutsombogera, Costello, Vogel) is referring to.
+e.g. it is not clear what (Koutsombogera, Sarthy, Vogel) is referring to.
+
+
+17) Is the paper well written in a scholarly mode of presentation?
+Rating:
+Comments:
+
+Some of the language used is overly congratulatory or praising, rather than having an objective/descriptive style.
+e.g. "The corpus is intended to enhance..." could be replaced with a more objective description of the MULTISIMO dataset, or to make the point could be replaced with an example of how the dataset has enhanced understanding.
+e.g. rather than saying "a careful examination" it would be better to demonstrate the research team's care and rigor, through precision, attention to detail, etc.
+
+Some examples of typos/unfinished sentences:
+e.g. "in successive dialoge segments was positively correlation"
+
+The style could benefit from modesty in some sections:
+e.g. "The outcome of this research is intended to have a deep impact"
+
+18) Does the description of individual contributions suggest an
+equitable division of labour?
+Rating:
+Comments:
+
+19) Does the description of individual contributions provide
+sufficiently rich description of the individual contributions in
+a manner that allows an independent reader to assess who
+contributed what and in a fashion that justifies any percentage
+estimates of work?
+Rating: 2
+Comments:
+
+The declaration of contributions lacks details of the specific contributions of each group member.
+
+20) What qualities of this paper would you argue that your own
+group should try to emulate?
+Comments:
+
+21) What qualities of this paper would you argue that your own
+group should try to avoid?
+Comments:
