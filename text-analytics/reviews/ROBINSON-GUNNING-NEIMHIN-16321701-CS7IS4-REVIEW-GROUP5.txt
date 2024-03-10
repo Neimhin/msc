@@ -1,140 +1,336 @@
-0) Indicate the title and authorship of the article reviewed.
+Please complete one copy of this form for each paper that you are
+given to review.
+
+Authors will not know through this process who reviewed any
+submission; it is recommended that this remain anonymous.
+
+Each review form should be returned as a plain text file with the file
+name:
+SURNAME-FIRSTNAME-STUDENTNUMBER-CS7IS4-REVIEW-GROUPn.txt
+where n in "GROUPn" is replaced by the cardinal number corresponding
+to that of the group who submitted the article to review, and where
+STUDENTNUMBER and SURNAME are that of the *reviewer*.
+
+If the SURNAME is more than one name, insert a hyphen between each.
+
+These should be aggregated into a zip file and uploaded via Blackboard,
+adhering to the naming conventions described below for the individual
+files.  The zip file should be named using the convention:
+SURNAME-FIRSTNAME-STUDENTNUMBER-CS7IS4-PEER-REVIEWS.zip
+as described in the first set of lecture notes.
+
+The student number and surname will be removed from the files that
+are returned to authors.
+
+For each question where a scale is used, the intended scale is from 1
+to 5, where 5 is the score for the best possible contribution and 1 is
+the score for work that is at the opposite end of the spectrum.  For
+each category of rating, justify your rating and provide feedback on
+how the work could be improved.
+
+If a question addresses a section of the paper for which the current
+draft has no text or only a place-holder section heading, you may
+provide the rating "0" and comment accordingly.
+
+If any item is such that you feel you do not understand it, then use
+your comments for the item to indicate how you made sense of the item
+and provide a rating and constructive commentary to the authors in
+relation of your understanding of the question (noting that if your
+understanding of the item makes it identical to another item, then it
+is best to apply synonymy avoidance to arrive at a distinct
+understanding of the item rather than evaluating the paper with
+respect to the same question twice).
+
+Reviews will be marked on the basis of the quality of feedback
+provided.
+
+
+0)  Indicate the title and authorship of the article reviewed.
 Title: Assessment of Collaborative Interactions Based on the Multimodal Dataset
 MULTISIMO
 
 Authors: Shenghan Hou, Devang Kankaria, Naveen Prakash Ramesh, Alok Singh,
-Zitong Liang
+Zitong Liang, Mingyang Xia
 
-1) Is the title succinct and apt with respect to the paper content?
-Rating: 3
-Comments:
-The title does not mention the analysis of dominance, which is a central question
-in the paper.
+1)  Is the title succinct and apt with respect to the essay content?
 
-2) Does the abstract accurately and concisely set the context for the
-work and indicate the main hypotheses?
-Rating: 3
-Comments:
-Again the abstract fails to mention specific variables of interest;
-dominance, introversion, extroversion, conscientiousness.
-Hypotheses are not indicated.
+    Rating: 3
+    
+    Comments:
+    
+    The title does not mention the analysis of dominance, which is a central question
+    in the paper.
 
-3) Are the keywords appropriate?
-Rating: 1
-Comments:
-The keywords seem to be placeholder keywords from a template file.
+2)  Does the abstract accurately and concisely set the context for the
+    work and indicate the main hypotheses?
 
-4) Does the paper present clearly the research topic and the research
-questions to be pursued within the paper research?
-Rating:
-Comments:
+    Rating: 3
+    
+    Comments:
+    
+    Again the abstract fails to mention specific variables of interest;
+    dominance, introversion, extroversion, conscientiousness.
+    Hypotheses are not indicated.
 
-5) Does the research review synthesize a background literature within
-a conceptual framework that the authors propose and defend, making
-clear how the research questions pursued are left open by prior
-literature?
-Rating:
-Comments:
+3)  Are the keywords appropriate?
 
-6) Does the research question seek to relate properties of texts
-to qualities and quantities outside the texts with reference
-to an articulated theory of dependence between them?
-Rating:
-Comments:
+    Rating: 1
+    
+    Comments:
+    
+    The keywords seem to be placeholder keywords from a template file.
+
+4)  Does the essay present clearly the research topic and the research
+    questions to be pursued within the essay research?
+
+    Rating: 3
+    
+    Comments:
+
+    The topic and four related research questions are presented reasonably clearly.
+
+    The second question asks about the correlation between conscientiousness
+    and decision-making processes. Perhaps the authors should propose a 
+    causal hypothesis and research question, which can be investigated/tested
+    by examining correlations in data.
+
+    The fourth question about "anticipation of a relatively more collaborative behaviour" could be stated more clearly. Are the authors asking about
+    whether collaborative behaviours tend to be stable over time for
+    an individual?
+
+
+5)  Does the research review synthesize a background literature within
+    a conceptual framework that the authors propose and defend, making
+    clear how the research questions pursued are left open by prior
+    literature?
+
+    Rating: 2
+    
+    Comments:
+
+    A large portion of the literature review is dedicated to describing
+    the dataset the authors intend to analyse. The literature
+    review should focus more of synthesising a background literature
+    related to the research questions, explaining what has been
+    discovered in relation to the questions, and what has yet to be
+    discovered. The detailed description of the dataset might be more
+    appropriate in the methods section or an appendix.
+
+    The authors have identified and defended a framework for
+    measuring dominance in collaborative situations.
+
+    Bibliographic details are missing for some references, and
+    the number of papers/authors discussed in the literature review
+    is small. A more thorough survey of approaches to conceptualising
+    and measuring the relevant quantities, as well as of existing evidence
+    to support hypotheses would be appropriate.
+
+6)  Does the detailed statement of the research question and
+    hypotheses make clear how the quantities used to measure texts
+    are adequate as measures of the theoretical constructs
+    explored?
+    
+
+    Rating: 2
+    
+    Comments:
+
+    It's not clear if the authors intend to measure texts.
+
+    The statement of the research questions is not in all cases sufficiently detailed
+    (specific variables of interest are not selected definitively)
+    and appropriate hypotheses relating to the research questions are not
+    provided.
+
+    Some of the variables of interest are personality traits, which 
+    are measured using the Big Five personality inventory, e.g. introversion
+    and extroversion, but I'm not sure what is meant by 'disparate measures
+    of contributions' to which these variables will be compared.
+    Perhaps the authors mean verbal contributions, i.e. counts
+    of how many times a subject speaks, how many words a subject uses
+    over a given time period, etc.?
 
 7) Does the methods section indicate clearly what corpora will be
-required and what sources will be adopted for the separate
-categories in support of answering the research questions?
-Rating:
-Comments:
+   required for text categories and what sources will be adopted for
+   any separate categories of information in support of answering the
+   research questions?
+   
+   Rating: 4
+   
+   Comments:
 
-8) Does the description of research methods indicate how the
-corpus will be processed in order to assess it according to
-the categorization scheme proposed within the paper?
-Rating:
-Comments:
+   If I understand correctly the MULTISIMO dataset is the source
+   for both the qualitative psychological variables as well as
+   the interaction/language data.
+   
+8)  Does the description of research methods indicate how the
+    corpus will be processed in order to assess it according to
+    the categorization scheme proposed within the essay?
 
-9) Does the description of research methods indicate how the relevant
-quantities and qualities will be measured and assessed,
-stipulating what would count as a confirmation of the authors’
-hypotheses and what would count as falsification of the authors’
-hypotheses?
-Rating:
-Comments:
+    Rating: 2
+    
+    Comments:
 
-The use of a neural network has not been well-motivated in the text. It's as if the use of a neural network is taken as a given by the authors. In particular, the authors should explain why simpler, more interpretable tools aren't sufficient for their purposes (unless of course simpler tools are sufficient!).
+    The notes on 'Feature Engineering' lack detail and are
+    not conducive to academic replication.
 
-10) Are the research methods appropriate to the question studied?
-Rating:
-Comments:
+    The dominance variable is not mentioned in the discussion
+    of 'Feature Engineering'.
+    
+9)  Does the description of research methods indicate how the relevant
+    quantities and qualities will be measured and assessed,
+    stipulating what would count as a confirmation of the authors'
+    hypotheses and what would count as falsification of the authors'
+    hypotheses?
+
+    Rating: 1
+    
+    Comments:
+
+    Precision, recall, and F1 scores are mentioned, but is not clear
+    whether/why a classification model is being applied.
+    There is not enough detail on what the relevant quantities and qualities
+    are, let alone how they will be measured and assessed in relation
+    to hypotheses.
+    
+10) Are the research methods proposed appropriate to the question addressed?
+
+    Rating: 1
+    
+    Comments:
+    The use of a neural network is not well motivated.
+    Why can't simpler, more interpretable, descriptive and/or test statistics
+    suffice for the analysis?
 
 11) Does the underlying research result in the assembly of a data set
-that will be useful to the wider research community?
-Rating:
-Comments:
+    that will be useful to the wider research community?
+
+    Rating: 1
+    
+    Comments:
+
+    It's not clear whether new dataset will be derived
+    from the MULTISIMO dataset.
 
 12) Are results clearly provided?
-Rating:
-Comments:
+
+    Rating: 0
+    
+    Comments: n/a
 
 13) Does the discussion of results provide a clear interpretation,
-with reference to the research questions posed?
-Rating:
-Comments:
+    with reference to the research questions posed?
+
+    Rating: 0
+    
+    Comments: n/a
 
 14) Do the conclusions emphasize how the interpreted results
-contribute to the literature?
-Rating:
-Comments:
+    contribute to the literature?
+
+    Rating: 0
+    
+    Comments: n/a
 
 15) Are tables and figures clearly annotated and captioned?
-Rating:
-Comments:
 
-16) Does the paper present comprehensive bibliographic details for
-works cited?
-Rating:
-Comments:
+    Rating: 3
+    
+    Comments:
 
-Many of the references fail to adhere to the Chicago style:
-e.g. (Koutsombogera Vogel, 2018) should be (Koutsombogera and Vogel, 2018)
-e.g. it is not clear what (Koutsombogera, Costello, Vogel) is referring to.
-e.g. it is not clear what (Koutsombogera, Sarthy, Vogel) is referring to.
+    Some figures are used but never referenced in text.
 
+16) Does the essay present comprehensive bibliographic details for
+    the printed editions works cited?
 
-17) Is the paper well written in a scholarly mode of presentation?
-Rating:
-Comments:
+    Rating: 3
+    
+    Comments:
 
-Some of the language used is overly congratulatory or praising, rather than having an objective/descriptive style.
-e.g. "The corpus is intended to enhance..." could be replaced with a more objective description of the MULTISIMO dataset, or to make the point could be replaced with an example of how the dataset has enhanced understanding.
-e.g. rather than saying "a careful examination" it would be better to demonstrate the research team's care and rigor, through precision, attention to detail, etc.
+    Many of the references fail to adhere to the Chicago style:
+    e.g. (Koutsombogera Vogel, 2018) should be (Koutsombogera and Vogel, 2018)
 
-Some examples of typos/unfinished sentences:
-e.g. "in successive dialoge segments was positively correlation"
+    It is not clear what (Koutsombogera, Costello, Vogel) is referring to.
+    It is not clear what (Koutsombogera, Sarthy, Vogel) is referring to.
 
-The style could benefit from modesty in some sections:
-e.g. "The outcome of this research is intended to have a deep impact"
+17) Is the essay well written in a scholarly mode of presentation?
+
+    Rating: 2
+    
+    Comments:
+
+    There is some incoherence, the description of the neural network
+    is not clearly related to other parts of the text.
+
+    In the discussion of the evaluation classification metrics are mentioned,
+    but it's not clear what is to be measured, or that
+    a classification model/program is to be employed.
+
+    Some sentences and paragraphs are overly verbose while failing
+    to add clarity, e.g. what is meant by "delineating the participants' data",
+    or "to unfold the framework of productive coordination"?
 
 18) Does the description of individual contributions suggest an
-equitable division of labour?
-Rating:
-Comments:
+    equitable division of labour?
+
+    Rating: 1
+    
+    Comments:
+    There is no description of individual contributions.
 
 19) Does the description of individual contributions provide
-sufficiently rich description of the individual contributions in
-a manner that allows an independent reader to assess who
-contributed what and in a fashion that justifies any percentage
-estimates of work?
-Rating: 2
-Comments:
+    sufficiently rich description of the individual contributions in
+    a manner that allows an independent reader to assess who
+    contributed what and in a fashion that justifies any percentage
+    estimates of work?
 
-The declaration of contributions lacks details of the specific contributions of each group member.
+    Rating: 1
+    
+    Comments:
+    No percentage estimate of work is provided.
+    There is no description of individual contributions.
 
-20) What qualities of this paper would you argue that your own
-group should try to emulate?
-Comments:
 
-21) What qualities of this paper would you argue that your own
-group should try to avoid?
-Comments:
+20) Are there qualities of this paper would you argue that your own
+    group should try to emulate?  Comment on what qualities those are.
+
+    Rating: 2
+    
+    Comments:
+
+    The use of diagrams to convey the structure of complex models 
+    and pipelines may
+    be worth emulating in our own group.
+    Howevery, complexity of models or processes is not in itself a virtue.
+
+21) Are there qualities of this paper would you argue that your own
+    group should try to avoid?  Comment on what qualities those are.
+
+    Rating: 2
+    
+    Comments:
+
+    The decision to use a neural network is not explained, it's not
+    clear what the data are, and why this model is appropriate.
+    The problem should be clearly laid out before a model/approach
+    is selected, and the approach should be appropriated to the
+    characteristics of the problem.
+
+    The ablation study approach seems inefficient (in terms of
+    researcher-hours) and unprincipled.
+    There are more principled approaches to identifying variables
+    with the highest explanatory power over dependent variables,
+    e.g. Information Gain.
+
+22) Is this work a good candidate for a "best paper" prize?
+
+    Rating: 2
+    
+    Comments:
+    
+    The paper appear to be heavily inspired by a small number
+    of related papers, and it's not clear that the paper
+    answers new questions left unanswered by those previous questions.
+
+    The authors don't present a compelling argument for the significance
+    or importance of their contributions.
