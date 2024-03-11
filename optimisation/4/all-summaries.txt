@@ -1,7 +1,7 @@
 exp/adam-0.25-0.5-0.01-f.csv.summary
-iterations: 135
+iterations: 117
 start: 4 8
-final: 4.99582277134904 8.99820443481013
+final: 4.99087992959014 8.99931382124301
 
 exp/adam-0.25-0.5-0.01-g.csv.summary
 iterations: 103
@@ -9,9 +9,9 @@ start: 4 8
 final: 4 9.00498995010055
 
 exp/adam-0.25-0.5-0.1-f.csv.summary
-iterations: 48
+iterations: 35
 start: 4 8
-final: 4.99821811486694 9.00092617677261
+final: 4.99466030234821 8.99472224064283
 
 exp/adam-0.25-0.5-0.1-g.csv.summary
 iterations: 13
@@ -19,14 +19,14 @@ start: 4 8
 final: 4 9.04998949116439
 
 exp/adam-0.9-0.5-0.01-f.csv.summary
-iterations: 92
+iterations: 91
 start: 4 8
-final: 4.96812165152723 9.12620301732339
+final: 5.02973245556119 9.12705939515206
 
 exp/adam-0.9-0.5-0.01-g.csv.summary
-iterations: 109
+iterations: 108
 start: 4 8
-final: 4 9.03389554612822
+final: 4 9.03432972308891
 
 exp/adam-0.9-0.5-0.1-f.csv.summary
 iterations: 16
@@ -39,9 +39,9 @@ start: 4 8
 final: 4 9.26374397899773
 
 exp/heavy_ball-0.25-0.5-0.01-f.csv.summary
-iterations: 421
+iterations: 88
 start: 4 8
-final: 4.91468435785503 9.00000000000000
+final: 4.81807623052183 8.99999999999999
 
 exp/heavy_ball-0.25-0.5-0.01-g.csv.summary
 iterations: 10
@@ -79,9 +79,9 @@ start: 4 8
 final: 4 9.71000000000000
 
 exp/rmsprop-0.25-0.5-0.01-f.csv.summary
-iterations: 126
+iterations: 108
 start: 4 8
-final: 4.99580492667993 9.00001372704813
+final: 4.99105682616369 9.13873267808557
 
 exp/rmsprop-0.25-0.5-0.01-g.csv.summary
 iterations: 93
@@ -99,9 +99,9 @@ start: 4 8
 final: 4 9.00000000000000
 
 exp/rmsprop-0.9-0.5-0.01-f.csv.summary
-iterations: 262
+iterations: 177
 start: 4 8
-final: 4.99474973878262 9.00000000000000
+final: 4.96078639185017 9.00000000000000
 
 exp/rmsprop-0.9-0.5-0.01-g.csv.summary
 iterations: 84

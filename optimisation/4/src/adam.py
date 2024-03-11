@@ -29,7 +29,6 @@ def iterate(self):
         adam_grad = m_hat / v_hat_aug
         self._x_value = self._x_value - self._step_size * adam_grad
         self._converged_value = self._converged(self._x_value, self._old_x_value)
-        print(self._converged_value, self._converged)
         yield self.state_dict()
 
 

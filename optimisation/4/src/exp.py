@@ -8,7 +8,7 @@ import heavy_ball
 
 def converged(x1, x2):
     d = np.max(x1-x2)
-    return d < 0.0001
+    return d < 0.001
 
 
 parser = argparse.ArgumentParser(

@@ -17,7 +17,6 @@ def g_real(x, y):
 
 def apply_sym(x, f):
     for x_sym, x_val in zip(f.free_symbols, x):
-        print(x_sym, x_val)
         f = f.subs(x_sym, x_val)
     return f
 
