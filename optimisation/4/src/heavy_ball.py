@@ -2,42 +2,24 @@ import lib
 
 
 def iterate(self):
-    x_value = self._start
-    old_x_value = None
-    iteration = 0
-    converged = False
-    grad_value = self._gradient(x_value)
+    self._x_value = self._start
+    self._old_x_value = None
+    self._iteration = 0
+    self._converged_val = False
+    self._grad_value = self._gradient(self._x_value)
+    self._z = 0
+    yield self.state_dict()  # yield initial values
 
-    z = 0
-
-    def yielded():
-        print(x_value)
-        print(iteration)
-        return {
-            "alg": "heavy_ball",
-            "iteration": iteration,
-            "z": z,
-            "x": x_value,
-            "alpha": self._step_size,
-            "beta1": self._beta,
-            "f(x)": self._function(x_value),
-            "epsilon": self._epsilon,
-            "converged": converged,
-            "gradient": grad_value,
-        }
-
-    yield yielded() # yield initial values
-
-    while not converged:
-        iteration += 1
-        if self._max_iter > 0 and iteration > self._max_iter:
+    while not self._converged_val:
+        self._iteration += 1
+        if self._max_iter > 0 and self._iteration > self._max_iter:
             break
-        grad_value = self._gradient(x_value)
-        old_x_value = x_value
-        z = self._beta * z + self._step_size * grad_value
-        x_value = x_value - z
-        converged = self._converged(x_value, old_x_value)
-        yield yielded()
+        self._grad_value = self._gradient(self._x_value)
+        self._old_x_value = self._x_value
+        self._z = self._beta * self._z + self._step_size * self._grad_value
+        self._x_value = self._x_value - self._z
+        self._converged_val = self._converged(self._x_value, self._old_x_value)
+        yield self.state_dict()
 
 
 if __name__ == "__main__":

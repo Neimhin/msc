@@ -1,4 +1,5 @@
 import sympy as sp
+import numpy as np
 import functools
 
 x, y = sp.symbols('x y', real=True)
@@ -6,13 +7,62 @@ f = 3 * (x - 5)**4 + (10 * ((y - 9)**2))
 g = sp.Max(x - 5, 0) + (10 * sp.Abs(y - 9))
 
 
+def f_real(x, y):
+    return 3 * (x - 5)**4 + 10 * (y - 9)**2
+
+
+def g_real(x, y):
+    return np.maximum(x - 5, 0) + 10 * np.abs(y - 9)
+
+
+def apply_sym(x, f):
+    for x_sym, x_val in zip(f.free_symbols, x):
+        print(x_sym, x_val)
+        f = f.subs(x_sym, x_val)
+    return f
+
+
+relu = sp.Max(x, 0)
+
+config = {
+    "f": {
+        "sym": f,
+        "real": f_real,
+        "name": "f",
+    },
+    "g": {
+        "sym": g,
+        "real": g_real,
+        "name": "g",
+    },
+    "relu": {
+        "sym": relu,
+        "real": lambda x: max(x, 0),
+        "name": "relu",
+    }
+}
+
 class GradientDescent():
     def __init__(self):
         self._max_iter = 1000
         self._debug = False
         self._converged = lambda x1, x2: False
         self._epsilon = 0.0001
+        self._dimension = None
         self._beta = 0
+        self._algorithm = None
+        self._iteration = None
+        self._function = None
+        self._sum = None
+        self._x_value = None
+        self._converged_value = None
+        self._grad_value = None
+        self._m = None
+        self._v = None
+        self._beta = None
+        self._beta2 = None
+        self._step_size = None
+        self._z = None
 
     def step_size(self, a):
         self._step_size = a
@@ -30,8 +80,26 @@ class GradientDescent():
         self._epsilon = e
         return self
 
-    def function(self, f):
+    def function(self, f, function_name=None):
         self._function = f
+        self.function_name = function_name
+        self._dimension = len(f.free_symbols)
+        return self
+
+    def sym_function(self, function, function_name=None):
+        self.function_name = function_name
+        self._dimension = len(function.free_symbols)
+        def fn(x):
+            return apply_sym(x, function)
+
+        diffs = [function.diff(var) for var in function.free_symbols]
+
+        def grad(x):
+            return np.array([
+                apply_sym(x, diff) for diff in diffs])
+
+        self._function = fn
+        self._gradient = grad
         return self
 
     def gradient(self, g):
@@ -58,24 +126,39 @@ class GradientDescent():
         self.iterate = functools.partial(f, self)
         return self
 
-    def iterate(self):
-        x_value = self._start
-        old_x_value = None
-        iteration = 0
-        while True:
-            yield [iteration, x_value, self._function(x_value)]
-            iteration += 1
-            if self._max_iter > 0 and iteration > self._max_iter:
-                break
-            grad_value = self._gradient(x_value)
-            print(x_value, type(x_value))
-            print(grad_value, type(grad_value))
-            x_value -= self._step_size * grad_value  # Update step
-            if old_x_value is not None and self._converged(x_value, old_x_value):
-                yield [iteration, float(x_value), float(self._function(old_x_value))]
-                print("converged")
-                break
-            old_x_value = x_value
+    def algorithm(self, alg):
+        self._algorithm = alg
+        if self._algorithm == "rmsprop":
+            import rmsprop
+            self.set_iterate(rmsprop.iterate)
+        elif self._algorithm == "adam":
+            import adam
+            self.set_iterate(adam.iterate)
+        elif self._algorithm == "heavy_ball":
+            import heavy_ball
+            self.set_iterate(heavy_ball.iterate)
+        else:
+            raise Exception("Unknown algorithm:" + alg)
+        return self
+
+    def state_dict(self):
+        return {
+            "alg": self._algorithm,
+            "function_name": self.function_name,
+            "iteration": self._iteration,
+            "f(x)": self._function(self._x_value),
+            "epsilon": self._epsilon,
+            "converged": self._converged_value,
+            "gradient": self._grad_value,
+            "m": self._m,
+            "v": self._v,
+            "beta1": self._beta,
+            "beta2": self._beta2,
+            "alpha": self._step_size,
+            "sum": self._sum,
+            "z": self._z,
+            **{"x" + str(i): self._x_value[i] for i in range(len(self._x_value))},
+        }
 
     def run2csv(self, fname, summarise=True):
         import pandas as pd
@@ -85,8 +168,8 @@ class GradientDescent():
         if(summarise):
             with open(fname + ".summary", "w") as f:
                 print(f"iterations: {len(df)}", file=f)
-                print(f"start: {df['x'][0]}", file=f)
-                print(f"final: {df['x'][len(df) - 1]}", file=f)
+                print(f"start: {df['x0'][0]} {df['x1'][0]}", file=f)
+                print(f"final: {df['x0'][len(df) - 1]} {df['x1'][len(df) - 1]}", file=f)
 
 
 if __name__ == "__main__":

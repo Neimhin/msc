@@ -1,55 +1,36 @@
 import lib
 import numpy as np
+import json
 
 
 def iterate(self):
-    x_value = self._start
-    old_x_value = None
-    iteration = 0
-    m = np.zeros(x_value.shape, dtype=np.float64)
-    v = np.zeros(x_value.shape, dtype=np.float64)
-    converged = False
-    grad_value = self._gradient(x_value)
+    self._x_value = self._start
+    self._old_x_value = None
+    self._iteration = 0
+    self._m = np.zeros(self._x_value.shape, dtype=np.float64)
+    self._v = np.zeros(self._x_value.shape, dtype=np.float64)
+    self._converged_value = False
+    self._grad_value = self._gradient(self._x_value)
 
-    def yielded():
-        print(x_value)
-        print(iteration)
-        return {
-            "alg": "adam",
-            "iteration": iteration,
-            "x": x_value,
-            "f(x)": self._function(x_value),
-            "epsilon": self._epsilon,
-            "converged": converged,
-            "gradient": grad_value,
-            "m": m,
-            "v": v,
-            "beta1": self._beta,
-            "beta2": self._beta2,
-            "alpha": self._step_size,
-        }
+    yield self.state_dict()
 
-    yield yielded()
-
-    while not converged:
-        if self._max_iter > 0 and iteration > self._max_iter:
+    while not self._converged_value:
+        if self._max_iter > 0 and self._iteration > self._max_iter:
             break
-        grad_value = self._gradient(x_value)
-        m = self._beta * m + (1-self._beta)*grad_value
+        self._grad_value = self._gradient(self._x_value)
+        self._m = self._beta * self._m + (1-self._beta)*self._grad_value
         # grad_value * grad_value gives element-wise product of np array
-        v = self._beta2 * v + (1-self._beta2) * (grad_value*grad_value)
-        old_x_value = x_value
-        iteration += 1
-        m_hat = m / (1-(self._beta ** iteration))
-        v_hat = np.array(v / (1-(self._beta2 ** iteration)))
-        print('v', v, type(v))
-        print('v_hat', v_hat, type(v_hat))
-        print(np, type(np))
+        self._v = self._beta2 * self._v + (1-self._beta2) * (self._grad_value*self._grad_value)
+        self._old_x_value = self._x_value
+        self._iteration += 1
+        m_hat = self._m / (1-(self._beta ** self._iteration))
+        v_hat = np.array(self._v / (1-(self._beta2 ** self._iteration)))
         v_hat_aug = v_hat**(0.5) + self._epsilon
         adam_grad = m_hat / v_hat_aug
-        x_value = x_value - self._step_size * adam_grad
-        converged = self._converged(x_value, old_x_value)
-        yield yielded()
+        self._x_value = self._x_value - self._step_size * adam_grad
+        self._converged_value = self._converged(self._x_value, self._old_x_value)
+        print(self._converged_value, self._converged)
+        yield self.state_dict()
 
 
 if __name__ == "__main__":

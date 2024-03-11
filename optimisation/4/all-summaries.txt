@@ -1,60 +1,120 @@
-exp/adam-0.25-0.5-0.01.csv.summary
-iterations: 135
-start: [4 8]
-final: [4.99582277134904 8.99820443481013]
+exp/adam-0.25-0.5-0.01-f.csv.summary
+iterations: 908
+start: 0 0
+final: 4.99897526654769 9.00106948420208
 
-exp/adam-0.25-0.5-0.1.csv.summary
-iterations: 48
-start: [4 8]
-final: [4.99821811486694 9.00092617677261]
+exp/adam-0.25-0.5-0.01-g.csv.summary
+iterations: 903
+start: 0 0
+final: 0 9.00490995090040
 
-exp/adam-0.9-0.5-0.01.csv.summary
+exp/adam-0.25-0.5-0.1-f.csv.summary
+iterations: 97
+start: 0 0
+final: 4.99845782627843 9.00288540795520
+
+exp/adam-0.25-0.5-0.1-g.csv.summary
+iterations: 93
+start: 0 0
+final: 0 9.04990950090497
+
+exp/adam-0.9-0.5-0.01-f.csv.summary
+iterations: 872
+start: 0 0
+final: 4.99931879604954 9.12732775485217
+
+exp/adam-0.9-0.5-0.01-g.csv.summary
+iterations: 908
+start: 0 0
+final: 0 9.03425027749714
+
+exp/adam-0.9-0.5-0.1-f.csv.summary
 iterations: 92
-start: [4 8]
-final: [4.96812165152723 9.12620301732339]
+start: 0 0
+final: 6.26272084211215 9.84714305143113
 
-exp/adam-0.9-0.5-0.1.csv.summary
-iterations: 16
-start: [4 8]
-final: [5.68217058202141 9.49485770453146]
+exp/adam-0.9-0.5-0.1-g.csv.summary
+iterations: 99
+start: 0 0
+final: 0 9.33895289087194
 
-exp/heavy_ball-0.25-0.5-0.01.csv.summary
-iterations: 421
-start: [4 8]
-final: [4.91468435785503 9.00000000000000]
+exp/heavy_ball-0.25-0.5-0.01-f.csv.summary
+iterations: 25
+start: 0 0
+final: -6.21188046445079E+49135942386 8.99860295660957
 
-exp/heavy_ball-0.25-0.5-0.1.csv.summary
-iterations: 5
-start: [4 8]
-final: [5.31439827863626 9.03125000000000]
+exp/heavy_ball-0.25-0.5-0.01-g.csv.summary
+iterations: 70
+start: 0 0
+final: 0 8.95555555555556
 
-exp/heavy_ball-0.9-0.5-0.01.csv.summary
-iterations: 14
-start: [4 8]
-final: [5.63774341678823 8.50076092559620]
-
-exp/heavy_ball-0.9-0.5-0.1.csv.summary
-iterations: 4
-start: [4 8]
-final: [4.77337709240320 8.02000000000000]
-
-exp/rmsprop-0.25-0.5-0.01.csv.summary
-iterations: 126
-start: [4 8]
-final: [4.99580492667993 9.00001372704813]
-
-exp/rmsprop-0.25-0.5-0.1.csv.summary
+exp/heavy_ball-0.25-0.5-0.1-f.csv.summary
 iterations: 3
-start: [4 8]
-final: [5.19907624845810 9.88453061282489]
+start: 0 0
+final: -3658162.50000000 4.50000000000000
 
-exp/rmsprop-0.9-0.5-0.01.csv.summary
-iterations: 262
-start: [4 8]
-final: [4.99474973878262 9.00000000000000]
+exp/heavy_ball-0.25-0.5-0.1-g.csv.summary
+iterations: 10
+start: 0 0
+final: 0 9.55555725097656
 
-exp/rmsprop-0.9-0.5-0.1.csv.summary
+exp/heavy_ball-0.9-0.5-0.01-f.csv.summary
+iterations: 9
+start: 0 0
+final: -2.25929804525402E+1111 13.7053409400000
+
+exp/heavy_ball-0.9-0.5-0.01-g.csv.summary
+iterations: 24
+start: 0 0
+final: 0 11.2317264307687
+
+exp/heavy_ball-0.9-0.5-0.1-f.csv.summary
 iterations: 3
-start: [4 8]
-final: [5.19747024453678 9.68377723390411]
+start: 0 0
+final: -3658065.00000000 16.2000000000000
+
+exp/heavy_ball-0.9-0.5-0.1-g.csv.summary
+iterations: 8
+start: 0 0
+final: 0 11.8267210000000
+
+exp/rmsprop-0.25-0.5-0.01-f.csv.summary
+iterations: 733
+start: 0 0
+final: 7.65838410940434 8.99945642295863
+
+exp/rmsprop-0.25-0.5-0.01-g.csv.summary
+iterations: 893
+start: 0 0
+final: 0 8.99189117525875
+
+exp/rmsprop-0.25-0.5-0.1-f.csv.summary
+iterations: 3
+start: 0 0
+final: -2666.19892626206 17.8845300202361
+
+exp/rmsprop-0.25-0.5-0.1-g.csv.summary
+iterations: 83
+start: 0 0
+final: 0 8.91972174448845
+
+exp/rmsprop-0.9-0.5-0.01-f.csv.summary
+iterations: 772
+start: 0 0
+final: 7.39043992383142 8.99616623475855
+
+exp/rmsprop-0.9-0.5-0.01-g.csv.summary
+iterations: 884
+start: 0 0
+final: 0 8.99132642636745
+
+exp/rmsprop-0.9-0.5-0.1-f.csv.summary
+iterations: 3
+start: 0 0
+final: -7562.47735945167 17.6837727895377
+
+exp/rmsprop-0.9-0.5-0.1-g.csv.summary
+iterations: 74
+start: 0 0
+final: 0 8.91379505980976
 

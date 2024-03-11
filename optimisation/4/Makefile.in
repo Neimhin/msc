@@ -7,6 +7,7 @@ report.pdf: report.tex main.tex
 .PHONY: clean
 clean:
 	-rm fig/gradient-descent-b2.csv.pdf
+	-rm -r exp
 
 fig/gradient-descent-b2.csv.pdf: fig/gradient-descent-b2.csv
 	python src/csv_to_pdf.py $< $@
@@ -151,3 +152,6 @@ exp/hb-.25-.01.csv: ./src/exp.py ./src/hb.py ./src/lib.py
 
 all-summaries.txt: all-exps
 	for f in exp/*.summary; do echo $$f; cat $$f; echo; done | tee $@
+
+exp:
+	mkdir -p exp

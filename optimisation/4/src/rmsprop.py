@@ -1,50 +1,31 @@
 import lib
+import json
 
 
 def iterate(self):
     import numpy as np
-    x_value = self._start
+    self._x_value = self._start
     old_x_value = None
-    iteration = 0
-    sum = np.zeros(x_value.shape)
-    alpha_n = np.zeros(x_value.shape)
+    self._iteration = 0
+    self._sum = np.zeros(self._x_value.shape)
+    alpha_n = np.zeros(self._x_value.shape)
     alpha_n.fill(self._step_size)
-    converged = False
-    grad_value = self._gradient(x_value)
+    self._converged_value = False
+    self._grad_value = self._gradient(self._x_value)
 
-    def yielded():
-        print(x_value)
-        print(iteration)
-        return {
-            "alg": "rmsprop",
-            "iteration": iteration,
-            "x": x_value,
-            "f(x)": self._function(x_value),
-            "sum": sum,
-            "alpha": self._step_size,
-            "beta1": self._beta,
-            "epsilon": self._epsilon,
-            "converged": converged,
-            "gradient": grad_value,
-            "alpha_n": alpha_n,
-        }
+    yield self.state_dict()
 
-    yield yielded()
-
-    while not converged:
-        iteration += 1
+    while not self._converged_value:
+        self._iteration += 1
         if self._max_iter > 0 and iteration > self._max_iter:
             break
-        grad_value = self._gradient(x_value)
-        old_x_value = x_value
-        print(grad_value, type(grad_value))
-        print(alpha_n, type(alpha_n))
-        print(x_value, type(x_value))
-        x_value = x_value - alpha_n * grad_value
-        sum = self._beta * sum + (1-self._beta) * (grad_value**2)
-        alpha_n = self._step_size / (sum**0.5+self._epsilon)
-        converged = self._converged(x_value, old_x_value)
-        yield yielded()
+        self._grad_value = self._gradient(self._x_value)
+        old_x_value = self._x_value
+        self._x_value = self._x_value - alpha_n * self._grad_value
+        self._sum = self._beta * self._sum + (1-self._beta) * (self._grad_value**2)
+        alpha_n = self._step_size / (self._sum**0.5+self._epsilon)
+        self._converged_value = self._converged(self._x_value, old_x_value)
+        yield self.state_dict()
 
 
 def rms_gradient_descent():

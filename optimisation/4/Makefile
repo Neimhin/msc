@@ -7,6 +7,7 @@ report.pdf: report.tex main.tex
 .PHONY: clean
 clean:
 	-rm fig/gradient-descent-b2.csv.pdf
+	-rm -r exp
 
 fig/gradient-descent-b2.csv.pdf: fig/gradient-descent-b2.csv
 	python src/csv_to_pdf.py $< $@
@@ -151,28 +152,55 @@ exp/hb-.25-.01.csv: ./src/exp.py ./src/hb.py ./src/lib.py
 
 all-summaries.txt: all-exps
 	for f in exp/*.summary; do echo $$f; cat $$f; echo; done | tee $@
-exp/rmsprop-0.25-0.5-0.01.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
-	python ./src/exp.py --algorithm rmsprop --beta 0.25 --beta2 0.5 --alpha 0.01 exp/rmsprop-0.25-0.5-0.01.csv
-exp/adam-0.25-0.5-0.01.csv: ./src/lib.py ./src/exp.py ./src/adam.py
-	python ./src/exp.py --algorithm adam --beta 0.25 --beta2 0.5 --alpha 0.01 exp/adam-0.25-0.5-0.01.csv
-exp/heavy_ball-0.25-0.5-0.01.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
-	python ./src/exp.py --algorithm heavy_ball --beta 0.25 --beta2 0.5 --alpha 0.01 exp/heavy_ball-0.25-0.5-0.01.csv
-exp/rmsprop-0.25-0.5-0.1.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
-	python ./src/exp.py --algorithm rmsprop --beta 0.25 --beta2 0.5 --alpha 0.1 exp/rmsprop-0.25-0.5-0.1.csv
-exp/adam-0.25-0.5-0.1.csv: ./src/lib.py ./src/exp.py ./src/adam.py
-	python ./src/exp.py --algorithm adam --beta 0.25 --beta2 0.5 --alpha 0.1 exp/adam-0.25-0.5-0.1.csv
-exp/heavy_ball-0.25-0.5-0.1.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
-	python ./src/exp.py --algorithm heavy_ball --beta 0.25 --beta2 0.5 --alpha 0.1 exp/heavy_ball-0.25-0.5-0.1.csv
-exp/rmsprop-0.9-0.5-0.01.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
-	python ./src/exp.py --algorithm rmsprop --beta 0.9 --beta2 0.5 --alpha 0.01 exp/rmsprop-0.9-0.5-0.01.csv
-exp/adam-0.9-0.5-0.01.csv: ./src/lib.py ./src/exp.py ./src/adam.py
-	python ./src/exp.py --algorithm adam --beta 0.9 --beta2 0.5 --alpha 0.01 exp/adam-0.9-0.5-0.01.csv
-exp/heavy_ball-0.9-0.5-0.01.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
-	python ./src/exp.py --algorithm heavy_ball --beta 0.9 --beta2 0.5 --alpha 0.01 exp/heavy_ball-0.9-0.5-0.01.csv
-exp/rmsprop-0.9-0.5-0.1.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
-	python ./src/exp.py --algorithm rmsprop --beta 0.9 --beta2 0.5 --alpha 0.1 exp/rmsprop-0.9-0.5-0.1.csv
-exp/adam-0.9-0.5-0.1.csv: ./src/lib.py ./src/exp.py ./src/adam.py
-	python ./src/exp.py --algorithm adam --beta 0.9 --beta2 0.5 --alpha 0.1 exp/adam-0.9-0.5-0.1.csv
-exp/heavy_ball-0.9-0.5-0.1.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
-	python ./src/exp.py --algorithm heavy_ball --beta 0.9 --beta2 0.5 --alpha 0.1 exp/heavy_ball-0.9-0.5-0.1.csv
-all-exps: exp/rmsprop-0.25-0.5-0.01.csv exp/adam-0.25-0.5-0.01.csv exp/heavy_ball-0.25-0.5-0.01.csv exp/rmsprop-0.25-0.5-0.1.csv exp/adam-0.25-0.5-0.1.csv exp/heavy_ball-0.25-0.5-0.1.csv exp/rmsprop-0.9-0.5-0.01.csv exp/adam-0.9-0.5-0.01.csv exp/heavy_ball-0.9-0.5-0.01.csv exp/rmsprop-0.9-0.5-0.1.csv exp/adam-0.9-0.5-0.1.csv exp/heavy_ball-0.9-0.5-0.1.csv
+
+exp:
+	mkdir -p exp
+exp/rmsprop-0.25-0.5-0.01-f.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
+	python ./src/exp.py --function f --algorithm rmsprop --beta 0.25 --beta2 0.5 --alpha 0.01 exp/rmsprop-0.25-0.5-0.01-f.csv
+exp/rmsprop-0.25-0.5-0.01-g.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
+	python ./src/exp.py --function g --algorithm rmsprop --beta 0.25 --beta2 0.5 --alpha 0.01 exp/rmsprop-0.25-0.5-0.01-g.csv
+exp/adam-0.25-0.5-0.01-f.csv: ./src/lib.py ./src/exp.py ./src/adam.py
+	python ./src/exp.py --function f --algorithm adam --beta 0.25 --beta2 0.5 --alpha 0.01 exp/adam-0.25-0.5-0.01-f.csv
+exp/adam-0.25-0.5-0.01-g.csv: ./src/lib.py ./src/exp.py ./src/adam.py
+	python ./src/exp.py --function g --algorithm adam --beta 0.25 --beta2 0.5 --alpha 0.01 exp/adam-0.25-0.5-0.01-g.csv
+exp/heavy_ball-0.25-0.5-0.01-f.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
+	python ./src/exp.py --function f --algorithm heavy_ball --beta 0.25 --beta2 0.5 --alpha 0.01 exp/heavy_ball-0.25-0.5-0.01-f.csv
+exp/heavy_ball-0.25-0.5-0.01-g.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
+	python ./src/exp.py --function g --algorithm heavy_ball --beta 0.25 --beta2 0.5 --alpha 0.01 exp/heavy_ball-0.25-0.5-0.01-g.csv
+exp/rmsprop-0.25-0.5-0.1-f.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
+	python ./src/exp.py --function f --algorithm rmsprop --beta 0.25 --beta2 0.5 --alpha 0.1 exp/rmsprop-0.25-0.5-0.1-f.csv
+exp/rmsprop-0.25-0.5-0.1-g.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
+	python ./src/exp.py --function g --algorithm rmsprop --beta 0.25 --beta2 0.5 --alpha 0.1 exp/rmsprop-0.25-0.5-0.1-g.csv
+exp/adam-0.25-0.5-0.1-f.csv: ./src/lib.py ./src/exp.py ./src/adam.py
+	python ./src/exp.py --function f --algorithm adam --beta 0.25 --beta2 0.5 --alpha 0.1 exp/adam-0.25-0.5-0.1-f.csv
+exp/adam-0.25-0.5-0.1-g.csv: ./src/lib.py ./src/exp.py ./src/adam.py
+	python ./src/exp.py --function g --algorithm adam --beta 0.25 --beta2 0.5 --alpha 0.1 exp/adam-0.25-0.5-0.1-g.csv
+exp/heavy_ball-0.25-0.5-0.1-f.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
+	python ./src/exp.py --function f --algorithm heavy_ball --beta 0.25 --beta2 0.5 --alpha 0.1 exp/heavy_ball-0.25-0.5-0.1-f.csv
+exp/heavy_ball-0.25-0.5-0.1-g.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
+	python ./src/exp.py --function g --algorithm heavy_ball --beta 0.25 --beta2 0.5 --alpha 0.1 exp/heavy_ball-0.25-0.5-0.1-g.csv
+exp/rmsprop-0.9-0.5-0.01-f.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
+	python ./src/exp.py --function f --algorithm rmsprop --beta 0.9 --beta2 0.5 --alpha 0.01 exp/rmsprop-0.9-0.5-0.01-f.csv
+exp/rmsprop-0.9-0.5-0.01-g.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
+	python ./src/exp.py --function g --algorithm rmsprop --beta 0.9 --beta2 0.5 --alpha 0.01 exp/rmsprop-0.9-0.5-0.01-g.csv
+exp/adam-0.9-0.5-0.01-f.csv: ./src/lib.py ./src/exp.py ./src/adam.py
+	python ./src/exp.py --function f --algorithm adam --beta 0.9 --beta2 0.5 --alpha 0.01 exp/adam-0.9-0.5-0.01-f.csv
+exp/adam-0.9-0.5-0.01-g.csv: ./src/lib.py ./src/exp.py ./src/adam.py
+	python ./src/exp.py --function g --algorithm adam --beta 0.9 --beta2 0.5 --alpha 0.01 exp/adam-0.9-0.5-0.01-g.csv
+exp/heavy_ball-0.9-0.5-0.01-f.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
+	python ./src/exp.py --function f --algorithm heavy_ball --beta 0.9 --beta2 0.5 --alpha 0.01 exp/heavy_ball-0.9-0.5-0.01-f.csv
+exp/heavy_ball-0.9-0.5-0.01-g.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
+	python ./src/exp.py --function g --algorithm heavy_ball --beta 0.9 --beta2 0.5 --alpha 0.01 exp/heavy_ball-0.9-0.5-0.01-g.csv
+exp/rmsprop-0.9-0.5-0.1-f.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
+	python ./src/exp.py --function f --algorithm rmsprop --beta 0.9 --beta2 0.5 --alpha 0.1 exp/rmsprop-0.9-0.5-0.1-f.csv
+exp/rmsprop-0.9-0.5-0.1-g.csv: ./src/lib.py ./src/exp.py ./src/rmsprop.py
+	python ./src/exp.py --function g --algorithm rmsprop --beta 0.9 --beta2 0.5 --alpha 0.1 exp/rmsprop-0.9-0.5-0.1-g.csv
+exp/adam-0.9-0.5-0.1-f.csv: ./src/lib.py ./src/exp.py ./src/adam.py
+	python ./src/exp.py --function f --algorithm adam --beta 0.9 --beta2 0.5 --alpha 0.1 exp/adam-0.9-0.5-0.1-f.csv
+exp/adam-0.9-0.5-0.1-g.csv: ./src/lib.py ./src/exp.py ./src/adam.py
+	python ./src/exp.py --function g --algorithm adam --beta 0.9 --beta2 0.5 --alpha 0.1 exp/adam-0.9-0.5-0.1-g.csv
+exp/heavy_ball-0.9-0.5-0.1-f.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
+	python ./src/exp.py --function f --algorithm heavy_ball --beta 0.9 --beta2 0.5 --alpha 0.1 exp/heavy_ball-0.9-0.5-0.1-f.csv
+exp/heavy_ball-0.9-0.5-0.1-g.csv: ./src/lib.py ./src/exp.py ./src/heavy_ball.py
+	python ./src/exp.py --function g --algorithm heavy_ball --beta 0.9 --beta2 0.5 --alpha 0.1 exp/heavy_ball-0.9-0.5-0.1-g.csv
+all-exps: exp exp/rmsprop-0.25-0.5-0.01-f.csv exp/rmsprop-0.25-0.5-0.01-g.csv exp/adam-0.25-0.5-0.01-f.csv exp/adam-0.25-0.5-0.01-g.csv exp/heavy_ball-0.25-0.5-0.01-f.csv exp/heavy_ball-0.25-0.5-0.01-g.csv exp/rmsprop-0.25-0.5-0.1-f.csv exp/rmsprop-0.25-0.5-0.1-g.csv exp/adam-0.25-0.5-0.1-f.csv exp/adam-0.25-0.5-0.1-g.csv exp/heavy_ball-0.25-0.5-0.1-f.csv exp/heavy_ball-0.25-0.5-0.1-g.csv exp/rmsprop-0.9-0.5-0.01-f.csv exp/rmsprop-0.9-0.5-0.01-g.csv exp/adam-0.9-0.5-0.01-f.csv exp/adam-0.9-0.5-0.01-g.csv exp/heavy_ball-0.9-0.5-0.01-f.csv exp/heavy_ball-0.9-0.5-0.01-g.csv exp/rmsprop-0.9-0.5-0.1-f.csv exp/rmsprop-0.9-0.5-0.1-g.csv exp/adam-0.9-0.5-0.1-f.csv exp/adam-0.9-0.5-0.1-g.csv exp/heavy_ball-0.9-0.5-0.1-f.csv exp/heavy_ball-0.9-0.5-0.1-g.csv

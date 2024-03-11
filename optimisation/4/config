@@ -11,20 +11,21 @@ params = [
 ]
 
 
-def params2filename(p, alg):
-    return f"exp/{alg}-{p[0]}-{p[1]}-{p[2]}.csv"
+def params2filename(p, alg, function):
+    return f"exp/{alg}-{p[0]}-{p[1]}-{p[2]}-{function}.csv"
 
 exps = []
 
 with open("Makefile", "a") as f:
     for p in params:
         for alg in ["rmsprop", "adam", "heavy_ball"]:
-            fname = params2filename(p, alg)
-            exps.append(fname)
-            beta = p[0]
-            beta2 = p[1]
-            alpha = p[2]
-            print(f"{fname}: ./src/lib.py ./src/exp.py ./src/{alg}.py", file=f)
-            print(f"\tpython ./src/exp.py --algorithm {alg} --beta {beta} --beta2 {beta2} --alpha {alpha} {fname}", file=f)
+            for function in ["f", "g"]:
+                fname = params2filename(p, alg, function)
+                exps.append(fname)
+                beta = p[0]
+                beta2 = p[1]
+                alpha = p[2]
+                print(f"{fname}: ./src/lib.py ./src/exp.py ./src/{alg}.py", file=f)
+                print(f"\tpython ./src/exp.py --function {function} --algorithm {alg} --beta {beta} --beta2 {beta2} --alpha {alpha} {fname}", file=f)
 
-    print("all-exps: " + " ".join(exps), file=f)
+    print("all-exps: exp " + " ".join(exps), file=f)
