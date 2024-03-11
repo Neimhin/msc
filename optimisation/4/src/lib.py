@@ -22,6 +22,10 @@ class GradientDescent():
         self._beta = b
         return self
 
+    def beta2(self, b):
+        self._beta2 = b
+        return self
+
     def epsilon(self, e):
         self._epsilon = e
         return self
@@ -59,11 +63,13 @@ class GradientDescent():
         old_x_value = None
         iteration = 0
         while True:
-            yield [iteration, float(x_value), float(self._function(x_value))]
+            yield [iteration, x_value, self._function(x_value)]
             iteration += 1
             if self._max_iter > 0 and iteration > self._max_iter:
                 break
             grad_value = self._gradient(x_value)
+            print(x_value, type(x_value))
+            print(grad_value, type(grad_value))
             x_value -= self._step_size * grad_value  # Update step
             if old_x_value is not None and self._converged(x_value, old_x_value):
                 yield [iteration, float(x_value), float(self._function(old_x_value))]

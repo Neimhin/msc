@@ -145,3 +145,6 @@ all-downloads: $(downloads)
 
 data/all.csv: all-downloads
 	./src/cat_csv data/db-*.csv > $@
+
+exp/hb-.25-.01.csv: ./src/exp.py ./src/hb.py ./src/lib.py
+	python ./src/exp.py -al heavy-ball -b 0.25 -a 0.01 $@
