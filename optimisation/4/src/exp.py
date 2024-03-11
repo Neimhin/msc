@@ -9,14 +9,14 @@ import hb
 
 def converged(x1, x2):
     d = np.max(x1-x2)
-    return d < 0.001
+    return d < 0.0001
 
 
 parser = argparse.ArgumentParser(
     prog="Run Gradient Descent A Step Size Algorithm")
 
 parser.add_argument('-al', '--algorithm', choices=[
-    'rmsprop', 'adam', 'polyak', 'heavy-ball'], required=True)
+    'rmsprop', 'adam', 'polyak', 'heavy_ball'], required=True)
 
 parser.add_argument('-b', '--beta', type=float)
 parser.add_argument('-b2', '--beta2', type=float)
@@ -34,7 +34,7 @@ elif args.algorithm == 'rmsprop':
     gd.set_iterate(rms2.iterate)
 elif args.algorithm == 'adam':
     gd.set_iterate(adam.iterate)
-elif args.algorithm == 'heavy-ball':
+elif args.algorithm == 'heavy_ball':
     gd.set_iterate(hb.iterate)
 else:
     print("no algorithm")

@@ -77,11 +77,16 @@ class GradientDescent():
                 break
             old_x_value = x_value
 
-    def run2csv(self, fname):
+    def run2csv(self, fname, summarise=True):
         import pandas as pd
         iterations = list(self.iterate())
         df = pd.DataFrame(iterations)
         df.to_csv(fname)
+        if(summarise):
+            with open(fname + ".summary", "w") as f:
+                print(f"iterations: {len(df)}", file=f)
+                print(f"start: {df['x'][0]}", file=f)
+                print(f"final: {df['x'][len(df) - 1]}", file=f)
 
 
 if __name__ == "__main__":

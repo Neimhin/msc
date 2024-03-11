@@ -15,10 +15,10 @@ def iterate(self):
         print(x_value)
         print(iteration)
         return {
+            "alg": "adam",
             "iteration": iteration,
             "x": x_value,
             "f(x)": self._function(x_value),
-            "sum": sum,
             "epsilon": self._epsilon,
             "converged": converged,
             "gradient": grad_value,

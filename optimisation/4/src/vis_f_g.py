@@ -37,6 +37,32 @@ def main(outfile):
     plt.savefig(outfile)
     plt.show()
 
+def main_contour(outfile):
+    x = np.linspace(0, 10, 400)
+    y = np.linspace(0, 18, 400)
+    X, Y = np.meshgrid(x, y)
+    Z_f = f(X, Y)
+    Z_g = g(X, Y)
+
+    fig = plt.figure(figsize=(12, 6))
+
+    ax = fig.add_subplot(1, 2, 1)
+    ax.contour(X, Y, Z_f, cmap='viridis')
+    ax.set_title('$f(x, y)$')
+    ax.set_xlabel('$x$')
+    ax.set_ylabel('$y$')
+    # ax.set_zlabel('$f(x, y)$')
+
+    ax = fig.add_subplot(1, 2, 2)
+    ax.contour(X, Y, Z_g, cmap='magma')
+    ax.set_title('$g(x, y)$')
+    ax.set_xlabel('$x$')
+    ax.set_ylabel('$y$')
+    # ax.set_zlabel('$g(x, y)$')
+
+    plt.savefig(outfile)
+    plt.show()
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -44,5 +70,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     outfile = sys.argv[1]
-    main(outfile)
+    main_contour(outfile)
 

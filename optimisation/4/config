@@ -1,10 +1,30 @@
 #!/usr/bin/env python3
+import subprocess
+
+subprocess.run(["cp", "Makefile.in", "Makefile"])
 
 params = [
-    (0.25, 0, 0.01  ),
-    (0.25, 0, 0.1   ),
-    (0.9,  0, 0.01  ),
-    (0.9,  0, 0.1   ),
+    (0.25, 0.5, 0.01  ),
+    (0.25, 0.5, 0.1   ),
+    (0.9,  0.5, 0.01  ),
+    (0.9,  0.5, 0.1   ),
 ]
 
 
+def params2filename(p, alg):
+    return f"exp/{alg}-{p[0]}-{p[1]}-{p[2]}.csv"
+
+exps = []
+
+with open("Makefile", "a") as f:
+    for p in params:
+        for alg in ["rmsprop", "adam", "heavy_ball"]:
+            fname = params2filename(p, alg)
+            exps.append(fname)
+            beta = p[0]
+            beta2 = p[1]
+            alpha = p[2]
+            print(f"{fname}: ./src/lib.py ./src/exp.py ./src/{alg}.py", file=f)
+            print(f"\tpython ./src/exp.py --algorithm {alg} --beta {beta} --beta2 {beta2} --alpha {alpha} {fname}", file=f)
+
+    print("all-exps: " + " ".join(exps), file=f)
