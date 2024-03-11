@@ -46,7 +46,7 @@ def grad(x):
         ) for var in (lib.x, lib.y)])
 
 gd.algorithm(args.algorithm)
-gd.start(np.array([0, 0]))
+gd.start(np.array([4, 8]))
 gd.converged(converged)
 gd.step_size(args.alpha)
 gd.beta(args.beta)
