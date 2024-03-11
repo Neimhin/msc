@@ -1,0 +1,14 @@
+#!/bin/bash
+SOURCES="src/p8.r src/beta-entropies.r src/betas.r src/beta-summary.r src/beta-variances.r src/games.r src/integrate-p8.r"
+
+cp Makefile.in  Makefile
+for source in $SOURCES; do
+  echo -e "$source.pdf: $source"
+  echo -e "\tenscript -M A3 -E r --line-numbers --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - \$@"
+done >> Makefile
+
+SOURCES_PDF=$(for source in $SOURCES; do printf "$source.pdf "; done)
+echo $SOURCES_PDF
+
+echo "all-sources.pdf: $SOURCES_PDF" >> Makefile
+echo -e "\tpdfunite $^ \$@" >> Makefile

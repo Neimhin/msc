@@ -68,7 +68,6 @@ provided.
     which conveys more specific context about the topic of
     the paper while being more succinct.
 
-
 2)  Does the abstract accurately and concisely set the context for the
     work and indicate the main hypotheses?
 
@@ -82,7 +81,6 @@ provided.
     Rating: 0
     
     Comments: n/a
-
 
 4)  Does the essay present clearly the research topic and the research
     questions to be pursued within the essay research?
@@ -143,13 +141,13 @@ provided.
     
     Comments:
 
-    The online forums which will be sources for constructing the
-    dataset are named, but more details about the time periods
-    of interest, criteria for exclusion/inclusion, and
-    the expected structure of the final dataset would be beneficial.
+    The online forums which will be sources for constructing the dataset are
+    named, but more details about the time periods of interest, criteria for
+    exclusion/inclusion, and the expected structure of the final dataset would
+    be beneficial.
 
-    The authors do not lay out clearly how variables relating
-    to the phenomena of interest will be derived from the data sources.
+    The authors do not lay out clearly how variables relating to the phenomena
+    of interest will be derived from the data sources.
 
 8)  Does the description of research methods indicate how the
     corpus will be processed in order to assess it according to
@@ -159,16 +157,15 @@ provided.
     
     Comments:
 
-    The calculation of distributional statistics for relevant pronouns
-    will be carried out with particular libraries, but a description
-    of the process independent of the particular implementation is
-    lacking.
+    The calculation of distributional statistics for relevant pronouns will be
+    carried out with particular libraries, but a description of the process
+    independent of the particular implementation is lacking.
 
-    The reason for using TF-IDF is not clear in the context of
-    the research question.
+    The reason for using TF-IDF is not clear in the context of the research
+    question.
 
-    Given the research questions proposed it's not clear why
-    sentiment analysis will be performed.
+    Given the research questions proposed it's not clear why sentiment analysis
+    will be performed.
 
 9)  Does the description of research methods indicate how the relevant
     quantities and qualities will be measured and assessed,
@@ -180,10 +177,9 @@ provided.
     
     Comments:
 
-    The authors should name the specific variables they intend to
-    collect into a dataset, and describe in detail which
-    methods will be used to test hypotheses. No such
-    explanation is provided. Before this the authors need
+    The authors should name the specific variables they intend to collect into
+    a dataset, and describe in detail which methods will be used to test
+    hypotheses. No such explanation is provided. Before this the authors need
     to develop their hypotheses.
 
 10) Are the research methods proposed appropriate to the question addressed?
@@ -192,15 +188,14 @@ provided.
     
     Comments:
 
-    Some of the proposed analyses seem irrelevant, e.g. sentiment
-    analysis.
+    Some of the proposed analyses seem irrelevant, e.g. sentiment analysis.
 
-    If k-means clustering will be used to classify social identities
-    this is not made clear in the methods section.
+    If k-means clustering will be used to classify social identities this is
+    not made clear in the methods section.
 
-    The elaboration of methods relating to counting pronouns
-    and estimating pronoun distributions is insufficient to
-    assess the appropriateness to the research questions.
+    The elaboration of methods relating to counting pronouns and estimating
+    pronoun distributions is insufficient to assess the appropriateness to the
+    research questions.
 
 11) Does the underlying research result in the assembly of a data set
     that will be useful to the wider research community?
@@ -217,14 +212,14 @@ provided.
     
     Comments: n/a
 
-
 13) Does the discussion of results provide a clear interpretation,
     with reference to the research questions posed?
 
     Rating: 0
     
-    Comments: The Discussion section does not contain a discussion of results.
+    Comments:
 
+    n/a: The Discussion section does not contain a discussion of results.
 
 14) Do the conclusions emphasize how the interpreted results
     contribute to the literature?
@@ -232,7 +227,6 @@ provided.
     Rating: 0
     
     Comments: n/a
-
 
 15) Are tables and figures clearly annotated and captioned?
 
@@ -263,23 +257,23 @@ provided.
     "processing".
     
     The point about how tokenization "can easily understand the text's
-    linguistic structure" is confusing to read and dangerously
-    personifies algorithms.
+    linguistic structure" is confusing to read and dangerously personifies
+    algorithms.
     
     Rather than saying "our paper will deploy sophisticated pronoun
-    identification techniques" it would be better to name specifically
-    the identification techniques to be used. The reader should be
-    left to judge whether the techniques are sophisticated.
+    identification techniques" it would be better to name specifically the
+    identification techniques to be used. The reader should be left to judge
+    whether the techniques are sophisticated.
 
     The authors should work on coherence between the Research Methodology
     section and the Introduction/Research Question.
 
     The abstract is missing.
 
-    The first line of the literature review is an example an
-    unnecessary advocation of complexity and sophistication.
-    For the purposes of replicable academic research the authors
-    should prefer simplicity and interpretability.
+    The first line of the literature review is an example an unnecessary
+    advocation of complexity and sophistication. For the purposes of replicable
+    academic research the authors should prefer simplicity and
+    interpretability.
 
 18) Does the description of individual contributions suggest an
     equitable division of labour?
@@ -288,9 +282,9 @@ provided.
     
     Comments:
 
-    The description highlights the diversity of roles within
-    the group while indicating each member is satisfied that
-    all group members have contributed equally.
+    The description highlights the diversity of roles within the group while
+    indicating each member is satisfied that all group members have contributed
+    equally.
 
 19) Does the description of individual contributions provide
     sufficiently rich description of the individual contributions in

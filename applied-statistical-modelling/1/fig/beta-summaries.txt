@@ -1,0 +1,24 @@
+a = 1 , b =  1 
+Mean: 0.5 
+Mode: NaN 
+Variance: 0.08333333 
+95% Confidence Interval: | 0.025 - 0.975 | =  0.95 
+
+a = 8 , b =  8 
+Mean: 0.5 
+Mode: 0.5 
+Variance: 0.01470588 
+95% Confidence Interval: | 0.2658613 - 0.7341387 | =  0.4682773 
+
+a = 7 , b =  13 
+Mean: 0.35 
+Mode: 0.3333333 
+Variance: 0.01083333 
+95% Confidence Interval: | 0.1628859 - 0.5655016 | =  0.4026157 
+
+a = 3 , b =  29 
+Mean: 0.09375 
+Mode: 0.06666667 
+Variance: 0.002574574 
+95% Confidence Interval: | 0.02041986 - 0.2142162 | =  0.1937963 
+

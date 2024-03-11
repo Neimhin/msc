@@ -1,0 +1,8 @@
+Estimated probability: 0.1973767 
+Num samples: 1e+07 
+Estimated probability: 0.8062438 
+Num samples: 1e+07 
+Estimated probability: 0.656407 
+Num samples: 1e+07 
+Estimated probability: 0.1970951 
+Num samples: 1e+07 

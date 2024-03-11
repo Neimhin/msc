@@ -1,0 +1,12 @@
+a = 10 , b = 36 
+Expected return for Game 1: 13.044061 
+Expected return for Game 2: 462.430625 
+
+a = 9 , b = 41 
+Expected return for Game 1: -6.40737 
+Expected return for Game 2: 29.460324 
+
+a = 3 , b = 29 
+Expected return for Game 1: -51.245386 
+Expected return for Game 2: -649.866488 
+

@@ -46,11 +46,12 @@ provided.
 
 
 0)  Indicate the title and authorship of the article reviewed.
-Title: Assessment of Collaborative Interactions Based on the Multimodal Dataset
-MULTISIMO
 
-Authors: Shenghan Hou, Devang Kankaria, Naveen Prakash Ramesh, Alok Singh,
-Zitong Liang, Mingyang Xia
+    Title: Assessment of Collaborative Interactions Based on the Multimodal
+    Dataset MULTISIMO
+    
+    Authors: Shenghan Hou, Devang Kankaria, Naveen Prakash Ramesh, Alok Singh,
+    Zitong Liang, Mingyang Xia
 
 1)  Is the title succinct and apt with respect to the essay content?
 
@@ -58,8 +59,8 @@ Zitong Liang, Mingyang Xia
     
     Comments:
     
-    The title does not mention the analysis of dominance, which is a central question
-    in the paper.
+    The title does not mention the analysis of dominance, which is a central
+    question in the paper.
 
 2)  Does the abstract accurately and concisely set the context for the
     work and indicate the main hypotheses?
@@ -69,8 +70,8 @@ Zitong Liang, Mingyang Xia
     Comments:
     
     Again the abstract fails to mention specific variables of interest;
-    dominance, introversion, extroversion, conscientiousness.
-    Hypotheses are not indicated.
+    dominance, introversion, extroversion, conscientiousness. Hypotheses are
+    not indicated.
 
 3)  Are the keywords appropriate?
 
@@ -87,17 +88,20 @@ Zitong Liang, Mingyang Xia
     
     Comments:
 
-    The topic and four related research questions are presented reasonably clearly.
+    The topic and four related research questions are presented reasonably
+    clearly, but with insufficient detail of the specific variables to
+    be analysed in relation to the questions.
 
     The second question asks about the correlation between conscientiousness
-    and decision-making processes. Perhaps the authors should propose a 
-    causal hypothesis and research question, which can be investigated/tested
-    by examining correlations in data.
+    and decision-making processes. Perhaps the authors should propose a causal
+    hypothesis and research question, which can be investigated/tested by
+    examining correlations in data, rather than asking simply if a
+    correlation exists.
 
-    The fourth question about "anticipation of a relatively more collaborative behaviour" could be stated more clearly. Are the authors asking about
-    whether collaborative behaviours tend to be stable over time for
-    an individual?
-
+    The fourth question about "anticipation of a relatively more collaborative
+    behaviour" could be stated more clearly. Are the authors asking about
+    whether collaborative behaviours tend to be stable over time for an
+    individual?
 
 5)  Does the research review synthesize a background literature within
     a conceptual framework that the authors propose and defend, making
@@ -108,22 +112,22 @@ Zitong Liang, Mingyang Xia
     
     Comments:
 
-    A large portion of the literature review is dedicated to describing
-    the dataset the authors intend to analyse. The literature
-    review should focus more of synthesising a background literature
-    related to the research questions, explaining what has been
-    discovered in relation to the questions, and what has yet to be
-    discovered. The detailed description of the dataset might be more
-    appropriate in the methods section or an appendix.
+    A large portion of the literature review is dedicated to describing the
+    dataset the authors intend to analyse. The literature review should focus
+    more on synthesising a background literature related to the research
+    questions, explaining what has been discovered in relation to the
+    questions, and what has yet to be discovered. The detailed description of
+    the dataset might be more appropriate in the methods section or an
+    appendix.
 
-    The authors have identified and defended a framework for
-    measuring dominance in collaborative situations.
+    The authors have identified and defended a framework for measuring
+    dominance in collaborative situations.
 
-    Bibliographic details are missing for some references, and
-    the number of papers/authors discussed in the literature review
-    is small. A more thorough survey of approaches to conceptualising
-    and measuring the relevant quantities, as well as of existing evidence
-    to support hypotheses would be appropriate.
+    Bibliographic details are missing for some references, and the number of
+    papers/authors discussed in the literature review is small. A more thorough
+    survey of approaches to conceptualising and measuring the relevant
+    quantities, as well as of existing evidence to support hypotheses would be
+    appropriate.
 
 6)  Does the detailed statement of the research question and
     hypotheses make clear how the quantities used to measure texts
@@ -137,31 +141,30 @@ Zitong Liang, Mingyang Xia
 
     It's not clear if the authors intend to measure texts.
 
-    The statement of the research questions is not in all cases sufficiently detailed
-    (specific variables of interest are not selected definitively)
-    and appropriate hypotheses relating to the research questions are not
-    provided.
+    The statement of the research questions is not in all cases sufficiently
+    detailed (specific variables of interest are not selected definitively) and
+    appropriate hypotheses relating to the research questions are not provided.
 
-    Some of the variables of interest are personality traits, which 
-    are measured using the Big Five personality inventory, e.g. introversion
-    and extroversion, but I'm not sure what is meant by 'disparate measures
-    of contributions' to which these variables will be compared.
-    Perhaps the authors mean verbal contributions, i.e. counts
-    of how many times a subject speaks, how many words a subject uses
-    over a given time period, etc.?
+    Some of the variables of interest are personality traits, which are
+    measured using the Big Five personality inventory, e.g. introversion and
+    extroversion, but I'm not sure what is meant by 'disparate measures of
+    contributions' to which these variables will be compared. Perhaps the
+    authors refer to frequency of verbal contributions, e.g. counts of how many
+    times a subject speaks, how many words a subject uses over a given time
+    period, etc.?
 
-7) Does the methods section indicate clearly what corpora will be
-   required for text categories and what sources will be adopted for
-   any separate categories of information in support of answering the
-   research questions?
-   
-   Rating: 4
-   
-   Comments:
+7)  Does the methods section indicate clearly what corpora will be
+    required for text categories and what sources will be adopted for
+    any separate categories of information in support of answering the
+    research questions?
+    
+    Rating: 4
+    
+    Comments:
 
-   If I understand correctly the MULTISIMO dataset is the source
-   for both the qualitative psychological variables as well as
-   the interaction/language data.
+    If I understand correctly the MULTISIMO dataset is the source
+    for both the qualitative psychological variables as well as
+    the interaction/language data.
    
 8)  Does the description of research methods indicate how the
     corpus will be processed in order to assess it according to
@@ -198,6 +201,7 @@ Zitong Liang, Mingyang Xia
     Rating: 1
     
     Comments:
+
     The use of a neural network is not well motivated.
     Why can't simpler, more interpretable, descriptive and/or test statistics
     suffice for the analysis?
@@ -209,7 +213,7 @@ Zitong Liang, Mingyang Xia
     
     Comments:
 
-    It's not clear whether new dataset will be derived
+    It's not clear whether a new dataset will be derived
     from the MULTISIMO dataset.
 
 12) Are results clearly provided?
@@ -328,9 +332,9 @@ Zitong Liang, Mingyang Xia
     
     Comments:
     
-    The paper appear to be heavily inspired by a small number
-    of related papers, and it's not clear that the paper
-    answers new questions left unanswered by those previous questions.
+    The paper appear to be heavily inspired by a small number of related
+    papers, and it's not clear that the paper answers new questions left
+    unanswered by those previous questions.
 
-    The authors don't present a compelling argument for the significance
-    or importance of their contributions.
+    The authors don't present a compelling argument for the significance or
+    importance of their contributions.
