@@ -80,10 +80,10 @@ class GradientDescent():
         self._epsilon = e
         return self
 
-    def function(self, f, function_name=None):
+    def function(self, f, function_name=None, dimension=None):
         self._function = f
         self.function_name = function_name
-        self._dimension = len(f.free_symbols)
+        self._dimension = dimension
         return self
 
     def sym_function(self, function, function_name=None):
