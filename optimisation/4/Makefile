@@ -24,6 +24,16 @@ PDF_FILES := $(addprefix $(TMP_DIR)/,$(notdir $(PYTHON_FILES:.py=.pdf)))
 fig/ai-code.pdf: src/ai.py
 	enscript -M A3 -Epython --line-numbers --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - $@
 
+code-implementations: fig/polyak-code.pdf fig/adam-code.pdf fig/rmsprop-code.pdf fig/heavy_ball-code.pdf
+fig/polyak-code.pdf: src/polyak.py
+	enscript -M A3 -Epython --line-numbers --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - $@
+fig/adam-code.pdf: src/adam.py
+	enscript -M A3 -Epython --line-numbers --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - $@
+fig/rmsprop-code.pdf: src/rmsprop.py
+	enscript -M A3 -Epython --line-numbers --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - $@
+fig/heavy_ball-code.pdf: src/heavy_ball.py
+	enscript -M A3 -Epython --line-numbers --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - $@
+
 funcs.pdf: funcs.txt
 	@enscript -M A3 --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - $@
 

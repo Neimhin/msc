@@ -30,30 +30,3 @@ def iterate(self):
         self._x_value = self._x_value - self._step_size * adam_grad
         self._converged_value = self._converged(self._x_value, self._old_x_value)
         yield self.state_dict()
-
-
-if __name__ == "__main__":
-    adam = lib.GradientDescent()
-    adam.epsilon(0.0001)
-    adam.step_size(10**-2)
-    adam.beta(0.8)
-    adam.beta2(0.9)
-    adam.max_iter(-1)
-    adam.start(np.array([0, 0]))
-
-    def converged(x1, x2):
-        d = np.max(x1-x2)
-        return d < 0.000001
-
-    def fn(x):
-        return lib.f.subs(lib.x, x[0]).subs(lib.y, x[1])
-
-    def grad(x):
-        return np.array(
-            [lib.f.diff(var).subs(lib.x, x[0]).subs(lib.y, x[1])
-                for var in (lib.x, lib.y)])
-    adam.converged(converged)
-    adam.function(fn)
-    adam.gradient(grad)
-    adam.set_iterate(iterate)
-    adam.run2csv("adam.csv")

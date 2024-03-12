@@ -1,7 +1,3 @@
-import lib
-import json
-
-
 def iterate(self):
     import numpy as np
     self._x_value = self._start
@@ -26,34 +22,3 @@ def iterate(self):
         alpha_n = self._step_size / (self._sum**0.5+self._epsilon)
         self._converged_value = self._converged(self._x_value, old_x_value)
         yield self.state_dict()
-
-
-def rms_gradient_descent():
-    rms = lib.GradientDescent()
-    rms.set_iterate(iterate)
-    return rms
-
-
-if __name__ == "__main__":
-    import numpy as np
-    rms = lib.GradientDescent()
-    rms.epsilon(0.0001)
-    rms.step_size(10**-2)
-    rms.beta(0.1)
-    rms.max_iter(-1)
-    rms.start(np.array([0, 0]))
-
-    def converged(x1, x2):
-        d = np.max(x1-x2)
-        return d < 0.000001
-
-    def fn(x):
-        return lib.f.subs(lib.x, x[0]).subs(lib.y, x[1])
-
-    def grad(x):
-        return np.array([lib.f.diff(var).subs(lib.x, x[0]).subs(lib.y, x[1]) for var in (lib.x, lib.y)])
-    rms.converged(converged)
-    rms.function(fn)
-    rms.gradient(grad)
-    rms.set_iterate(iterate)
-    rms.run2csv("rms2.csv")

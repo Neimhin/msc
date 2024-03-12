@@ -62,6 +62,7 @@ class GradientDescent():
         self._beta2 = None
         self._step_size = None
         self._z = None
+        self._f_star = None
 
     def step_size(self, a):
         self._step_size = a
@@ -141,6 +142,7 @@ class GradientDescent():
         return self
 
     def state_dict(self):
+        print(self._function(self._x_value))
         return {
             "alg": self._algorithm,
             "function_name": self.function_name,
