@@ -32,8 +32,8 @@ def plot_wireframe_and_contour(f, T, resolution=100):
     ax_wireframe.plot_wireframe(X, Y, Z, color='blue')
     ax_wireframe.set_xlabel('X')
     ax_wireframe.set_ylabel('Y')
-    ax_wireframe.set_zlabel('f(x, T)')
-    ax_wireframe.set_title('Wireframe Plot of f(x, T)')
+    ax_wireframe.set_zlabel('$f_T(x)$')
+    ax_wireframe.set_title('Wireframe Plot of $f_T(x)$')
 
     # Generate data for contour plot
     Z_contour = np.zeros_like(X)
@@ -44,10 +44,10 @@ def plot_wireframe_and_contour(f, T, resolution=100):
     # Plot contour
     ax_contour = fig.add_subplot(122)
     contour = ax_contour.contourf(X, Y, Z_contour, levels=20, cmap='viridis')
-    plt.colorbar(contour, ax=ax_contour, label='f(x, T)')
+    plt.colorbar(contour, ax=ax_contour, label='$f_T(x)$')
     ax_contour.set_xlabel('X')
     ax_contour.set_ylabel('Y')
-    ax_contour.set_title('Contour Plot of f(x, T)')
+    ax_contour.set_title('Contour Plot of $f_T(x)$')
 
     plt.tight_layout()
     if args.show:

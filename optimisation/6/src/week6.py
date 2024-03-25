@@ -63,11 +63,12 @@ def f_clear(x, minibatch):
     return sum(loss(x, w) for w in minibatch) / len(minibatch)
 
 
-def generate_minibatches(T, N=5, seed=42, shuffle=True):
+def generate_minibatches(T, N=5, seed=42, shuffle=True,):
     global current_minibatch
     if shuffle:
         T = T.copy()
-        np.random.seed(seed)
+        if seed:
+            np.random.seed(seed)
         np.random.shuffle(T)
     num_rows = T.shape[0]
     i = 0
