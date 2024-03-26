@@ -78,10 +78,10 @@ def generate_minibatches(T, N=5, seed=42, shuffle=True,):
         for j in range(N):
             minibatch[j] = T[i % num_rows]
             i += 1
-            if shuffle and i >= num_rows:
-                # begin next epoch
-                np.random.shuffle(T)
-                i = 0
+        if shuffle and i >= num_rows:
+            # begin next epoch
+            np.random.shuffle(T)
+            i = 0
         current_minibatch = minibatch
         yield minibatch
 

@@ -256,7 +256,7 @@ texttt{src/sgd.py}
 \begin_inset Float algorithm
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -311,7 +311,7 @@ Generating mini-batches,
 \end_layout
 
 \begin_layout Standard
-I downloaded a pair of functions which are reproduced in Figure
+We downloaded a pair of functions which are reproduced in Figure
 \begin_inset space ~
 \end_inset
 
@@ -400,7 +400,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -431,7 +431,7 @@ status open
 
 
 \backslash
-url{https://www.scss.tcd.ie/Doug.Leith/CS7DS2/week6.php}
+texttt{https://www.scss.tcd.ie/Doug.Leith/CS7DS2/week6.php}
 \end_layout
 
 \end_inset
@@ -458,6 +458,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename fig/wire-contour.pdf
+	width 80text%
 
 \end_inset
 
@@ -531,8 +532,9 @@ texttt{src/week6.py}
 \end_inset
 
 .
- In these experiments we use the finite difference methods to estimate the
- mini-batch gradient according to
+ Our implementation of analytic calculation of gradients with sympy is unfortuna
+tely dirt-slow, so in these experiments we use the finite difference methods
+ to estimate the mini-batch gradient according to
 \begin_inset Formula 
 \[
 \frac{df_{N}}{dx_{i}}\approx\frac{f_{N}([x_{1},\ldots,x_{i}+\epsilon,\ldots,x_{d}])-f_{N}(x)}{\epsilon}
@@ -698,7 +700,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -759,8 +761,11 @@ s are plotted on a contour plot of
 \end_layout
 
 \begin_layout Standard
-4 runs of Stochastic Gradient Descent with constant batch-size, 5, and constant
- 
+4 runs of Stochastic Gradient Descent with constant batch-size, 
+\begin_inset Formula $n=5$
+\end_inset
+
+, and constant step size 
 \begin_inset Formula $\alpha=0.5$
 \end_inset
 
@@ -848,7 +853,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -904,6 +909,754 @@ Visualizations of gradient descent on
 
 s are plotted on a contour plot of 
 \begin_inset Formula $f_{T}(x)$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+(b) (iii) Effect of Varying batch-size
+\end_layout
+
+\begin_layout Standard
+We look at a broad range of batch sizes in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:biii-vary-batch-size"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, from 1 up to 
+\begin_inset Formula $25=\#T$
+\end_inset
+
+.
+ In each case the SGD eventually hits a floor and then jumps around near
+ that floor.
+ The distance of jumps it takes from that floor is directly related to the
+ batch-size.
+ With lower batch-size it takes larger jumps, i.e.
+ there is greater noise for lower batch.
+ When 
+\begin_inset Formula $n=25=\#T$
+\end_inset
+
+, there is no noise, we calculate gradient with respect to the full set
+ 
+\begin_inset Formula $T$
+\end_inset
+
+ each time.
+ There is no particular relationship between 
+\begin_inset Formula $n$
+\end_inset
+
+ and the final value of 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+, however there may be a relationship between 
+\begin_inset Formula $n$
+\end_inset
+
+ and the 
+\series bold
+best
+\series default
+ (i.e.
+ lowest) value of 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ observed for the run.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/biii.pdf
+	lyxscale 200
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:biii-vary-batch-size"
+
+\end_inset
+
+Visualizations of stochastic gradient descent on 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ with various batch-sizes.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:biii2-vary-batch-size"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we again vary 
+\begin_inset Formula $n$
+\end_inset
+
+ but in a narrower range (1-15) and for fewer iterations (15).
+ There is no particular relationship between 
+\begin_inset Formula $n$
+\end_inset
+
+ and the speed with which 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ initially descends.
+ In this experiment 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ is calculated at every iteration, which may be prohibitively expensive
+ for optimisation problems with much larger datasets, so it is not necessarily
+ practical to keep track of the best 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+, but the data in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:biii2-vary-batch-size"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ do seem to indicate that a higher 
+\begin_inset Formula $n$
+\end_inset
+
+ increases the chances of a lower best 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+.
+ A reason for this might be that around the noise floor, using higher 
+\begin_inset Formula $n$
+\end_inset
+
+ means not jumping as far from the optimal region, and taking smaller jumps
+ because the noise is less significant.
+ This increases the chances of landing at a globally optimal value for 
+\begin_inset Formula $x$
+\end_inset
+
+, because the interval effectively being searched is smaller.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/biii_2.pdf
+	lyxscale 200
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:biii2-vary-batch-size"
+
+\end_inset
+
+Visualizations of stochastic gradient descent on 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ with various batch-sizes and fixed 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+(b) (iv) SGD with various step-sizes
+\end_layout
+
+\begin_layout Standard
+In Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:biv"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we present various runs of SGD, each with the same batch-size 
+\begin_inset Formula $n=5$
+\end_inset
+
+, but different step sizes 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+ The runs are set up with the same random seed such that the sequence of
+ batches, 
+\begin_inset Formula $N_{t},N_{t+1}$
+\end_inset
+
+, is equivalent for each run, in order to isolate the effect of changing
+ 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+ With 
+\begin_inset Formula $\alpha=0.001$
+\end_inset
+
+ the alg has similar behaviour to 
+\begin_inset Formula $\alpha=0.1$
+\end_inset
+
+ except taking many more iterations to follow the same trajectory.
+ At 
+\begin_inset Formula $\alpha=0.01$
+\end_inset
+
+ the alg converges to the suboptimal local minimum.
+ With 
+\begin_inset Formula $\alpha=1$
+\end_inset
+
+ the alg gets trapped for a time at a distance from the global minimum,
+ but eventually get very close the global minimum, and then hops out again
+ to fairly inaccurate estimates, diverging.
+ The effect of the noise from stochastic batch sampling is seemingly amplified
+ by a larger step size, such that for larger 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ we see a larger final search radius after approaching the noise floor,
+ and a greater chance of diverging due to the noise, i.e.
+ the chances of having a large unlucky step in the wrong direction.
+ Where the batch-size 
+\begin_inset Formula $n$
+\end_inset
+
+ has a limited range of values, 
+\begin_inset Formula $[0,\#T]$
+\end_inset
+
+, we can vary 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ arbitrarily in 
+\begin_inset Formula $\mathbb{R}^{+}$
+\end_inset
+
+, and so if we want to tune just one hyperparameter rather than two, e.g.
+ due to compute cost, then it may beneficial fix 
+\begin_inset Formula $n$
+\end_inset
+
+ and vary 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+By adjusting 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ we can achieve a noise level similar to the effect of decreasing 
+\begin_inset Formula $n$
+\end_inset
+
+ as we saw in section 
+\series bold
+(b) (iii) 
+\series default
+above.
+ This noise can be beneficial as seen in the run with 
+\begin_inset Formula $\alpha=0.01$
+\end_inset
+
+ in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:biv"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ For this run the alg initially gets stuck in the suboptimal local minimum
+ but eventually hops out and then converges to the global minimum.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/biv.pdf
+	lyxscale 200
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:biv"
+
+\end_inset
+
+Visualizations of stochastic gradient descent on 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ with fixed batch-size 
+\begin_inset Formula $n=5$
+\end_inset
+
+, and varioust constant step-sizes, 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+(c) (i) SGD with Polyak step
+\end_layout
+
+\begin_layout Standard
+Runs of SGD with Polyak step, 
+\begin_inset Formula $f^{*}=0.119$
+\end_inset
+
+, and 
+\begin_inset Formula $n=1,3,5,7$
+\end_inset
+
+ are presented in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ci"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ If there is a relationship between 
+\begin_inset Formula $n$
+\end_inset
+
+ and the behaviour of the alg, the relationship is not strong.
+ The experiment is run twice, with different random seeds, and there is
+ no consistency between the two experiments.
+ With seed=58 we see the alg converge to the suboptimal local minimum when
+ 
+\begin_inset Formula $n=1$
+\end_inset
+
+, but with seed=59 the behaviour is different, it first explores the global
+ minimum and then `hops out' to the suboptimal local minimum.
+ When we increase 
+\begin_inset Formula $n$
+\end_inset
+
+ to 
+\begin_inset Formula $7$
+\end_inset
+
+ we see the alg first explore the suboptimal local minimum and the `hop
+ out' to the global minimum.
+ From these experiments there is no apparent stable relationship between
+ 
+\begin_inset Formula $n$
+\end_inset
+
+ and the alg's behaviour.
+\end_layout
+
+\begin_layout Standard
+When we don't use SGD, i.e.
+ when 
+\begin_inset Formula $n=25$
+\end_inset
+
+, we see significantly smaller steps once the alg has approached the global
+ minimum, so choosing 
+\begin_inset Formula $n<<\#T$
+\end_inset
+
+ does significantly change the behaivour compared to 
+\begin_inset Formula $n=25$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/ci-58.pdf
+	lyxscale 200
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/ci-59.pdf
+	lyxscale 200
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ci"
+
+\end_inset
+
+Visualizations of stochastic gradient descent on 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ with Polyak step and various 
+\begin_inset Formula $n$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+(b) (ii) SGD with RMSProp step
+\end_layout
+
+\begin_layout Standard
+First we tune 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ on 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ using 
+\begin_inset Formula $n=\#T=25$
+\end_inset
+
+, see the top two plots in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:cii"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We find we always diverge when 
+\begin_inset Formula $\alpha=0.01$
+\end_inset
+
+ and sometimes when 
+\begin_inset Formula $\alpha=0.5$
+\end_inset
+
+.
+ Of the options tested the alg converges most quickly with 
+\begin_inset Formula $\alpha=0.1$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta=0.99$
+\end_inset
+
+, so these are the parameters used in the following discussion.
+\end_layout
+
+\begin_layout Standard
+Keeping 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ fixed, see bottom two plots in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:cii"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we find that the relationship between 
+\begin_inset Formula $n$
+\end_inset
+
+ and the alg's behaviour is not strong, it can diverge when 
+\begin_inset Formula $n$
+\end_inset
+
+ is low (
+\begin_inset Formula $n=3,5,7$
+\end_inset
+
+) and when 
+\begin_inset Formula $n$
+\end_inset
+
+ is high (
+\begin_inset Formula $n=25$
+\end_inset
+
+).
+ The runs with 
+\begin_inset Formula $n=1$
+\end_inset
+
+ and 
+\begin_inset Formula $n=15$
+\end_inset
+
+ behave very similarly, although the run with 
+\begin_inset Formula $n=1$
+\end_inset
+
+ is more noisy, i.e.
+ has a slightly wider radius of exploration around the global minimum, and
+ the run 
+\begin_inset Formula $n=15$
+\end_inset
+
+ has longer sequences of iterations where it takes very small steps.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/cii.pdf
+	lyxscale 200
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/cii-2.pdf
+	lyxscale 200
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cii"
+
+\end_inset
+
+Visualizations of stochastic gradient descent on 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ with Polyak step and various 
+\begin_inset Formula $n$
 \end_inset
 
 .

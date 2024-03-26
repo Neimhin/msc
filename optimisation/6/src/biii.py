@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-def run_constant(alpha=1):
+def run_constant(alpha=1, n=5):
     T = pd.read_csv("data/T.csv").values
     fg = week6.generate_optimisation_functions(
-        T, minibatch_size=5, seed=None)
+        T, minibatch_size=n, seed=None)
     o = sgd.StochasticGradientDescent()
     o.alg("constant")
     o.step_size(alpha)
@@ -54,16 +54,16 @@ contour = ax_contour.contourf(X, Y, Z_contour, levels=20, cmap='viridis')
 plt.colorbar(contour, ax=ax_contour, label='$f_T(x)$')
 ax_contour.set_xlabel('$x_1$')
 ax_contour.set_ylabel('$x_2$')
-ax_contour.set_xlim([-5,5])
-ax_contour.set_ylim([-5,5])
-plt.suptitle('Stochastic Gradient Descent on $f_T(x)$ with mini-batches of size 5')
+ax_contour.set_xlim([-5, 5])
+ax_contour.set_ylim([-5, 5])
+plt.suptitle('Stochastic Gradient Descent on $f_T(x)$ with different mini-batch sizes')
 
 ax_f = fig.add_subplot(121)
 
-for i in range(4):
+for n in [1, 5, 10, 15, 20, 25]:
     alpha = 0.5
-    run = run_constant(alpha)
-    label = f"$\\alpha={alpha}$, run {i}, best $f_T(x)={min(run['f']):.3f}$"
+    run = run_constant(alpha, n=n)
+    label = f"$\\alpha={alpha}$, $n={n}$, final $f_T(x)={run['f'][len(run)-1]:.3f}$"
     ax_contour.plot(run["x1"], run["x2"], label=label)
     ax_f.plot(run['f'], label=label)
 
@@ -71,5 +71,5 @@ ax_f.set_yscale('log')
 ax_f.set_xlabel("iteration $t$")
 ax_f.set_ylabel("$f_T(x_t)$")
 ax_f.legend(loc="upper right")
-plt.savefig("fig/bii.pdf")
+plt.savefig("fig/biii.pdf")
 plt.show()

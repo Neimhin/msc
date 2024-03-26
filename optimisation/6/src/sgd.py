@@ -134,11 +134,7 @@ class StochasticGradientDescent(lib.GradientDescent):
         self.function_name = a
         return self
 
-    def polyak_init(self):
-        self._x_value = self._start
-        self._old_x_value = None
-        self._f_star = 0
-        self._iteration = 0
-        self._converged_value = False
-        self._grad_value = self._gradient(self._x_value)
+    def f_star(self, f_st):
+        self._f_star = f_st
+        return self
 
