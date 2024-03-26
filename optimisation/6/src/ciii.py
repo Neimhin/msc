@@ -65,15 +65,13 @@ T = pd.read_csv("data/T.csv").values
 count_good_best = 0
 count_diverged = 0
 count_runs = 0
-for alpha in [0.005, 0.05, 0.075, 0.1, 1, 2]:
-    for beta in [0.1, 0.3, 0.5, 0.9, 0.99, 0.999]:
+for alpha, beta in [(0.1, 0.3), (0.1, 0.5), (0.01, 0.3), (0.1, 0.99)]:
         count_runs += 1
         alpha_a = alpha # * (1-beta)
         n = 25
-        run = runp(n=n)
+        run = runp(n=n, alpha=alpha, beta=beta)
         if min(run['f']) < 0.2:
             count_good_best += 1
-            print("good best:", alpha, beta)
         if run['f'][len(run)-1] > 15:
             count_diverged += 1
         label = f"$\\alpha={alpha_a}$, $\\beta={beta}$"

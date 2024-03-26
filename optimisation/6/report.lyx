@@ -29,9 +29,10 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_package amsmath 1
 \use_package amssymb 1
 \use_package cancel 1
@@ -44,6 +45,7 @@
 \use_package undertilde 1
 \cite_engine basic
 \cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -55,6 +57,10 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 1.5cm
+\topmargin 3cm
+\rightmargin 1.5cm
+\bottommargin 3cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -118,6 +124,10 @@ which is just the average of
  We can also calculate an approximation of the loss using a subset (minibatch)
  of 
 \begin_inset Formula $T$
+\end_inset
+
+, 
+\begin_inset Formula $N\subseteq T$
 \end_inset
 
 .
@@ -256,13 +266,13 @@ texttt{src/sgd.py}
 \begin_inset Float algorithm
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename fig/ai-code.pdf
-	width 90text%
+	width 80text%
 
 \end_inset
 
@@ -400,13 +410,13 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename funcs.pdf
-	width 80text%
+	width 40text%
 
 \end_inset
 
@@ -456,6 +466,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename fig/wire-contour.pdf
 	width 80text%
@@ -706,7 +717,7 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename fig/bi.pdf
-	width 100text%
+	width 50text%
 
 \end_inset
 
@@ -859,7 +870,7 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename fig/bii.pdf
-	width 100text%
+	width 50text%
 
 \end_inset
 
@@ -966,28 +977,32 @@ noprefix "false"
 \end_inset
 
  each time.
- There is no particular relationship between 
+ With a smaller value of 
 \begin_inset Formula $n$
 \end_inset
 
- and the final value of 
-\begin_inset Formula $f_{T}(x)$
+ we see more noise in the gradient, meaning that the final value of 
+\begin_inset Formula $x$
 \end_inset
 
-, however there may be a relationship between 
+ will be approx 
+\begin_inset Formula $\text{arg min}_{x}f_{T}(x)+\text{noise}$
+\end_inset
+
+, and the breadth of the noise will be inversely proportional to 
 \begin_inset Formula $n$
 \end_inset
 
- and the 
-\series bold
-best
-\series default
- (i.e.
- lowest) value of 
-\begin_inset Formula $f_{T}(x)$
+.
+ This is a regularising effect, because it means the final estimate of 
+\begin_inset Formula $x$
 \end_inset
 
- observed for the run.
+ is less tightly fit to the data 
+\begin_inset Formula $T$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1001,7 +1016,7 @@ status open
 \begin_inset Graphics
 	filename fig/biii.pdf
 	lyxscale 200
-	width 100text%
+	width 60text%
 
 \end_inset
 
@@ -1096,8 +1111,8 @@ noprefix "false"
 \begin_inset Formula $f_{T}(x)$
 \end_inset
 
-.
- A reason for this might be that around the noise floor, using higher 
+, which could be construed as overfitting.
+ The reason for this is that around the noise floor, using higher 
 \begin_inset Formula $n$
 \end_inset
 
@@ -1121,7 +1136,7 @@ status open
 \begin_inset Graphics
 	filename fig/biii_2.pdf
 	lyxscale 200
-	width 100text%
+	width 60text%
 
 \end_inset
 
@@ -1298,14 +1313,14 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename fig/biv.pdf
 	lyxscale 200
-	width 100text%
+	width 60text%
 
 \end_inset
 
@@ -1431,14 +1446,14 @@ When we don't use SGD, i.e.
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename fig/ci-58.pdf
 	lyxscale 200
-	width 100text%
+	width 60text%
 
 \end_inset
 
@@ -1450,7 +1465,7 @@ status collapsed
 \begin_inset Graphics
 	filename fig/ci-59.pdf
 	lyxscale 200
-	width 100text%
+	width 60text%
 
 \end_inset
 
@@ -1491,7 +1506,7 @@ Visualizations of stochastic gradient descent on
 \begin_layout Standard
 
 \series bold
-(b) (ii) SGD with RMSProp step
+(c) (ii) SGD with RMSProp step
 \end_layout
 
 \begin_layout Standard
@@ -1615,14 +1630,14 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename fig/cii.pdf
 	lyxscale 200
-	width 100text%
+	width 60text%
 
 \end_inset
 
@@ -1634,7 +1649,7 @@ status collapsed
 \begin_inset Graphics
 	filename fig/cii-2.pdf
 	lyxscale 200
-	width 100text%
+	width 60text%
 
 \end_inset
 
@@ -1675,24 +1690,11 @@ Visualizations of stochastic gradient descent on
 \begin_layout Standard
 
 \series bold
-(b) (iii) SGD with Heavy Ball step
+(c) (iii) SGD with Heavy Ball step
 \end_layout
 
 \begin_layout Standard
-Tuning 
-\begin_inset Formula $\alpha$
-\end_inset
-
- and 
-\begin_inset Formula $\beta$
-\end_inset
-
- on 
-\begin_inset Formula $f_{T}(x)$
-\end_inset
-
- is difficult.
- Using parameters 
+After trying a wide array of hyperparameters 
 \begin_inset Formula $(\alpha,\beta)\in$
 \end_inset
 
@@ -1700,37 +1702,422 @@ Tuning
 \begin_inset Formula $[0.005,0.05,0.075,0.1,1,2]\times[0.1,0.3,0.5,0.9,0.99,0.999]$
 \end_inset
 
-, totalling 36 runs, we find only 4 runs achieve a best 
-\begin_inset Formula $f_{T}(x_{t})$
+, we find 
+\begin_inset Formula $(\alpha,\beta)=(0.1,0.3)$
 \end_inset
 
- less than 
-\begin_inset Formula $0.2$
+ to give good results for Heavy Ball on 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ with 
+\begin_inset Formula $n=25$
 \end_inset
 
 .
- Two of the successful runs were 
-\begin_inset Formula $(\alpha,\beta)=(0.05,0.1)$
+ Four tuning runs are shown in the top two plots of Figure
+\begin_inset space ~
 \end_inset
 
-, 
-\begin_inset Formula $(\alpha,\beta)=(0.05,0.999)$
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ciii"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
-, fixing alpha but polarising 
-\begin_inset Formula $\beta$
+.
+ To examine the effect of changing 
+\begin_inset Formula $n$
 \end_inset
 
-, which highlights the unpredictability.
- The run with 
-\begin_inset Formula $\alpha=0.1$
+ we now fix 
+\begin_inset Formula $(\alpha,\beta)=(0.1,0.3)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In the bottom two plots of Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ciii"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we find that the Heavy Ball alg is liable to get stuck in the suboptimal
+ local minimum.
+ The batch-size 
+\begin_inset Formula $n$
+\end_inset
+
+ has a significant impact on the noise of the gradient once the alg, which
+ is especially visible once the alg has approached a local minimum.
+ Lower 
+\begin_inset Formula $n$
+\end_inset
+
+ results in more noise, in terms of both magnitude and direction of the
+ gradient.
+ The magnitude of the noise ends up being helpful for the run with 
+\begin_inset Formula $n=3$
+\end_inset
+
+, where it escapes the local minimum.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/ciii.pdf
+	lyxscale 200
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/ciii-2.pdf
+	lyxscale 200
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ciii"
+
+\end_inset
+
+Visualizations of stochastic gradient descent on 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ with Heavy Ball step and various.
+ Top two plots: tuning 
+\begin_inset Formula $\alpha$
 \end_inset
 
  and 
-\begin_inset Formula $\beta=0.5$
+\begin_inset Formula $\beta$
 \end_inset
 
- converges, so we choose these parameters for the remaining discussion.
+.
+ Bottom two plots: assessing impact of 
+\begin_inset Formula $n$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+(c) (iii) SGD with Adam step
+\end_layout
+
+\begin_layout Standard
+We use two steps to tune 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, 
+\begin_inset Formula $\beta_{1}$
+\end_inset
+
+, and 
+\begin_inset Formula $\beta_{2}$
+\end_inset
+
+.
+ First we fix 
+\begin_inset Formula $\alpha=1$
+\end_inset
+
+ and search for decent parameters of 
+\begin_inset Formula $\beta_{1}$
+\end_inset
+
+, and 
+\begin_inset Formula $\beta_{2}$
+\end_inset
+
+.
+ Results of this search are presented in the top two plots of Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:civ"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We settle on 
+\begin_inset Formula $\beta_{1}=0.9$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta_{2}=0.9$
+\end_inset
+
+, because this yields the fastest approach to the global minimum, of the
+ parameters tested.
+ The second step is to tune 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ based on the fixed 
+\begin_inset Formula $\beta_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta_{2}$
+\end_inset
+
+.
+ Results of a search for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ are presented in the bottom two plots of Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:civ"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ For 
+\begin_inset Formula $1\le\alpha\le5$
+\end_inset
+
+, the results are similar, with perhaps sligthly faster approach for 
+\begin_inset Formula $\alpha=3$
+\end_inset
+
+.
+ Here on we fix 
+\begin_inset Formula $(\alpha,\beta_{1},\beta_{2})=(3,0.9,0.9)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/civ.pdf
+	lyxscale 200
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/civ-2.pdf
+	lyxscale 200
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:civ"
+
+\end_inset
+
+Visualizations of stochastic gradient descent on 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ with Adam step and various.
+ Top two plots: tuning 
+\begin_inset Formula $\beta_{1}$
+\end_inset
+
+, and 
+\begin_inset Formula $\beta_{2}$
+\end_inset
+
+.
+ Bottom two plots: tuning 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ given 
+\begin_inset Formula $\beta_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta_{2}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Various runs of Adam with these parameters, but different 
+\begin_inset Formula $n$
+\end_inset
+
+ are presented in Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:civ-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ After 100 iterations all runs have approached the global minimum and are
+ jumping around randomly.
+ A lower 
+\begin_inset Formula $n$
+\end_inset
+
+ corresponds to bigger jumps around, and thus more noise in the final values
+ of 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename fig/civ-3.pdf
+	lyxscale 200
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:civ-1"
+
+\end_inset
+
+Visualizations of stochastic gradient descent on 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ with Adam step and various 
+\begin_inset Formula $n$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

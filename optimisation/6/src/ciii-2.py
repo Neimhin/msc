@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-def runp(alpha=0.5, beta=0.9, n=5):
+def runp(alpha=0.1, beta=0.3, n=5):
     T = pd.read_csv("data/T.csv").values
     fg = week6.generate_optimisation_functions(
         T, minibatch_size=n, seed=None)
@@ -56,36 +56,20 @@ ax_contour.set_xlabel('$x_1$')
 ax_contour.set_ylabel('$x_2$')
 ax_contour.set_xlim([-5, 5])
 ax_contour.set_ylim([-5, 5])
-plt.suptitle('Gradient Descent with Heavy Ball step on $f_T(x)$')
+plt.suptitle('Stochastic Gradient Descent with Heavy Ball step on $f_T(x)$, various batch-sizes')
 
 ax_f = fig.add_subplot(121)
 
 np.random.seed(57)
 T = pd.read_csv("data/T.csv").values
-count_good_best = 0
-count_diverged = 0
-count_runs = 0
-for alpha in [0.005, 0.05, 0.075, 0.1, 1, 2]:
-    for beta in [0.1, 0.3, 0.5, 0.9, 0.99]:
-        count_runs += 1
-        alpha_a = alpha # * (1-beta)
-        n = 25
-        run = runp(n=n)
-        if min(run['f']) < 0.2:
-            count_good_best += 1
-            print("good best:", alpha, beta)
-        if run['f'][len(run)-1] > 15:
-            count_diverged += 1
-        label = f"$\\alpha={alpha_a}$, $\\beta={beta}$"
-        ax_contour.plot(run["x1"], run["x2"], label=label)
-        ax_f.plot(run['f'], label=label)
-
-print("good best", count_good_best)
-print("diverged", count_diverged)
-print("runs", count_runs)
+for n in [1, 3, 5, 7, 15, 25]:
+    run = runp(n=n)
+    label = f"$n={n}$, best $f_T(x)={min(run['f']):.3f}$"
+    ax_contour.plot(run["x1"], run["x2"], label=label)
+    ax_f.plot(run['f'], label=label)
 ax_f.set_yscale('log')
 ax_f.set_xlabel("iteration $t$")
 ax_f.set_ylabel("$f_T(x_t)$")
 ax_f.legend(loc="upper right")
-plt.savefig("fig/ciii.pdf")
+plt.savefig("fig/ciii-2.pdf")
 plt.show()

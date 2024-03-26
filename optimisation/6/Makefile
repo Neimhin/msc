@@ -4,6 +4,9 @@ report-and-code.pdf: report.pdf tmp/all-source.pdf
 report.pdf: report.lyx
 	lyx --export pdf4 report.lyx
 
+funcs.pdf: funcs.txt
+	enscript -M A3 -Epython --line-numbers --color --pretty-print -p - $< | ps2pdf - - | pdfcrop - $@
+
 .PHONY: clean
 clean:
 	-rm fig/gradient-descent-b2.csv.pdf
@@ -26,7 +29,7 @@ $(TMP_DIR)/%.pdf: $(SRC_DIR)/%.py
 tmp/all-source.pdf: $(PDF_FILES)
 	@pdfunite $^ $@
 
-code.zip: src compile report.tex Makefile fig
+code.zip: src data report.lyx Makefile fig
 	zip -r $@ $^ merged-all-30min.csv
 
 data/db-20231201-20240101-fresh.csv:
