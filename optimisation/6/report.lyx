@@ -1615,7 +1615,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1670,6 +1670,67 @@ Visualizations of stochastic gradient descent on
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+(b) (iii) SGD with Heavy Ball step
+\end_layout
+
+\begin_layout Standard
+Tuning 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ on 
+\begin_inset Formula $f_{T}(x)$
+\end_inset
+
+ is difficult.
+ Using parameters 
+\begin_inset Formula $(\alpha,\beta)\in$
+\end_inset
+
+
+\begin_inset Formula $[0.005,0.05,0.075,0.1,1,2]\times[0.1,0.3,0.5,0.9,0.99,0.999]$
+\end_inset
+
+, totalling 36 runs, we find only 4 runs achieve a best 
+\begin_inset Formula $f_{T}(x_{t})$
+\end_inset
+
+ less than 
+\begin_inset Formula $0.2$
+\end_inset
+
+.
+ Two of the successful runs were 
+\begin_inset Formula $(\alpha,\beta)=(0.05,0.1)$
+\end_inset
+
+, 
+\begin_inset Formula $(\alpha,\beta)=(0.05,0.999)$
+\end_inset
+
+, fixing alpha but polarising 
+\begin_inset Formula $\beta$
+\end_inset
+
+, which highlights the unpredictability.
+ The run with 
+\begin_inset Formula $\alpha=0.1$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta=0.5$
+\end_inset
+
+ converges, so we choose these parameters for the remaining discussion.
 \end_layout
 
 \end_body

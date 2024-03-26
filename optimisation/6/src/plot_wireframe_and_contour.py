@@ -10,8 +10,8 @@ ap.add_argument("--show",action="store_true")
 args = ap.parse_args()
 
 # Global variables for extents
-x_min, x_max = -5, 5
-y_min, y_max = -5, 5
+x_min, x_max = -100, 100
+y_min, y_max = -100, 100
 
 def plot_wireframe_and_contour(f, T, resolution=100):
     global x_min, x_max, y_min, y_max
@@ -53,7 +53,7 @@ def plot_wireframe_and_contour(f, T, resolution=100):
     if args.show:
         plt.show()
     else:
-        plt.savefig("fig/wire-contour.pdf")
+        plt.savefig(f"fig/wire-contour-{x_min}-{x_max}-{y_min}-{y_max}.pdf")
 
 if __name__ == "__main__":
     df = pd.read_csv("data/T.csv")
