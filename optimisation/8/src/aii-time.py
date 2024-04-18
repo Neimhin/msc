@@ -3,6 +3,7 @@ import lib
 import numpy as np
 import sgd
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 import pandas as pd
 import time
 
@@ -34,18 +35,18 @@ def gradient_descent_constant(step_size=0.0065, start=[0, 0], funcs=f, max_time=
     g.function_generator(function_generator())
     g.debug(True)
     g.alg("constant")
-    start_time = time.time()
+    start_time = time.perf_counter()
     current_time = 0
     while current_time < max_time:
-        current_time = time.time() - start_time
+        current_time = time.perf_counter() - start_time
         g.step()
         yield {
                 "f(x)": g._function(g._x_value),
                 "x": g._x_value,
-                "time": time.time() - start_time,
+                "time": time.perf_counter() - start_time,
         }
 
-max_time=0.5
+max_time=1
 if __name__ == "__main__":
     for funcs in f, g:
         res = list(gradient_descent_constant(max_time=max_time, funcs=funcs, step_size=funcs["alpha"]))
@@ -58,13 +59,18 @@ if __name__ == "__main__":
             grs = global_random_search.a(
                 costf=funcs["function"], parameters=ps, max_time=max_time)
             costs = grs['stats']['it_best_costs']
-            plt.plot(grs['stats']['time'], costs, label="global random search")
+            plt.plot(grs['stats']['time'], costs, label="global random search", color="orange")
             print(funcs["name"], "total iterations global random search: ", len(grs['stats']['time']))
 
 
-        plt.plot(res["time"], res["f(x)"], label="gradient descent")
-        plt.title("Global Random Search vs Gradient Descent on $f(x)$")
-        plt.legend()
+        plt.plot(res["time"], res["f(x)"], label="gradient descent", color="black")
+        plt.title(f"Global Random Search vs Gradient Descent on {funcs['dname']}")
+        custom_lines = [
+                Line2D([0], [0], color='black', lw=2),
+                Line2D([0], [0], color='orange', lw=2),
+                ]
+        custom_labels = ['gradient descent', 'rnd search a' ]
+        plt.legend(custom_lines, custom_labels)
         plt.yscale('log')
         plt.xlabel("time (seconds)")
         plt.ylabel(funcs['dname'])

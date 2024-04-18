@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rsync -r . --exclude exp --exclude exp-step --exclude exp-same-num-steps macneill:~/optim-final-small

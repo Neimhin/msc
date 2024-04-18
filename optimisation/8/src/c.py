@@ -10,7 +10,7 @@ import json
 import argparse
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--exp", type=str, required=True)
+# ap.add_argument("--exp", type=str, required=True)
 ap.add_argument("--M", type=int, required=True)
 ap.add_argument("--N", type=int, required=True)
 ap.add_argument("--n", type=int, required=True)
@@ -75,9 +75,12 @@ if __name__ == "__main__":
 
     print(grs)
     timei = time.time()
-    with open(f"data/c-{args.exp}-{timei}.json", "w") as f:
+    fname = f"data/c-N{args.N}-M{args.M}-n{args.n}-it{args.iterations}" 
+    save = {
+        'results': grs,
+        'param-limits': ps,
+        'args': vars(args),
+        'name': None,
+    }
+    with open(f"{fname}.json", "w") as f:
         json.dump(grs, f)
-    with open(f"data/c-{args.exp}-{timei}-param-limits.json", "w") as f:
-        json.dump(ps, f)
-    with open(f"data/c-{args.exp}-{timei}-args.json", "w") as f:
-        json.dump(vars(args), f)
