@@ -22,7 +22,7 @@ ap.add_argument("--fold", type=int, default=0)
 ap.add_argument("--show", type=bool, default=False)
 args = ap.parse_args()
 
-exp = f"exp/{args.batch_size}/{args.run_name}"
+exp = f"exp-same-num-steps/{args.batch_size}/{args.run_name}"
 
 
 plt.rc('font', size=18)
@@ -80,7 +80,7 @@ model.summary()
 
 batch_size = args.batch_size
 steps_per_epoch  = n / batch_size
-epochs = 60 # int(4096 / steps_per_epoch)
+epochs = int(4096 / steps_per_epoch)
 print(epochs, steps_per_epoch, batch_size, n)
 history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_data=(x_val, y_val))
 

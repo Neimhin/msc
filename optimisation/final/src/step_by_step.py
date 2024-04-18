@@ -7,12 +7,45 @@ from tensorflow.keras import layers, regularizers
 from keras.optimizers import SGD
 from keras.layers import Dense, Dropout, Activation, Flatten, BatchNormalization
 from keras.layers import Conv2D, MaxPooling2D, LeakyReLU
+from keras.callbacks import Callback
 from sklearn.metrics import confusion_matrix, classification_report
 from sklearn.utils import shuffle
 from sklearn.model_selection import KFold
 import matplotlib.pyplot as plt
 import argparse 
 import sgd
+
+step_history = {
+        'train_loss': [],
+        'val_loss': [],
+        'batch_loss': [],
+        'train_accuracy': [],
+        'val_accuracy': [],
+        'batch_accuracy': [],
+        'step': [],
+        'epoch': [],
+}
+
+step_number = 0
+
+class StepMetricsCallback(Callback):
+    def on_epoch_begin(self, i, logs=None):
+        self.current_epoch = i
+
+    def on_train_batch_end(self, i, logs=None):
+        global x_train, y_train, x_val, y_val, step_number, optimizer
+        train_loss, train_accuracy = self.model.evaluate(x_train, y_train)
+        val_loss, val_accuracy = self.model.evaluate(x_val, y_val)
+        step_history['train_loss'].append(train_loss)
+        step_history['val_loss'].append(val_loss)
+        step_history['batch_loss'].append(logs['loss'])
+        step_history['train_accuracy'].append(train_accuracy)
+        step_history['val_accuracy'].append(val_accuracy)
+        step_history['batch_accuracy'].append(logs['accuracy'])
+        step_history['step'].append(step_number)
+        step_history['epoch'].append(self.current_epoch)
+        step_number += 1
+        pd.DataFrame(step_history).to_csv(exp + f"/step-history-{step_number}.csv")
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--batch-size", type=int, default=128)
@@ -22,7 +55,7 @@ ap.add_argument("--fold", type=int, default=0)
 ap.add_argument("--show", type=bool, default=False)
 args = ap.parse_args()
 
-exp = f"exp/{args.batch_size}/{args.run_name}"
+exp = f"exp-step/{args.batch_size}/{args.run_name}"
 
 
 plt.rc('font', size=18)
@@ -36,8 +69,9 @@ input_shape = (32, 32, 3)
 # the data, split between train and test sets
 train, test = keras.datasets.cifar10.load_data()
 n=4096
-x_train = train[0][:n]; y_train=train[1][:n]
-x_val   = train[0][n:n+512]; y_val = train[1][n:n+512]
+# x_train = train[0][:n]; y_train=train[1][:n]
+# x_val   = train[0][n:n+512]; y_val = train[1][n:n+512]
+# x_train_eval = x_train[:512]; y_train_eval = y_train[:512]
 
 kf = KFold(n_splits=9, shuffle=True, random_state=42)
 
@@ -51,7 +85,6 @@ print(x_train.shape, y_train.shape)
 print(x_val.shape, y_val.shape)
 print(x_val.mean())
 #x_test=x_test[1:500]; y_test=y_test[1:500]
-os.makedirs(exp)
 
 # Scale images to the [0, 1] range
 x_train = x_train.astype("float32") / 255
@@ -62,6 +95,7 @@ print("orig x_train shape:", x_train.shape)
 
 # convert class vectors to binary class matrices
 y_train = keras.utils.to_categorical(y_train, num_classes)
+# y_train_eval = keras.utils.to_categorical(y_train_eval, num_classes)
 y_test = keras.utils.to_categorical(test[1][test_slice], num_classes)
 y_val = keras.utils.to_categorical(y_val, num_classes)
 
@@ -80,12 +114,14 @@ model.summary()
 
 batch_size = args.batch_size
 steps_per_epoch  = n / batch_size
-epochs = 60 # int(4096 / steps_per_epoch)
+epochs = max(2, int(4096 / steps_per_epoch))
 print(epochs, steps_per_epoch, batch_size, n)
-history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_data=(x_val, y_val))
+os.makedirs(exp)
+history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_data=(x_val, y_val), callbacks=[StepMetricsCallback()])
 
 model.save(exp+"/model.tf")
-pd.DataFrame(history.history).to_csv(exp+"/history.csv")
+pd.DataFrame(step_history).to_csv(exp + "/step-history.csv")
+pd.DataFrame(history.history).to_csv(exp + "/history.csv")
 plt.subplot(211)
 plt.plot(history.history['accuracy'])
 plt.plot(history.history['val_accuracy'])
