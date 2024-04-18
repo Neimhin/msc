@@ -5,7 +5,7 @@ import functools
 x, y = sp.symbols('x y', real=True)
 f = 3 * (x - 5)**4 + (10 * ((y - 9)**2))
 g = sp.Max(x - 5, 0) + (10 * sp.Abs(y - 9))
-
+relu = sp.Max(x,0)
 
 def f_real(x, y):
     return 3 * (x - 5)**4 + 10 * (y - 9)**2
@@ -14,14 +14,14 @@ def f_real(x, y):
 def g_real(x, y):
     return np.maximum(x - 5, 0) + 10 * np.abs(y - 9)
 
+def relu_real(x):
+    return np.maximum(x,0)
+
 
 def apply_sym(x, f):
     for x_sym, x_val in zip(f.free_symbols, x):
         f = f.subs(x_sym, x_val)
     return f
-
-
-relu = sp.Max(x, 0)
 
 config = {
     "f": {
@@ -54,10 +54,12 @@ class GradientDescent():
         self._function = None
         self._sum = None
         self._x_value = None
+        self._step_coeff = None
         self._converged_value = None
         self._grad_value = None
         self._m = None
         self._v = None
+        self._adam_grad = None
         self._beta = None
         self._beta2 = None
         self._step_size = None
@@ -147,6 +149,8 @@ class GradientDescent():
             "alg": self._algorithm,
             "function_name": self.function_name,
             "iteration": self._iteration,
+            "step_coeff": self._step_coeff,
+            "adam_grad": self._adam_grad,
             "f(x)": self._function(self._x_value),
             "epsilon": self._epsilon,
             "converged": self._converged_value,

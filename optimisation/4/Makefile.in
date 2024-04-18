@@ -1,8 +1,23 @@
+# fig/step-plot-1.pdf: exp/adam-0.25-0.5-0.01-f.csv exp/rmsprop-0.25-0.5-0.01-f.csv exp/heavy_ball-0.25-0.5-0.01-f.csv
+# 	python src/step_plot.py $@ $^
+# 
+# fig/step-plot-2.pdf: exp/adam-0.25-0.5-0.1-f.csv exp/rmsprop-0.25-0.5-0.1-f.csv exp/heavy_ball-0.25-0.5-0.1-f.csv
+# 	python src/step_plot.py $@ $^
+# 
+# fig/rms-step-plot-f.pdf: exp/rmsprop-0.25-0.5-0.01-f.csv exp/rmsprop-0.25-0.5-0.1-f.csv exp/rmsprop-0.9-0.5-0.01-f.csv exp/rmsprop-0.9-0.5-0.1-f.csv exp/rmsprop-0.9-0.5-1-f.csv exp/rmsprop-0.9-0.5-1-f.csv
+# 	python src/step_plot.py $@ $^
+# 
+# fig/rms-step-plot-g.pdf: exp/rmsprop-0.25-0.5-0.01-g.csv exp/rmsprop-0.25-0.5-0.1-g.csv exp/rmsprop-0.9-0.5-0.01-g.csv exp/rmsprop-0.9-0.5-0.1-g.csv
+# 	python src/step_plot.py $@ $^
+# 
+all: report-and-code.pdf code.zip
 report-and-code.pdf: report.pdf tmp/all-source.pdf code-implementations
-	pdfunite $^ $@
+	pdfunite report.pdf tmp/all-source.pdf $@
 
 report.pdf: report.tex main.tex
 	./compile
+code.zip:
+	zip -r code.zip Makefile Makefile.in config src exp fig
 
 .PHONY: clean
 clean:

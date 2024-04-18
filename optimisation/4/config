@@ -3,23 +3,67 @@ import subprocess
 
 subprocess.run(["cp", "Makefile.in", "Makefile"])
 
-params = [
-    (0.25, 0.5, 0.01  ),
-    (0.25, 0.5, 0.1   ),
-    (0.9,  0.5, 0.01  ),
-    (0.9,  0.5, 0.1   ),
-]
-
+params = {
+    "rmsprop": {
+        "f": [
+            (0.25, 0.5, 0.01  ),
+            (0.25, 0.5, 0.4  ),
+            (0.9,  0.5, 0.01  ),
+            (0.9,  0.5, 0.4   ),
+        ],
+        "g": [
+            (0.25, 0.5, 0.01  ),
+            (0.25, 0.5, 0.5   ),
+            (0.9,  0.5, 0.01  ),
+            (0.9,  0.5, 0.5   ),
+        ]
+    },
+    "adam": {
+        "f":  [
+            (0.25, 0.25, 0.01  ),
+            (0.9, 0.9, 0.01  ),
+            (0.25, 0.9, 0.01  ),
+            (0.9, 0.25, 0.01  ),
+            (0.9, 0.9, 0.1  ),
+        ],
+        "g":  [
+            (0.25, 0.25, 0.01  ),
+            (0.9, 0.9, 0.01  ),
+            (0.25, 0.9, 0.01  ),
+            (0.9, 0.25, 0.01  ),
+            (0.9, 0.9, 0.1  ),
+        ],
+    },
+    "heavy_ball": {
+        "f":  [
+            (0.25, 0.5, 0.01  ),
+            (0.25, 0.5, 0.05  ),
+            (0.25, 0.5, 0.1   ),
+            (0.9,  0.5, 0.05  ),
+            (0.9,  0.5, 0.1   ),
+        ],
+        "g":  [
+            (0.25, 0.5, 0.01  ),
+            (0.25, 0.5, 0.05  ),
+            (0.25, 0.5, 0.1   ),
+            (0.9,  0.5, 0.01  ),
+            (0.9,  0.5, 0.05  ),
+            (0.9,  0.5, 0.1   ),
+        ],
+    }
+}
 
 def params2filename(p, alg, function):
     return f"exp/{alg}-{p[0]}-{p[1]}-{p[2]}-{function}.csv"
 
 exps = []
 
+algs = ["rmsprop", "adam", "heavy_ball"]
+
 with open("Makefile", "a") as f:
-    for p in params:
-        for alg in ["rmsprop", "adam", "heavy_ball"]:
-            for function in ["f", "g"]:
+    for alg in algs:
+        for function in ["f", "g"]:
+            for p in params[alg][function]:
                 fname = params2filename(p, alg, function)
                 exps.append(fname)
                 beta = p[0]
@@ -29,3 +73,81 @@ with open("Makefile", "a") as f:
                 print(f"\tpython ./src/exp.py --function {function} --algorithm {alg} --beta {beta} --beta2 {beta2} --alpha {alpha} {fname}", file=f)
 
     print("all-exps: exp " + " ".join(exps), file=f)
+
+
+# fig/rms-step-plot-f.pdf: exp/rmsprop-0.25-0.5-0.01-f.csv exp/rmsprop-0.25-0.5-0.1-f.csv exp/rmsprop-0.9-0.5-0.01-f.csv exp/rmsprop-0.9-0.5-0.1-f.csv exp/rmsprop-0.9-0.5-1-f.csv exp/rmsprop-0.9-0.5-1-f.csv
+# 	python src/step_plot.py $@ $^
+
+with open("Makefile", "a") as f:
+    step_plots = []
+    for alg in algs:
+        for function in ["f", "g"]:
+            step_plot = f"fig/{alg}-step-plot-{function}.pdf"
+            step_plots.append(step_plot)
+            files = [params2filename(p, alg, function) for p in params[alg][function]]
+            print(f"{step_plot}: " + " ".join(files), file=f)
+            print("\tpython src/step_plot.py $@ $^", file=f)
+            print("\tpdfcrop $@ $@", file=f)
+    print("all-step-plots:" + " ".join(step_plots), file=f)
+    print("clean-all-step-plots:", file=f)
+    print("\trm " + " ".join(step_plots), file=f)
+
+it_plot_params = {
+    "rmsprop": {
+        "f": [
+            (0.25, 0.5, 0.01  ),
+            (0.25, 0.5, 0.4  ),
+            (0.9,  0.5, 0.01  ),
+        ],
+        "g": [
+            (0.25, 0.5, 0.01  ),
+            (0.25, 0.5, 0.5   ),
+            (0.9,  0.5, 0.01  ),
+        ]
+    },
+    "adam": {
+        "f":  [
+            (0.25, 0.25, 0.01  ),
+            (0.9, 0.9, 0.01  ),
+            (0.25, 0.9, 0.01  ),
+            (0.9, 0.25, 0.01  ),
+            (0.9, 0.9, 0.1  ),
+        ],
+        "g":  [
+            (0.25, 0.25, 0.01  ),
+            (0.9, 0.9, 0.01  ),
+            (0.25, 0.9, 0.01  ),
+            (0.9, 0.25, 0.01  ),
+            (0.9, 0.9, 0.1  ),
+        ],
+    },
+    "heavy_ball": {
+        "f":  [
+            (0.25, 0.5, 0.01  ),
+            (0.25, 0.5, 0.05  ),
+            (0.9,  0.5, 0.01  ),
+            (0.9,  0.5, 0.05  ),
+        ],
+        "g":  [
+            (0.25, 0.5, 0.01  ),
+            (0.25, 0.5, 0.1   ),
+            (0.9,  0.5, 0.01  ),
+            (0.9,  0.5, 0.05   ),
+        ],
+    }
+}
+
+with open("Makefile", "a") as f:
+    iteration_plots = []
+    params = it_plot_params
+    for alg in algs:
+        for function in ["f", "g"]:
+            name = f"fig/{alg}-iterations-{function}.pdf"
+            iteration_plots.append(name)
+            files = [params2filename(p, alg, function) for p in params[alg][function]]
+            print(f"{name}: " + " ".join(files), file=f)
+            print("\tpython src/iteration_plot.py $@ $^", file=f)
+            print("\tpdfcrop $@ $@", file=f)
+    print("all-iteration-plots: " + " ".join(iteration_plots), file=f)
+    print("clean-all-iteration-plots:", file=f)
+    print("\trm " + " ".join(iteration_plots), file=f)

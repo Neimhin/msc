@@ -26,7 +26,7 @@ def iterate(self):
         m_hat = self._m / (1-(self._beta ** self._iteration))
         v_hat = np.array(self._v / (1-(self._beta2 ** self._iteration)))
         v_hat_aug = v_hat**(0.5) + self._epsilon
-        adam_grad = m_hat / v_hat_aug
-        self._x_value = self._x_value - self._step_size * adam_grad
+        self._adam_grad = m_hat / v_hat_aug
+        self._x_value = self._x_value - self._step_size * self._adam_grad
         self._converged_value = self._converged(self._x_value, self._old_x_value)
         yield self.state_dict()

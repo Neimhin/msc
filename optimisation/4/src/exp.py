@@ -7,8 +7,9 @@ import adam
 import heavy_ball
 
 def converged(x1, x2):
+    # return false if converged or likely diverged
     d = np.max(x1-x2)
-    return d < 0.001
+    return abs(d) < 0.001; # or np.max(np.abs(x1)) > 1000
 
 
 parser = argparse.ArgumentParser(
@@ -46,14 +47,13 @@ def grad(x):
         ) for var in (lib.x, lib.y)])
 
 gd.algorithm(args.algorithm)
-gd.start(np.array([4, 8]))
+gd.start(np.array([6, 10]))
 gd.converged(converged)
 gd.step_size(args.alpha)
 gd.beta(args.beta)
 gd.beta2(args.beta2)
 gd.epsilon(0.0001)
-gd.max_iter(-1)
-gd.converged(converged)
+gd.max_iter(300)
 # gd.sym_function(function_handle["sym"], function_name=args.function)
 gd.function(fn, function_name=args.function, dimension=2)
 gd.gradient(grad)
