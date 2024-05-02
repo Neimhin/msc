@@ -1,0 +1,297 @@
+25
+Best hyperparameters: {'C': 1.6037187437513294}
+Best cross-validation score (Accuracy): 0.7984
+[-7.88810531] [[-1.34149579 -0.45069494  0.52536543  1.11173593  2.11243687 -0.39614414
+   0.58391233]]
+          Feature  Coefficient
+0       Intercept    -7.888105
+1            Soft    -1.341496
+2           Crisp    -0.450695
+3            Full     0.525365
+4            Rich     1.111736
+5      log(price)     2.112437
+6   rich_and_full    -0.396144
+7  soft_and_crisp     0.583912
+Accuracy on the entire dataset: 0.8012
+AUC: 0.8715387762022276
+19
+Best hyperparameters: {'C': 0.2728333376486767}
+Best cross-validation score (Accuracy): 0.7968
+[-7.65221268] [[-1.30987866 -0.40051175  0.45657526  0.99061959  2.04946198 -0.26051578
+   0.39381058  0.29935764]]
+          Feature  Coefficient
+0       Intercept    -7.652213
+1            Soft    -1.309879
+2           Crisp    -0.400512
+3            Full     0.456575
+4            Rich     0.990620
+5      log(price)     2.049462
+6   rich_and_full    -0.260516
+7   soft_and_rich     0.393811
+8  soft_and_crisp     0.299358
+Accuracy on the entire dataset: 0.7976
+AUC: 0.8720427040133915
+26
+Best hyperparameters: {'C': 2.154434690031882}
+Best cross-validation score (Accuracy): 0.7976000000000001
+[-7.90017044] [[-1.27149903 -0.39093136  0.52935869  1.11997001  2.11272098 -0.40617611]]
+         Feature  Coefficient
+0      Intercept    -7.900170
+1           Soft    -1.271499
+2          Crisp    -0.390931
+3           Full     0.529359
+4           Rich     1.119970
+5     log(price)     2.112721
+6  rich_and_full    -0.406176
+Accuracy on the entire dataset: 0.8008
+AUC: 0.8714647681124708
+33
+Best hyperparameters: {'C': 17.012542798525857}
+Best cross-validation score (Accuracy): 0.8
+[-8.27789259] [[-1.37414064 -0.45868654  0.54579994  2.21057845  2.22407214 -0.43232602
+   0.66411365 -0.31626196]]
+              Feature  Coefficient
+0           Intercept    -8.277893
+1                Soft    -1.374141
+2               Crisp    -0.458687
+3                Full     0.545800
+4                Rich     2.210578
+5          log(price)     2.224072
+6       rich_and_full    -0.432326
+7      soft_and_crisp     0.664114
+8  rich_and_log_price    -0.316262
+Accuracy on the entire dataset: 0.8012
+AUC: 0.8711505701314115
+24
+Best hyperparameters: {'C': 1.1937766417144358}
+Best cross-validation score (Accuracy): 0.7984
+[-8.43044882] [[-1.32848373 -0.44414859  0.52170627  0.5572664  -0.5566148   2.10764544
+  -0.39185058  0.55087321]]
+          Feature  Coefficient
+0       Intercept    -8.430449
+1            Soft    -1.328484
+2           Crisp    -0.444149
+3            Full     0.521706
+4            Rich     0.557266
+5        not_rich    -0.556615
+6      log(price)     2.107645
+7   rich_and_full    -0.391851
+8  soft_and_crisp     0.550873
+Accuracy on the entire dataset: 0.8012
+AUC: 0.8715623242307868
+8
+Best hyperparameters: {'C': 0.010608183551394482}
+Best cross-validation score (Accuracy): 0.7868
+[-5.19632894] [[0.55830556 1.33080846]]
+      Feature  Coefficient
+0   Intercept    -5.196329
+1        Rich     0.558306
+2  log(price)     1.330808
+Accuracy on the entire dataset: 0.7848
+AUC: 0.8581184183260178
+9
+Best hyperparameters: {'C': 0.014251026703029978}
+Best cross-validation score (Accuracy): 0.7912
+[-6.05284525] [[ 0.40030145 -0.40030686  1.4415847 ]]
+      Feature  Coefficient
+0   Intercept    -6.052845
+1        Rich     0.400301
+2    not_rich    -0.400307
+3  log(price)     1.441585
+Accuracy on the entire dataset: 0.7904
+AUC: 0.8586694421942995
+9
+Best hyperparameters: {'C': 0.014251026703029978}
+Best cross-validation score (Accuracy): 0.7896
+[-6.06862684] [[ 0.22500855  0.38993963 -0.3899699   1.43664881]]
+      Feature  Coefficient
+0   Intercept    -6.068627
+1        Full     0.225009
+2        Rich     0.389940
+3    not_rich    -0.389970
+4  log(price)     1.436649
+Accuracy on the entire dataset: 0.79
+AUC: 0.8605694316986067
+10
+Best hyperparameters: {'C': 0.019144819761699575}
+Best cross-validation score (Accuracy): 0.7904000000000001
+[-6.65511244] [[ 0.15710574  0.41327055 -0.41327843 -0.15711362  1.54450362]]
+      Feature  Coefficient
+0   Intercept    -6.655112
+1        Full     0.157106
+2        Rich     0.413271
+3    not_rich    -0.413278
+4    not_full    -0.157114
+5  log(price)     1.544504
+Accuracy on the entire dataset: 0.7916
+AUC: 0.8605600124871833
+5
+Best hyperparameters: {'C': 0.004375479375074184}
+Best cross-validation score (Accuracy): 0.7704000000000001
+[-3.80675951] [[0.9763061]]
+      Feature  Coefficient
+0   Intercept    -3.806760
+1  log(price)     0.976306
+Accuracy on the entire dataset: 0.7692
+AUC: 0.8427035424308562
+9
+Best hyperparameters: {'C': 0.014251026703029978}
+Best cross-validation score (Accuracy): 0.7888
+[-6.49726019] [[-0.61337294 -0.23808811  1.44113112]]
+      Feature  Coefficient
+0   Intercept    -6.497260
+1    not_rich    -0.613373
+2    not_full    -0.238088
+3  log(price)     1.441131
+Accuracy on the entire dataset: 0.7896
+AUC: 0.8601395119772002
+9
+Best hyperparameters: {'C': 0.014251026703029978}
+Best cross-validation score (Accuracy): 0.7888
+[-6.49726019] [[-0.61337294 -0.23808811  1.44113112]]
+      Feature  Coefficient
+0   Intercept    -6.497260
+1    not_rich    -0.613373
+2    not_full    -0.238088
+3  log(price)     1.441131
+Accuracy on the entire dataset: 0.7896
+AUC: 0.8601395119772002
+17
+Best hyperparameters: {'C': 0.15117750706156616}
+Best cross-validation score (Accuracy): 0.7968
+[-7.3370553] [[-0.9399787  -0.35023172  1.0792132   0.34872548  1.99756537]]
+      Feature  Coefficient
+0   Intercept    -7.337055
+1    not_rich    -0.939979
+2    not_full    -0.350232
+3    not_soft     1.079213
+4   not_crisp     0.348725
+5  log(price)     1.997565
+Accuracy on the entire dataset: 0.798
+AUC: 0.8712205414162725
+14
+Best hyperparameters: {'C': 0.062355073412739125}
+Best cross-validation score (Accuracy): 0.796
+[-6.54497463] [[-0.48987451 -0.31305387  0.97593588  0.29819804  1.86219752 -0.38591646]]
+         Feature  Coefficient
+0      Intercept    -6.544975
+1       not_rich    -0.489875
+2       not_full    -0.313054
+3       not_soft     0.975936
+4      not_crisp     0.298198
+5     log(price)     1.862198
+6  soft_and_rich    -0.385916
+Accuracy on the entire dataset: 0.7968
+AUC: 0.8713510647745712
+14
+Best hyperparameters: {'C': 0.062355073412739125}
+Best cross-validation score (Accuracy): 0.7968
+[-6.76487766] [[-0.55820125 -0.16878632  0.17047244  0.29275514 -0.29282778 -0.17054508
+   0.55812861  0.16871368  1.86804683 -0.32873444]]
+              Feature  Coefficient
+0           Intercept    -6.764878
+1                Soft    -0.558201
+2               Crisp    -0.168786
+3                Full     0.170472
+4                Rich     0.292755
+5            not_rich    -0.292828
+6            not_full    -0.170545
+7            not_soft     0.558129
+8           not_crisp     0.168714
+9          log(price)     1.868047
+10  not_soft_and_rich    -0.328734
+Accuracy on the entire dataset: 0.7968
+AUC: 0.8718617205938948
+14
+Best hyperparameters: {'C': 0.062355073412739125}
+Best cross-validation score (Accuracy): 0.7984000000000001
+[-6.9762142] [[-0.51565334 -0.16899582  0.17247796  0.46106599 -0.46105674 -0.17246871
+   0.51566259  0.16900507  1.86739993]]
+      Feature  Coefficient
+0   Intercept    -6.976214
+1        Soft    -0.515653
+2       Crisp    -0.168996
+3        Full     0.172478
+4        Rich     0.461066
+5    not_rich    -0.461057
+6    not_full    -0.172469
+7    not_soft     0.515663
+8   not_crisp     0.169005
+9  log(price)     1.867400
+Accuracy on the entire dataset: 0.7984
+AUC: 0.8712481262497275
+24
+Best hyperparameters: {'C': 1.1937766417144358}
+Best cross-validation score (Accuracy): 0.7976000000000001
+[-7.86289415] [[-0.63465518 -0.19433006  0.26424038  0.55999928 -0.55780978 -0.26205088
+   0.63684467  0.19651955  2.10598737 -0.39775787]]
+          Feature  Coefficient
+0       Intercept    -7.862894
+1            Soft    -0.634655
+2           Crisp    -0.194330
+3            Full     0.264240
+4            Rich     0.559999
+5        not_rich    -0.557810
+6        not_full    -0.262051
+7        not_soft     0.636845
+8       not_crisp     0.196520
+9      log(price)     2.105987
+10  rich_and_full    -0.397758
+Accuracy on the entire dataset: 0.8008
+AUC: 0.8714183448561685
+33
+Best hyperparameters: {'C': 17.012542798525857}
+Best cross-validation score (Accuracy): 0.7984
+[-8.85214797] [[-0.64016393 -0.19075933  0.27541724  1.13515023 -1.13014426 -0.27041127
+   0.6451699   0.1957653   2.22460805 -0.43588219 -0.33055732]]
+               Feature  Coefficient
+0            Intercept    -8.852148
+1                 Soft    -0.640164
+2                Crisp    -0.190759
+3                 Full     0.275417
+4                 Rich     1.135150
+5             not_rich    -1.130144
+6             not_full    -0.270411
+7             not_soft     0.645170
+8            not_crisp     0.195765
+9           log(price)     2.224608
+10       rich_and_full    -0.435882
+11  rich_and_log_price    -0.330557
+Accuracy on the entire dataset: 0.8004
+AUC: 0.8711445149240679
+23
+Best hyperparameters: {'C': 0.8886238162743398}
+Best cross-validation score (Accuracy): 0.7984
+[-7.78166945] [[-0.66738083 -0.22252033  0.26069144  0.55456331 -0.5546622  -0.26079033
+   0.66728195  0.22242145  2.10303849 -0.38526811  0.53365657]]
+           Feature  Coefficient
+0        Intercept    -7.781669
+1             Soft    -0.667381
+2            Crisp    -0.222520
+3             Full     0.260691
+4             Rich     0.554563
+5         not_rich    -0.554662
+6         not_full    -0.260790
+7         not_soft     0.667282
+8        not_crisp     0.222421
+9       log(price)     2.103038
+10   rich_and_full    -0.385268
+11  soft_and_crisp     0.533657
+Accuracy on the entire dataset: 0.8012
+AUC: 0.8715703978405785
+25
+Best hyperparameters: {'C': 1.6037187437513294}
+Best cross-validation score (Accuracy): 0.7984
+[-7.88810531] [[-1.34149579 -0.45069494  0.52536543  1.11173593  2.11243687 -0.39614414
+   0.58391233]]
+          Feature  Coefficient
+0       Intercept    -7.888105
+1            Soft    -1.341496
+2           Crisp    -0.450695
+3            Full     0.525365
+4            Rich     1.111736
+5      log(price)     2.112437
+6   rich_and_full    -0.396144
+7  soft_and_crisp     0.583912
+Accuracy on the entire dataset: 0.8012
+AUC: 0.8715387762022276
