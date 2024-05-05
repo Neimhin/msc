@@ -18,7 +18,9 @@ df_test <- df[sample(2000:2500, 500),]
 
 
 # Fit the logistic regression model
-model <- glm(points ~ log_price +
+model <- glm(
+	     points
+	     ~ log_price
 	     + Soft
 	     + Crisp
 	     + Full

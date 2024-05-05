@@ -22,6 +22,18 @@ find_breakpoints_quintiles <- function(data) {
 # Find breakpoints for quintiles
 breaks <- find_breakpoints_quintiles(df)
 
+generate_labels <- function(breaks) {
+  labels <- character(length(breaks) - 1)
+  for (i in 1:(length(breaks) - 1)) {
+    if (i == length(breaks) - 1) {
+      labels[i] <- paste0(breaks[i], "<p")
+    } else {
+      labels[i] <- paste0(breaks[i], "<p<=", breaks[i + 1])
+    }
+  }
+  return(labels)
+}
+
 # Generate labels for the factors
 labels <- generate_labels(breaks)
 
@@ -42,7 +54,7 @@ print(sample_sizes)
 
 library("brms")
 
-formula <- superior_rating ~ . + (.|price_factor)
+formula <- superior_rating ~ . + (1|price_factor)
 
 stan_code <- make_stancode(formula, data=df, family=bernoulli(), prior=prior(normal(0,10),class="b"))
 
@@ -54,5 +66,20 @@ fit <- brm(
   cores = 8,
 )
 
+plot(fit)
 conditional_effects(fit)
+
+saveRDS(fit, file="fit/superior_rating-sim-.plut(1|price_factor).rds")
+# Use the fitted model to predict probabilities
+predicted_probabilities <- predict(fit, type = "response")
+
+# Convert predicted probabilities to predicted class labels
+predicted_labels <- ifelse(predicted_probabilities > 0.5, "superior", "inferior")
+
+# Compare predicted labels to actual labels in the dataset
+actual_labels <- df$superior_rating
+accuracy <- mean(predicted_labels == actual_labels)
+
+# Print the accuracy
+print(paste("Accuracy on the training set:", round(accuracy * 100, 2), "%"))
 

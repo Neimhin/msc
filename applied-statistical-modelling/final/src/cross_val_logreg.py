@@ -30,6 +30,11 @@ x["soft_and_crisp"] = x["Soft"] * x["Crisp"]
 x = x.drop(columns=drop)
 y = df["superior_rating"]
 
+x_test = x[2000:]
+x = x[:2000]
+y_test = y[2000:]
+y = y[:2000]
+
 # Set up cross-validation
 splitter = StratifiedKFold(n_splits=5)
 
@@ -80,9 +85,13 @@ coefficients = np.concatenate((best_model.intercept_, best_model.coef_[0]))
 coef_df = pd.DataFrame({'Feature': ['Intercept'] + feature_names, 'Coefficient': coefficients})
 print(coef_df)
 
+predicted_superior_rating = best_model.predict(x_test)
+accuracy = accuracy_score(y_test, predicted_superior_rating)
+print("Accuracy on the test dataset:", accuracy)
+
 predicted_superior_rating = best_model.predict(x)
 accuracy = accuracy_score(y, predicted_superior_rating)
-print("Accuracy on the entire dataset:", accuracy)
+print("Accuracy on the train dataset:", accuracy)
 
 from sklearn.metrics import roc_curve, auc
 
@@ -103,4 +112,3 @@ ax[1].legend(loc="lower right")
 plt.savefig("fig/cross_val_logreg.pdf")
 # Print AUC
 print("AUC:", roc_auc)
-

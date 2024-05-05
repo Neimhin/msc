@@ -1,0 +1,13 @@
+source("src/options.R")
+model <- commandArgs(trailingOnly=TRUE)[1]
+source("src/df.R")
+print(model)
+fit <- readRDS(model)
+library(brms)
+library(future)
+plan(multisession, workers=2)
+k_fits <- kfold(fit, newdata=df, chains=4, K=10, save_fits=TRUE)
+plan(sequential)
+saveRDS(k_fits,paste(model, ".k-fits.rds"))
+k_fits_name <- sub("\\.rds$", ".k-fits.rds", model)
+saveRDS(k_fits, k_fits_name)

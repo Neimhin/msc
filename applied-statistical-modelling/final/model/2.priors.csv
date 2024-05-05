@@ -1,0 +1,12 @@
+,prior,class,coef,group,resp,dpar,nlpar,lb,ub,source
+1,normal(0, 5),b,,,,,,,,user
+2,,b,Crisp,,,,,,,default
+3,,b,Full,,,,,,,default
+4,,b,log_price,,,,,,,default
+5,,b,Rich,,,,,,,default
+6,,b,Soft,,,,,,,default
+7,normal(80, 10),Intercept,,,,,,,,user
+8,student_t(3, 0, 3),sd,,,,,,0,,default
+9,gamma(2, 1),sd,,variety,,,,,,user
+10,,sd,Intercept,variety,,,,,,default
+11,gamma(2, 1),sigma,,,,,,0,,user

@@ -1,0 +1,62 @@
+ Family: bernoulli 
+  Links: mu = logit 
+Formula: superior_rating ~ 1 + (-1 + log_price | variety) 
+   Data: df (Number of observations: 2000) 
+  Draws: 8 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 8000
+
+Multilevel Hyperparameters:
+~variety (Number of levels: 35) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(log_price)     1.00      0.00     1.00     1.00   NA       NA       NA
+
+Regression Coefficients:
+          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept    -6.75      0.31    -7.36    -6.14 1.01      903     1912
+
+Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+$variety
+, , log_price
+
+                              Estimate  Est.Error       Q2.5    Q97.5
+Alsace white blend          1.45175823 0.28967801  0.8374238 1.982416
+Bordeaux-style Red Blend    1.92374949 0.10024762  1.7290945 2.122430
+Bordeaux-style White Blend  1.77491527 0.13633702  1.5069790 2.041146
+Cabernet Franc              1.82243005 0.19650925  1.4346670 2.189268
+Cabernet Sauvignon         -0.11109554 0.90707470 -1.9613147 1.588004
+Champagne Blend             1.72242806 0.09253464  1.5432270 1.902165
+Chardonnay                  1.77958617 0.08811040  1.6083875 1.951787
+Chenin Blanc                1.79352366 0.17279789  1.4440250 2.134432
+Chenin Blanc-Chardonnay    -0.05599678 0.94223607 -1.9608850 1.706165
+Gamay                       1.58652745 0.21215467  1.1483433 1.979518
+Gewürztraminer              2.03044817 0.14708641  1.7467350 2.321833
+Grenache                    1.20123742 0.47716980  0.1219146 2.022291
+Malbec                      2.06593745 0.13213039  1.8058235 2.326774
+Malbec-Merlot               2.26248060 0.29177834  1.6816663 2.831491
+Marsanne                    1.78625573 0.20172417  1.4085490 2.203587
+Melon                       1.62822332 0.35429934  0.8581898 2.248904
+Merlot                      1.22760606 0.46438974  0.1662650 1.998545
+Muscat                      1.99851167 0.38955835  1.2343570 2.768279
+Petit Manseng               2.33937915 0.50003669  1.4032538 3.404972
+Pinot Blanc                 1.31599811 0.31032199  0.6215803 1.842902
+Pinot Gris                  1.89527384 0.15843968  1.5864932 2.205849
+Pinot Noir                  1.75993227 0.08829900  1.5890435 1.932451
+Red Blend                   1.74616757 0.19206538  1.3585372 2.107406
+Rhône-style Red Blend       1.89789496 0.11751749  1.6665770 2.122691
+Rhône-style White Blend     1.73937745 0.16082318  1.4217580 2.058847
+Riesling                    2.00405615 0.12677461  1.7605790 2.258246
+Rosé                        1.96772286 0.12322503  1.7236482 2.207445
+Sauvignon Blanc             1.81837502 0.12013529  1.5822998 2.053262
+Sparkling Blend             1.63440965 0.23304954  1.1580937 2.068068
+Sylvaner                    2.12490744 0.31400662  1.4912615 2.746056
+Syrah                       1.92197628 0.12050708  1.6847470 2.162851
+Tannat                      3.09950152 0.39623251  2.4248368 3.995517
+Tannat-Cabernet             1.66581899 0.65649925  0.2261717 2.795441
+Viognier                    1.66892623 0.22152593  1.2342160 2.097205
+White Blend                 1.74909214 0.20324999  1.3336933 2.135820
+
+
+[1] "Accuracy test:  0.764471057884232"
+[1] "Accuracy train:  0.7945"
