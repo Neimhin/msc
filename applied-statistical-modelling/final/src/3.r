@@ -22,7 +22,7 @@ fit <- brm(
   backend="cmdstanr",
   threads = threading(2)
 )
-model = "model/2"
+model = "model/3"
 fname_all = paste0(model,".rds")
 print("save")
 saveRDS(fit, fname_all)
